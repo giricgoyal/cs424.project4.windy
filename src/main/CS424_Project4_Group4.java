@@ -38,6 +38,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	ArrayList<DataPos> dataPos;
 	ArrayList<Marker> markers;
+	String[] dataWords;
 	
 	private int currentDay;
 	private String currentWord;
@@ -63,7 +64,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		markers = new ArrayList<Marker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-		System.out.println("dataPos.size(): "+dataPos.size());
+		dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 		setMarkerPos(dataPos,markers);
 		
 		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
@@ -222,6 +223,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
+				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 				break;
 			}
@@ -232,6 +234,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				bHour --;
 				eHour --;
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
+				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 			}
 		}
@@ -241,6 +244,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				bHour ++;
 				eHour ++;
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
+				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 			}
 		}

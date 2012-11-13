@@ -43,6 +43,11 @@ public class QueryManager {
 		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2)+" and "+getFilterWord(word);
 		return db.getAllText(filters);
 	}
+	
+	public String[] getAllText_By_Date_TimeRange(int date, int hour1, int hour2) {
+		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2);
+		return db.getAllText(filters);
+	}
 
 	//get Filters
 	private String getFilterDate(int date) {
