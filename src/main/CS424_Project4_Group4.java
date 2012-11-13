@@ -143,6 +143,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
+	private ArrayList<WordCountPair> getWordCountPair(String[] words) {
+		ArrayList<WordCountPair> entry = new ArrayList<WordCountPair>();
+		for (int i=0;i<words.length;i++) {
+			boolean exist = false;
+			for (WordCountPair e : entry) {
+				if (words[i].equals(e.getWord())) {
+					e.countInc();
+					exist = true;
+					break;
+				}
+			}
+			if (!exist) {
+				entry.add(new WordCountPair(words[i]));
+			}
+		}
+		return entry;
+	}
+	
 	// ***********************************
 		// --> HERE BEGINS THE MOUSE STUFF <--
 		// ***********************************
