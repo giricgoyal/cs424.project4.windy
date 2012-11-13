@@ -35,9 +35,13 @@ public class CS424_Project4_Group4 extends PApplet{
 	TouchListener touchListener;
 	
 	PImage map;
+	float mapX1, mapX2, mapY1, mapY2;
 	
 	ArrayList<Button> controls;
 	Button dayButton;
+	
+	Button zoomInBtn;
+	Button zoomOutBtn;
 	
 	ArrayList<DataPos> dataPos;
 	ArrayList<Marker> markers;
@@ -63,12 +67,16 @@ public class CS424_Project4_Group4 extends PApplet{
 		map = loadImage("map.png");
 		mapWidth = Utilities.Converter(5216/16);
 		mapHeight = Utilities.Converter(2653/16);
+		mapX1 = 0;
+		mapY1 = 0;
+		mapX2 = Utilities.mapMaxW;
+		mapY2 = Utilities.mapMaxH;
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<Marker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 		dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
-		getWordCountPair(dataWords);
+		//getWordCountPair(dataWords);
 		setMarkerPos(dataPos,markers);
 		
 		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
@@ -90,6 +98,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		dayButton = new Button(this, Utilities.width*9/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
 		dayButton.setName("h+");
 		controls.add(dayButton);
+		
+		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
+		zoomOutBtn = new Button(this, Positions.zoomOutButtonX, Positions.zoomOutButtonY, Positions.zoomOutButtonW, Positions.zoomOutButtonH);
 	}
 	
 	public void setup() {
@@ -119,11 +130,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
-		image(map,0,0,mapWidth,mapHeight);
+		image(map,0,0,mapWidth,mapHeight,floor(mapX1), floor(mapY1), floor(mapX2), floor(mapY2));
 		
 		for (Button bc : controls) {
 			bc.draw();
 		}
+		
+		zoomInBtn.draw();
+		zoomOutBtn.draw();
 		
 		for (Marker m : markers) {
 			m.draw();
@@ -296,7 +310,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
-				break;
+				return;
 			}
 		}
 		if (controls.get(21).checkIn(mx,my)) {
@@ -308,6 +322,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 			}
+			return;
 		}
 		if (controls.get(22).checkIn(mx,my)) {
 			System.out.println("hour+ Clicked");
@@ -318,6 +333,17 @@ public class CS424_Project4_Group4 extends PApplet{
 				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 			}
+			return;
+		}
+		if (zoomInBtn.checkIn(mx,my)) {
+			System.out.println("Zoom in Clicked");
+			
+			return;
+		}
+		if (zoomOutBtn.checkIn(mx,my)) {
+			System.out.println("Zoom out Clicked");
+			
+			return;
 		}
 	}
 	
