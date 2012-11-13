@@ -19,27 +19,32 @@ public class QueryManager {
 		db = new DatabaseManager(context);
 	}
 	
-	public ArrayList<DataPos> getDataPosByDateAndWord(int date, String word) {
+	public ArrayList<DataPos> getDataPos_By_Date_Word(int date, String word) {
 		String filters = getFilterDate(date) + " and "+getFilterWord(word);
 		return db.getDataPos(filters);
 	}
 	
-	public ArrayList<DataPid> getDataPidByDateAndWord(int date, String word) {
+	public ArrayList<DataPid> getDataPid_By_Date_Word(int date, String word) {
 		String filters = getFilterDate(date) + " and "+getFilterWord(word);
 		return db.getDataPid(filters);
 	}
 	
-	public ArrayList<DataPos> getDataPosByDataAndPid(int date, int pid) {
+	public ArrayList<DataPos> getDataPos_By_Data_Pid(int date, int pid) {
 		String filters = getFilterDate(date) + getFilterPid(pid);
 		return db.getDataPos(filters);
 	}
 	
-	public ArrayList<DataPos> getDataPosByDateAndTimeRangeAndWord(int date, int hour1, int hour2, String word) {
+	public ArrayList<DataPos> getDataPos_By_Date_TimeRange_Word(int date, int hour1, int hour2, String word) {
 		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2)+" and "+getFilterWord(word);
 		return db.getDataPos(filters);
 	}
+	
+	public String[] getAllText_By_Date_TimeRange_Word(int date, int hour1, int hour2, String word) {
+		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2)+" and "+getFilterWord(word);
+		return db.getAllText(filters);
+	}
 
-	//Filters
+	//get Filters
 	private String getFilterDate(int date) {
 		return "day = "+date;
 	}

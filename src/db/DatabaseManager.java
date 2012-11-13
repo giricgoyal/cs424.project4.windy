@@ -56,4 +56,25 @@ public class DatabaseManager {
 		}
 		return array;
 	}
+	
+	public String[] getAllText(String filters) {
+		String str = "";
+		ArrayList<String> array = new ArrayList<String>();
+		String query;
+		if (msql.connect()) {
+			query = "select text from microblog where "+filters;
+			System.out.println(query);
+			msql.query(query);
+			while (msql.next()) {
+				array.add(new String(msql.getString("text")));
+			}
+			for (String arr : array) {
+				str = str+arr+" ";
+			}
+			String reg = "[,\\.\\s;!?]+";
+			String[] temp = str.split(reg); // temp contains all words
+			return temp;
+		}
+		return null;
+	}
 }

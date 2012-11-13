@@ -52,17 +52,17 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void initApp() {
 		Utilities.CS424_Project4_Group4 = this;
-		currentDay = 13;
+		currentDay = 17;
 		currentWord = "accident";
-		bHour = 0;
-		eHour = 1;
+		bHour = 8;
+		eHour = 12;
 		map = loadImage("map.png");
 		mapWidth = Utilities.Converter(5216/16);
 		mapHeight = Utilities.Converter(2653/16);
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<Marker>();
 		qManager = new QueryManager(this);
-		dataPos = qManager.getDataPosByDateAndTimeRangeAndWord(currentDay, bHour, eHour, currentWord);
+		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 		System.out.println("dataPos.size(): "+dataPos.size());
 		setMarkerPos(dataPos,markers);
 		
@@ -221,7 +221,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				System.out.println("Day "+i+" Clicked");
 				currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
-				dataPos = qManager.getDataPosByDateAndTimeRangeAndWord(currentDay, bHour, eHour, currentWord);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				setMarkerPos(dataPos,markers);
 				break;
 			}
@@ -231,7 +231,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (bHour>0) {
 				bHour --;
 				eHour --;
-				dataPos = qManager.getDataPosByDateAndTimeRangeAndWord(currentDay, bHour, eHour, currentWord);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				setMarkerPos(dataPos,markers);
 			}
 		}
@@ -240,7 +240,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (eHour <24) {
 				bHour ++;
 				eHour ++;
-				dataPos = qManager.getDataPosByDateAndTimeRangeAndWord(currentDay, bHour, eHour, currentWord);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				setMarkerPos(dataPos,markers);
 			}
 		}
