@@ -27,13 +27,13 @@ public class Positions {
 	public static float dayButtonX = Utilities.Converter(40);
 	public static float dayButtonY = Utilities.height - Utilities.Converter(2) - Positions.dayButtonH;
 	
-	public static float zoomInButtonX = Utilities.Converter(10);
-	public static float zoomInButtonY = Utilities.height - Utilities.Converter(18);
+	public static float zoomInButtonX = Utilities.width / 2;
+	public static float zoomInButtonY = Utilities.height / 2 - Utilities.Converter(18);
 	public static float zoomInButtonW = Utilities.Converter(20);
 	public static float zoomInButtonH = Utilities.Converter(15);
 	
 	public static float zoomOutButtonX = zoomInButtonX;
-	public static float zoomOutButtonY = Utilities.height + Utilities.Converter(3);
+	public static float zoomOutButtonY = Utilities.height / 2 + Utilities.Converter(3);
 	public static float zoomOutButtonW = zoomInButtonW;
 	public static float zoomOutButtonH = zoomInButtonH;
 	

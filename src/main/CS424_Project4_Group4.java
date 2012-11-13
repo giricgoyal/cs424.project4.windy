@@ -36,6 +36,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	PImage map;
 	float mapX1, mapX2, mapY1, mapY2;
+	PVector mapCenter;
 	
 	ArrayList<Button> controls;
 	Button dayButton;
@@ -64,6 +65,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		currentWord = "accident";
 		bHour = 10;
 		eHour = 14;
+		
+		// initial map
 		map = loadImage("map.png");
 		mapWidth = Utilities.Converter(5216/16);
 		mapHeight = Utilities.Converter(2653/16);
@@ -71,6 +74,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		mapY1 = 0;
 		mapX2 = Utilities.mapMaxW;
 		mapY2 = Utilities.mapMaxH;
+		mapCenter = new PVector((mapX1+mapX1)/2,(mapY1+mapY2)/2);
+
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<Marker>();
 		qManager = new QueryManager(this);
@@ -100,7 +105,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls.add(dayButton);
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
+		zoomInBtn.setName("+");
 		zoomOutBtn = new Button(this, Positions.zoomOutButtonX, Positions.zoomOutButtonY, Positions.zoomOutButtonW, Positions.zoomOutButtonH);
+		zoomOutBtn.setName("-");
 	}
 	
 	public void setup() {
@@ -337,12 +344,28 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
-			
+			float mW =  mapX2 - mapX1 + 1;
+			float mH = mapY2 - mapY1 + 1;
+			mW = mW/4;
+			mH = mH/4;
+			mapX1 += mW;
+			mapX2 -= mW;
+			mapY1 += mH;
+			mapY2 -= mH;
+			mW = mW*2;
+			mH = mH*2;
 			return;
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
-			
+			float mW =  mapX2 - mapX1 + 1;
+			float mH = mapY2 - mapY1 + 1;
+			mapX1 -= mW;
+			mapX2 += mW;
+			mapY1 -= mH;
+			mapY2 += mH;
+			mW = mW*2;
+			mH = mH*2;
 			return;
 		}
 	}
