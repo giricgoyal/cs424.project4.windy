@@ -5,7 +5,10 @@ package main;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Comparator;
+import java.util.List;
 
 import omicronAPI.OmicronAPI;
 import processing.core.*;
@@ -55,8 +58,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		Utilities.CS424_Project4_Group4 = this;
 		currentDay = 17;
 		currentWord = "accident";
-		bHour = 8;
-		eHour = 12;
+		bHour = 10;
+		eHour = 14;
 		map = loadImage("map.png");
 		mapWidth = Utilities.Converter(5216/16);
 		mapHeight = Utilities.Converter(2653/16);
@@ -65,6 +68,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 		dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+		getWordCountPair(dataWords);
 		setMarkerPos(dataPos,markers);
 		
 		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
@@ -143,8 +147,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
-	private ArrayList<WordCountPair> getWordCountPair(String[] words) {
-		ArrayList<WordCountPair> entry = new ArrayList<WordCountPair>();
+	private List<WordCountPair> getWordCountPair(String[] words) {
+		List<WordCountPair> entry = new ArrayList<WordCountPair>();
 		for (int i=0;i<words.length;i++) {
 			boolean exist = false;
 			for (WordCountPair e : entry) {
@@ -158,8 +162,21 @@ public class CS424_Project4_Group4 extends PApplet{
 				entry.add(new WordCountPair(words[i]));
 			}
 		}
+		Collections.sort(entry, new Comparator<WordCountPair>() {
+		    public int compare(WordCountPair a, WordCountPair b) {
+		    	if (a.getCount()>b.getCount()) return -1;
+		    	else if (a.getCount()<b.getCount()) return 1;
+		    	return 0;
+		    }
+		});
+	for (WordCountPair e : entry) {
+		if (e.getCount()>100) {
+			System.out.println(e.getWord()+" "+e.getCount());
+		}
+	}
 		return entry;
 	}
+	
 	
 	// ***********************************
 		// --> HERE BEGINS THE MOUSE STUFF <--
