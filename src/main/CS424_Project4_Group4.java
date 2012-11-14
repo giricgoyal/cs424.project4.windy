@@ -73,8 +73,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// initial map
 		map = loadImage("map.png");
-		mapWidth = Utilities.Converter(5216/16);
-		mapHeight = Utilities.Converter(2653/16);
+		//mapWidth = Utilities.Converter(5216/16);
+		//mapHeight = Utilities.Converter(2653/16);
+		mapWidth = Positions.mapWidth;
+		mapHeight = Positions.mapHeight;
 		mapX1 = 0;
 		mapY1 = 0;
 		mapX2 = Utilities.mapMaxW;
@@ -143,7 +145,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
-		image(map,0,0,mapWidth,mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
+		image(map,Positions.mapX,Positions.mapY,mapWidth,mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
 		
 		for (Button bc : controls) {
 			bc.draw();
@@ -153,7 +155,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		zoomOutBtn.draw();
 		
 		for (Marker m : markers) {
-			if (isIn(m.getX(),m.getY(),1,1,mapWidth-1,mapHeight-1)) {
+			if (isIn(m.getX(),m.getY(),Positions.mapX+Utilities.Converter(1),Positions.mapY+Utilities.Converter(1),Positions.mapX+mapWidth-Utilities.Converter(1),Positions.mapY+mapHeight-Utilities.Converter(1))) {
 				m.draw();
 			}
 		}
@@ -173,8 +175,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			float x2Lon = map(mapX2, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
 			float y1Lat = map(mapY1, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
 			float y2Lat = map(mapY2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
-			float x = map(_x, x1Lon, x2Lon, (float)0, (float)mapWidth);
-			float y = map(_y, y1Lat, y2Lat, (float)0, (float)mapHeight);	
+			float x = map(_x, x1Lon, x2Lon, Positions.mapX, mapWidth);
+			float y = map(_y, y1Lat, y2Lat, Positions.mapY, mapHeight);	
 			markers.add(new Marker(this,x,y));
 		}
 	}
@@ -318,7 +320,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Hashtable touchList;
 
 	public void myPressed(int id, float mx, float my) {
-		if (isIn(mx,my,0,0,mapWidth,mapHeight)) {
+		if (isIn(mx,my,Positions.mapX,Positions.mapY,mapWidth,mapHeight)) {
 			isPressing = true;
 			currentMX = mx;
 			currentMY = my;
@@ -343,6 +345,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void myReleased(int id, float mx, float my) {
 		//touchList.remove(id);
+		
+		isPressing = false;
 		
 		for (int i=0;i<=20;i++) {
 			if (controls.get(i).checkIn(mx,my)) {
