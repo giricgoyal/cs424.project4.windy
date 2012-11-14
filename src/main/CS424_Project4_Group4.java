@@ -153,7 +153,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		zoomOutBtn.draw();
 		
 		for (Marker m : markers) {
-			m.draw();
+			if (isIn(m.getX(),m.getY(),1,1,mapWidth-1,mapHeight-1)) {
+				m.draw();
+			}
 		}
 		
 		// PROCESS OMICRON
@@ -167,8 +169,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
 			float _y = pos.getLatitude();
-			float x = map(_x, (float)93.5673, (float)93.1923, (float)0, (float)mapWidth);
-			float y = map(_y, (float)42.3017, (float)42.1609, (float)0, (float)mapHeight);	
+			float x1Lon = map(mapX1, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
+			float x2Lon = map(mapX2, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
+			float y1Lat = map(mapY1, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
+			float y2Lat = map(mapY2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
+			float x = map(_x, x1Lon, x2Lon, (float)0, (float)mapWidth);
+			float y = map(_y, y1Lat, y2Lat, (float)0, (float)mapHeight);	
 			markers.add(new Marker(this,x,y));
 		}
 	}
@@ -239,6 +245,18 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (str.equals("&")) return true;
 		if (str.equals("by")) return true;
 		return false;
+	}
+	
+	private void updateMarkerPos(ArrayList<Marker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
+		for(Marker m : markers) {
+			m.updatePos(x1, x2, x3, x4, y1, y2, y3, y4);
+		}
+	}
+	
+	private void moveMarkers(ArrayList<Marker> markers, float x, float y) {
+		for (Marker m : markers) {
+			m.movePos(x,y);
+		}
 	}
 	
 	
@@ -317,6 +335,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapX2 -= moveDis.x;
 			mapY1 -= moveDis.y;
 			mapY2 -= moveDis.y;
+			moveMarkers(markers, mx-currentMX, my-currentMY);
 			currentMX = mx;
 			currentMY = my;
 		}
@@ -325,17 +344,13 @@ public class CS424_Project4_Group4 extends PApplet{
 	public void myReleased(int id, float mx, float my) {
 		//touchList.remove(id);
 		
-		if (isIn(mx, my, Positions.sampleBoxX, Positions.sampleBoxY, Positions.sampleBoxWidth, Positions.sampleBoxHeight)){
-			System.out.println("Click Check");
-		}
-		
 		for (int i=0;i<=20;i++) {
 			if (controls.get(i).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
 				currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 				return;
 			}
@@ -357,7 +372,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				bHour ++;
 				eHour ++;
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers);
 			}
 			return;
@@ -374,8 +389,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapY2 -= mH;
 			mW = mW*2;
 			mH = mH*2;
-			System.out.println(mapX1+" "+mapY1);
-			System.out.println(mapX2+" "+mapY2);
+			setMarkerPos(dataPos,markers);
+			//updateMarkerPos(markers);
 			return;
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
@@ -390,9 +405,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapY2 += mH;
 			mW = mW*4;
 			mH = mH*4;
-			
-			System.out.println(mapX1+" "+mapY1);
-			System.out.println(mapX2+" "+mapY2);
+			setMarkerPos(dataPos,markers);
+			//updateMarkerPos(markers);
 			return;
 		}
 	}
