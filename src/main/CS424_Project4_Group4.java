@@ -137,7 +137,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
-		image(map,0,0,mapWidth,mapHeight,floor(mapX1), floor(mapY1), floor(mapX2), floor(mapY2));
+		image(map,0,0,mapWidth,mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
 		
 		for (Button bc : controls) {
 			bc.draw();
