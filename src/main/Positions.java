@@ -3,12 +3,17 @@
  */
 package main;
 
+import com.jogamp.opengl.util.texture.TextureData.Flusher;
+
 /**
  * @author giric
  *
  */
 public class Positions {
 	
+	/**
+	 * positions coordinates for sample items
+	 */
 	public static float sampleBoxWidth = Utilities.width - Utilities.Converter(50);
 	public static float sampleBoxHeight = Utilities.height - Utilities.Converter(50);
 	public static float sampleBoxX = Utilities.Converter(25);
@@ -37,4 +42,48 @@ public class Positions {
 	public static float zoomOutButtonW = zoomInButtonW;
 	public static float zoomOutButtonH = zoomInButtonH;
 	
+	
+	/**
+	 * positions coordinates for the items on the screen
+	 * Positions are relative to each other.
+	 * Do study their structure before changing any value
+	 */
+	
+	public static float mapWidth = Utilities.width * 3 / 6 - Utilities.Converter(3);
+	public static float mapHeight = Utilities.height * 2 / 3 - Utilities.Converter(3);
+	public static float mapX = 0 + Utilities.Converter(2);
+	public static float mapY = 0 + Utilities.Converter(2);
+
+	public static float daySliderWidth = Positions.mapWidth;
+	public static float daySliderHeight = Utilities.height / (3*2) - Utilities.Converter(10);
+	public static float daySliderX = Positions.mapX;
+	public static float daySliderY = Utilities.height - Positions.daySliderHeight + Utilities.Converter(2);
+
+	public static float timeSliderWidth = Positions.mapWidth;
+	public static float timeSliderHeight = Utilities.height / (3*2) - Utilities.Converter(2);
+	public static float timeSliderX = Positions.mapX;
+	public static float timeSliderY = Utilities.height * 2 / 3 - Utilities.Converter(2);
+	
+	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);
+	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float tweetWindowX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
+	public static float tweetWindowY = 0 + Utilities.Converter(2);
+	
+	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudBeforeHeight = Utilities.height / 3 - Utilities.Converter(3);
+	public static float wordCloudBeforeX = Positions.tweetWindowX + Positions.tweetWindowWidth + Utilities.Converter(2);
+	public static float wordCloudBeforeY = 0 + Utilities.Converter(2);
+	
+	public static float wordCloudAfterWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudAfterHeight = Utilities.height / 3 - Utilities.Converter(3);
+	public static float wordCloudAfterX = Positions.wordCloudBeforeX + Positions.wordCloudBeforeWidth + Utilities.Converter(2);
+	public static float wordCloudAfterY = 0 + Utilities.Converter(2);
+	
+	public static float keyboardWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float keyboardHeight = Utilities.height / 3 - Utilities.Converter(3);
+	public static float keyboardX = Positions.wordCloudAfterX;
+	public static float keyboardY = Utilities.height * 2 / 3 + Utilities.Converter(1);
+	
+
 }
+
