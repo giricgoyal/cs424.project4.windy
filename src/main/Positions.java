@@ -54,6 +54,12 @@ public class Positions {
 	public static float mapHeight = Utilities.height * 2 / 3 - Utilities.Converter(3);
 	public static float mapX = 0 + Utilities.Converter(2);
 	public static float mapY = 0 + Utilities.Converter(2);
+	
+	// weatherPanel
+	public static float weatherPanelWidth = U.width / 9 - U.Converter(3);
+	public static float weatherPanelHeight = U.height / 9 - U.Converter(3);
+	public static float weatherPanelX = mapX;
+	public static float weatherPanelY = mapY;
 
 	// daySlider
 	public static float daySliderWidth = Positions.mapWidth;

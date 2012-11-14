@@ -38,7 +38,5 @@ public class Utilities {
 	public static int mapMaxW = 5215;
 	public static int mapMaxH = 2652;
 	
-
-
 }
 	

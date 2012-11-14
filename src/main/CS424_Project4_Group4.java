@@ -14,6 +14,7 @@ import omicronAPI.OmicronAPI;
 import processing.core.*;
 import db.*;
 import types.DataPos;
+import markers.AbstractMarker;
 
 /**
  * @author giric
@@ -48,7 +49,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomOutBtn;
 	
 	ArrayList<DataPos> dataPos;
-	ArrayList<Marker> markers;
+	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
 	
 	private int currentDay;
@@ -85,7 +86,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		moveDis = new PVector(0,0);
 
 		dataPos = new ArrayList<DataPos>();
-		markers = new ArrayList<Marker>();
+		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
@@ -145,20 +146,28 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
+		// draw map
 		image(map,Positions.mapX,Positions.mapY,mapWidth,mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
 		
+		// draw button - will change
 		for (Button bc : controls) {
 			bc.draw();
 		}
 		
+		// draw zoom in and out
 		zoomInBtn.draw();
 		zoomOutBtn.draw();
 		
-		for (Marker m : markers) {
+		// draw markers
+		for (AbstractMarker m : markers) {
 			if (isIn(m.getX(),m.getY(),Positions.mapX+Utilities.Converter(1),Positions.mapY+Utilities.Converter(1),Positions.mapX+mapWidth-Utilities.Converter(1),Positions.mapY+mapHeight-Utilities.Converter(1))) {
 				m.draw();
 			}
 		}
+		
+		// draw weather panel
+		
+		// draw word cloud
 		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
@@ -166,7 +175,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
-	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<Marker> markers) {
+	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers) {
 		markers.clear();
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
@@ -177,7 +186,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			float y2Lat = map(mapY2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
 			float x = map(_x, x1Lon, x2Lon, Positions.mapX, mapWidth);
 			float y = map(_y, y1Lat, y2Lat, Positions.mapY, mapHeight);	
-			markers.add(new Marker(this,x,y));
+			markers.add(new AbstractMarker(this,x,y));
 		}
 	}
 	
@@ -249,14 +258,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		return false;
 	}
 	
-	private void updateMarkerPos(ArrayList<Marker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
-		for(Marker m : markers) {
+	private void updateMarkerPos(ArrayList<AbstractMarker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
+		for(AbstractMarker m : markers) {
 			m.updatePos(x1, x2, x3, x4, y1, y2, y3, y4);
 		}
 	}
 	
-	private void moveMarkers(ArrayList<Marker> markers, float x, float y) {
-		for (Marker m : markers) {
+	private void moveMarkers(ArrayList<AbstractMarker> markers, float x, float y) {
+		for (AbstractMarker m : markers) {
 			m.movePos(x,y);
 		}
 	}
