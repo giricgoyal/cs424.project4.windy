@@ -37,6 +37,9 @@ public class CS424_Project4_Group4 extends PApplet{
 	PImage map;
 	float mapX1, mapX2, mapY1, mapY2;
 	PVector mapCenter;
+	PVector moveDis;
+	
+	float currentMX, currentMY; // current Mouse X & Y
 	
 	ArrayList<Button> controls;
 	Button dayButton;
@@ -55,6 +58,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	private float mapWidth;
 	private float mapHeight;
+	
+	private boolean isPressing; // mouse pressing
 	
 	
 	QueryManager qManager;
@@ -75,12 +80,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		mapX2 = Utilities.mapMaxW;
 		mapY2 = Utilities.mapMaxH;
 		mapCenter = new PVector((mapX1+mapX1)/2,(mapY1+mapY2)/2);
+		moveDis = new PVector(0,0);
 
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<Marker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-		dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 		//getWordCountPair(dataWords);
 		setMarkerPos(dataPos,markers);
 		
@@ -156,8 +162,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
-	private void setMarkerPos(ArrayList<DataPos> dataPos,
-			ArrayList<Marker> markers) {
+	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<Marker> markers) {
 		markers.clear();
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
@@ -295,11 +300,26 @@ public class CS424_Project4_Group4 extends PApplet{
 	Hashtable touchList;
 
 	public void myPressed(int id, float mx, float my) {
-		
+		if (isIn(mx,my,0,0,mapWidth,mapHeight)) {
+			isPressing = true;
+			currentMX = mx;
+			currentMY = my;
+		}
 	}
 	
 	public void myDragged(int id, float mx, float my) {
-		
+		if (isPressing) {
+			moveDis.x = (mx-currentMX) / mapWidth * (mapX2 - mapX1); 
+			moveDis.y = (my-currentMY) / mapHeight * (mapY2 - mapY1);
+			
+			mapCenter.add(moveDis);
+			mapX1 -= moveDis.x;
+			mapX2 -= moveDis.x;
+			mapY1 -= moveDis.y;
+			mapY2 -= moveDis.y;
+			currentMX = mx;
+			currentMY = my;
+		}
 	}
 	
 	public void myReleased(int id, float mx, float my) {
@@ -354,18 +374,25 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapY2 -= mH;
 			mW = mW*2;
 			mH = mH*2;
+			System.out.println(mapX1+" "+mapY1);
+			System.out.println(mapX2+" "+mapY2);
 			return;
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
-			float mW =  mapX2 - mapX1 + 1;
+			float mW = mapX2 - mapX1 + 1;
 			float mH = mapY2 - mapY1 + 1;
+			mW = mW/2;
+			mH = mH/2;
 			mapX1 -= mW;
 			mapX2 += mW;
 			mapY1 -= mH;
 			mapY2 += mH;
-			mW = mW*2;
-			mH = mH*2;
+			mW = mW*4;
+			mH = mH*4;
+			
+			System.out.println(mapX1+" "+mapY1);
+			System.out.println(mapX2+" "+mapY2);
 			return;
 		}
 	}
