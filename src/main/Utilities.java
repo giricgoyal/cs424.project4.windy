@@ -3,6 +3,9 @@
  */
 package main;
 
+import markers.AbstractMarker;
+import markers.DefaultMarker;
+import markers.MarkerType;
 import processing.core.PFont;
 
 /**
@@ -38,5 +41,14 @@ public class Utilities {
 	public static int mapMaxW = 5215;
 	public static int mapMaxH = 2652;
 	
+	public static AbstractMarker getMarkerType(AbstractMarker marker, MarkerType markerType) {
+
+		switch (markerType) {
+		case DEFAULT_MARKER:
+		    return new DefaultMarker(marker.getP(), marker.getX(), marker.getY());
+		default:
+		    return null;
+	    }
+	}
 }
 	

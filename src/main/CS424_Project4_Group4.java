@@ -15,6 +15,8 @@ import processing.core.*;
 import db.*;
 import types.DataPos;
 import markers.AbstractMarker;
+import markers.DefaultMarker;
+import markers.MarkerType;
 
 /**
  * @author giric
@@ -91,7 +93,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
 		//getWordCountPair(dataWords);
-		setMarkerPos(dataPos,markers);
+		setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 		
 		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
 	}
@@ -147,7 +149,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		popStyle();
 		
 		// draw map
-		image(map,Positions.mapX,Positions.mapY,mapWidth,mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
+		image(map,Positions.mapX,Positions.mapY,Positions.mapX+mapWidth,Positions.mapY+mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
 		
 		// draw button - will change
 		for (Button bc : controls) {
@@ -160,7 +162,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw markers
 		for (AbstractMarker m : markers) {
-			if (isIn(m.getX(),m.getY(),Positions.mapX+Utilities.Converter(1),Positions.mapY+Utilities.Converter(1),Positions.mapX+mapWidth-Utilities.Converter(1),Positions.mapY+mapHeight-Utilities.Converter(1))) {
+			if (isIn(m.getX(),m.getY(),
+					Positions.mapX+Utilities.Converter(1),
+					Positions.mapY+Utilities.Converter(1),
+					Positions.mapX+mapWidth-Utilities.Converter(1),
+					Positions.mapY+mapHeight-Utilities.Converter(1)))
+			{
 				m.draw();
 			}
 		}
@@ -175,7 +182,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
-	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers) {
+	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers, MarkerType type) {
 		markers.clear();
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
@@ -186,7 +193,13 @@ public class CS424_Project4_Group4 extends PApplet{
 			float y2Lat = map(mapY2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
 			float x = map(_x, x1Lon, x2Lon, Positions.mapX, mapWidth);
 			float y = map(_y, y1Lat, y2Lat, Positions.mapY, mapHeight);	
-			markers.add(new AbstractMarker(this,x,y));
+			switch (type) {
+			case DEFAULT_MARKER:
+				markers.add(new DefaultMarker(this,x,y));
+				break;
+			default:
+				markers.add(new DefaultMarker(this,x,y));
+			}
 		}
 	}
 	
@@ -258,6 +271,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		return false;
 	}
 	
+	
+	// not used
 	private void updateMarkerPos(ArrayList<AbstractMarker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
 		for(AbstractMarker m : markers) {
 			m.updatePos(x1, x2, x3, x4, y1, y2, y3, y4);
@@ -364,7 +379,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
-				setMarkerPos(dataPos,markers);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				return;
 			}
 		}
@@ -375,7 +390,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				eHour --;
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
-				setMarkerPos(dataPos,markers);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
 			return;
 		}
@@ -386,7 +401,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				eHour ++;
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
 				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
-				setMarkerPos(dataPos,markers);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
 			return;
 		}
@@ -402,7 +417,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapY2 -= mH;
 			mW = mW*2;
 			mH = mH*2;
-			setMarkerPos(dataPos,markers);
+			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//updateMarkerPos(markers);
 			return;
 		}
@@ -418,7 +433,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			mapY2 += mH;
 			mW = mW*4;
 			mH = mH*4;
-			setMarkerPos(dataPos,markers);
+			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//updateMarkerPos(markers);
 			return;
 		}

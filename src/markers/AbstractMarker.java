@@ -32,6 +32,10 @@ public class AbstractMarker {
 		this.y += y;
 	}
 	
+	public PApplet getP() {
+		return p;
+	}
+	
 	public float getX() {
 		return x;
 	}
