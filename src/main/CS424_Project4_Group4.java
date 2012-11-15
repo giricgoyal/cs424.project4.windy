@@ -150,16 +150,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		popStyle();
 		
 		map.draw();
-		weatherPanel.draw(currentDay);
 		
 		// draw button - will change
 		for (Button bc : controls) {
 			bc.draw();
 		}
-		
-		// draw zoom in and out
-		zoomInBtn.draw();
-		zoomOutBtn.draw();
 		
 		// draw markers
 		for (AbstractMarker m : markers) {
@@ -168,7 +163,12 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 		
+		// draw zoom in and out
+		zoomInBtn.draw();
+		zoomOutBtn.draw();
+		
 		// draw weather panel
+		weatherPanel.draw(currentDay);
 		
 		// draw word cloud
 		
@@ -349,8 +349,10 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void myDragged(int id, float mx, float my) {
 		if (isPressing) {
-			map.move(mx,my,currentMX,currentMY);
-			moveMarkers(markers, mx-currentMX, my-currentMY);
+			boolean moved = map.move(mx,my,currentMX,currentMY);
+			if (moved) {
+				moveMarkers(markers, mx-currentMX, my-currentMY);
+			}
 			currentMX = mx;
 			currentMY = my;
 		}
@@ -398,32 +400,36 @@ public class CS424_Project4_Group4 extends PApplet{
 			System.out.println("Zoom in Clicked");
 			float mW =  map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
-			mW = mW/4;
-			mH = mH/4;
-			map.x1 += mW;
-			map.x2 -= mW;
-			map.y1 += mH;
-			map.y2 -= mH;
-			mW = mW*2;
-			mH = mH*2;
-			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//updateMarkerPos(markers);
+			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
+				mW = mW/4;
+				mH = mH/4;
+				map.x1 += mW;
+				map.x2 -= mW;
+				map.y1 += mH;
+				map.y2 -= mH;
+				mW = mW*2;
+				mH = mH*2;
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				//updateMarkerPos(markers);
+			}
 			return;
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
 			float mW = map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
-			mW = mW/2;
-			mH = mH/2;
-			map.x1 -= mW;
-			map.x2 += mW;
-			map.y1 -= mH;
-			map.y2 += mH;
-			mW = mW*4;
-			mH = mH*4;
-			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//updateMarkerPos(markers);
+			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
+				mW = mW/2;
+				mH = mH/2;
+				map.x1 -= mW;
+				map.x2 += mW;
+				map.y1 -= mH;
+				map.y2 += mH;
+				mW = mW*4;
+				mH = mH*4;
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				//updateMarkerPos(markers);
+			}
 			return;
 		}
 	}

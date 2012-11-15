@@ -5,6 +5,7 @@ package markers;
 
 import processing.core.PApplet;
 import main.Colors;
+import main.Pos;
 import main.Utilities;
 import markers.AbstractMarker;
 
@@ -22,7 +23,7 @@ public class DefaultMarker extends AbstractMarker {
 	public void draw() {
 		p.pushStyle();
 		p.fill(Colors.LIGHT_BLUE);
-		p.ellipse(x, y, Utilities.Converter(2), Utilities.Converter(2));
+		p.ellipse(x+Pos.mapX, y+Pos.mapY, Utilities.Converter(2), Utilities.Converter(2));
 		p.popStyle();
 	}
 }

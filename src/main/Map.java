@@ -43,7 +43,7 @@ public class Map {
 		p.image(pic, x0, y0, x0+w, y0+h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
 	}
 
-	public void move(float mx, float my, float currentMX, float currentMY) {
+	public boolean move(float mx, float my, float currentMX, float currentMY) {
 		dis.x = (mx-currentMX) / w * (x2 - x1); 
 		dis.y = (my-currentMY) / h * (y2 - y1);
 		cen.add(dis);
@@ -51,6 +51,14 @@ public class Map {
 		x2-=dis.x;
 		y1-=dis.y;
 		y2-=dis.y;
+		if (x1 < 0 || x2 > U.mapMaxW || y1 < 0 || y2 > U.mapMaxH) {
+			x1+=dis.x;
+			x2+=dis.x;
+			y1+=dis.y;
+			y2+=dis.y;
+			return false;
+		}
+		return true;
 	}
 
 	public boolean checkIn(float x, float y) {
