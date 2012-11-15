@@ -24,14 +24,12 @@ public class Map {
 	public PVector cen;
 	private PVector dis;
 	
-	public float x0, y0, w, h;
-	public float x1, x2, y1, y2;
+	public float x0, y0, w, h; // coordinates in screen
+	public float x1, x2, y1, y2; // the corner coordinate of the original image; (0,0)(5215,2652) means whole image
 	
 	public Map(PApplet p, String file, float x, float y, float w, float h) {
 			this.p = p;
 			pic = this.p.loadImage(file);
-			//mapWidth = Utilities.Converter(5216/16);
-			//mapHeight = Utilities.Converter(2653/16);
 			x0 = x;
 			y0 = y;
 			this.w = w;
@@ -49,10 +47,6 @@ public class Map {
 	
 	public void draw() {
 		p.image(pic, x0, y0, x0+w, y0+h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
-		//System.out.println(x0+" "+y0);
-		//System.out.println(w+" "+h);
-		//System.out.println(x1+" "+y1);
-		System.out.println(x2+" "+y2);
 	}
 
 	public void move(float mx, float my, float currentMX, float currentMY) {
