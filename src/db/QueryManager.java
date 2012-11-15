@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
-import types.DataPid;
-import types.DataPos;
+import types.*;
 
 /**
  * Call database queries from here
@@ -47,6 +46,10 @@ public class QueryManager {
 	public String[] getAllText_By_Date_TimeRange(int date, int hour1, int hour2) {
 		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2);
 		return db.getAllText(filters);
+	}
+	
+	public DataWeather[] getAllWeather() {
+		return db.getAllWeather();
 	}
 
 	//get Filters

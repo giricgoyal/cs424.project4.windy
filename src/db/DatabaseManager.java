@@ -1,11 +1,8 @@
 package db;
 import java.util.ArrayList;
 
-import main.Utilities;
-
 import processing.core.PApplet;
-import types.DataPid;
-import types.DataPos;
+import types.*;
 import de.bezier.data.sql.MySQL;
 
 public class DatabaseManager {
@@ -74,6 +71,23 @@ public class DatabaseManager {
 			String reg = "[,\\.\\s;!?]+";
 			String[] temp = str.split(reg); // temp contains all words
 			return temp;
+		}
+		return null;
+	}
+	
+	public DataWeather[] getAllWeather() {
+		DataWeather[] array = new DataWeather[21];
+		String query;
+		if (msql.connect()) {
+			query = "select date, weather, wspeed, direction from weather order by date";
+			System.out.println(query);
+			msql.query(query);
+			int i=0;
+			while (msql.next()) {
+				array[i] = new DataWeather(msql.getString("weather"), msql.getString("wspeed"), msql.getString("direction"));
+				i++;
+			}
+			return array;
 		}
 		return null;
 	}

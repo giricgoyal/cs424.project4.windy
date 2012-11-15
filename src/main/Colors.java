@@ -1,14 +1,5 @@
 package main;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
-import processing.core.PShape;
-
 /**
  * 
  * @author giric

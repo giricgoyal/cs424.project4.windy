@@ -1,7 +1,5 @@
 package markers;
 
-import main.Colors;
-import main.Utilities;
 import processing.core.PApplet;
 
 public class AbstractMarker {

@@ -13,7 +13,7 @@ import java.util.List;
 import omicronAPI.OmicronAPI;
 import processing.core.*;
 import db.*;
-import types.DataPos;
+import types.*;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
@@ -52,6 +52,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomInBtn;
 	Button zoomOutBtn;
 	
+	// data
 	ArrayList<DataPos> dataPos;
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
@@ -73,6 +74,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		bHour = 10;
 		eHour = 14;
 		
+		dataPos = new ArrayList<DataPos>();
+		markers = new ArrayList<AbstractMarker>();
+		qManager = new QueryManager(this);
+		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
+		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+		//getWordCountPair(dataWords);
+		
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
 		map.setup(0, 0, U.mapMaxW, U.mapMaxH); // initial range of the map by pixel in original image
@@ -80,19 +88,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		weatherPanel = new WeatherPanel(this,
 				Pos.weatherPanelX, Pos.weatherPanelY,
 				Pos.weatherPanelWidth, Pos.weatherPanelHeight, 
-				"Sunny", "7", "NW");		
+				qManager.getAllWeather());
 		
 		// end of components initialization
 		
 		moveDis = new PVector(0,0);
 
-		dataPos = new ArrayList<DataPos>();
-		markers = new ArrayList<AbstractMarker>();
-		qManager = new QueryManager(this);
-		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
-		//getWordCountPair(dataWords);
-		setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+		setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER); // this must be after map is initialized
 		
 		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
 	}
@@ -148,7 +150,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		popStyle();
 		
 		map.draw();
-		weatherPanel.draw();
+		weatherPanel.draw(currentDay);
 		
 		// draw button - will change
 		for (Button bc : controls) {

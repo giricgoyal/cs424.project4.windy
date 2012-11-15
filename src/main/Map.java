@@ -3,15 +3,9 @@
  */
 package main;
 
-import java.util.ArrayList;
-
-import markers.AbstractMarker;
-import markers.MarkerType;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
-import types.DataPos;
-import db.QueryManager;
 
 /**
  * @author joysword
