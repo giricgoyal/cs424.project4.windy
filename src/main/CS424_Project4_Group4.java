@@ -38,8 +38,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	TouchListener touchListener;
 	
 	Map map;
-	float mapX1, mapX2, mapY1, mapY2;
-	PVector mapCenter;
 	PVector moveDis;
 	
 	float currentMX, currentMY; // current Mouse X & Y
@@ -59,9 +57,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	private int bHour; //begin hour
 	private int eHour; //end hour
 	
-	private float mapWidth;
-	private float mapHeight;
-	
 	private boolean isPressing; // mouse pressing
 	
 	
@@ -78,7 +73,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
 		
 		// setup initial range
-		map.setup(0, 0, U.mapMaxH, U.mapMaxH);
+		map.setup(0, 0, U.mapMaxW, U.mapMaxH);
 		
 		moveDis = new PVector(0,0);
 
@@ -157,12 +152,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw markers
 		for (AbstractMarker m : markers) {
-			if (isIn(m.getX(),m.getY(),
-					Positions.mapX+Utilities.Converter(1),
-					Positions.mapY+Utilities.Converter(1),
-					Positions.mapX+mapWidth-Utilities.Converter(1),
-					Positions.mapY+mapHeight-Utilities.Converter(1)))
-			{
+			if (map.checkIn(m.getX(),m.getY())) {
 				m.draw();
 			}
 		}
@@ -182,12 +172,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
 			float _y = pos.getLatitude();
-			float x1Lon = map(mapX1, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
-			float x2Lon = map(mapX2, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
-			float y1Lat = map(mapY1, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
-			float y2Lat = map(mapY2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
-			float x = map(_x, x1Lon, x2Lon, Positions.mapX, mapWidth);
-			float y = map(_y, y1Lat, y2Lat, Positions.mapY, mapHeight);	
+			float x1Lon = map(map.x1, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
+			float x2Lon = map(map.x2, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
+			float y1Lat = map(map.y1, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
+			float y2Lat = map(map.y2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
+			float x = map(_x, x1Lon, x2Lon, map.x0, map.w);
+			float y = map(_y, y1Lat, y2Lat, map.y0, map.h);	
 			switch (type) {
 			case DEFAULT_MARKER:
 				markers.add(new DefaultMarker(this,x,y));
@@ -339,7 +329,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Hashtable touchList;
 
 	public void myPressed(int id, float mx, float my) {
-		if (isIn(mx,my,Positions.mapX,Positions.mapY,mapWidth,mapHeight)) {
+		if (isIn(mx,my,Pos.mapX,Pos.mapY,map.w,map.h)) {
 			isPressing = true;
 			currentMX = mx;
 			currentMY = my;
@@ -348,14 +338,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void myDragged(int id, float mx, float my) {
 		if (isPressing) {
-			moveDis.x = (mx-currentMX) / mapWidth * (mapX2 - mapX1); 
-			moveDis.y = (my-currentMY) / mapHeight * (mapY2 - mapY1);
-			
-			mapCenter.add(moveDis);
-			mapX1 -= moveDis.x;
-			mapX2 -= moveDis.x;
-			mapY1 -= moveDis.y;
-			mapY2 -= moveDis.y;
+			map.move(mx,my,currentMX,currentMY);
 			moveMarkers(markers, mx-currentMX, my-currentMY);
 			currentMX = mx;
 			currentMY = my;
@@ -402,14 +385,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
-			float mW =  mapX2 - mapX1 + 1;
-			float mH = mapY2 - mapY1 + 1;
+			float mW =  map.x2 - map.x1 + 1;
+			float mH = map.y2 - map.y1 + 1;
 			mW = mW/4;
 			mH = mH/4;
-			mapX1 += mW;
-			mapX2 -= mW;
-			mapY1 += mH;
-			mapY2 -= mH;
+			map.x1 += mW;
+			map.x2 -= mW;
+			map.y1 += mH;
+			map.y2 -= mH;
 			mW = mW*2;
 			mH = mH*2;
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
@@ -418,14 +401,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
-			float mW = mapX2 - mapX1 + 1;
-			float mH = mapY2 - mapY1 + 1;
+			float mW = map.x2 - map.x1 + 1;
+			float mH = map.y2 - map.y1 + 1;
 			mW = mW/2;
 			mH = mH/2;
-			mapX1 -= mW;
-			mapX2 += mW;
-			mapY1 -= mH;
-			mapY2 += mH;
+			map.x1 -= mW;
+			map.x2 += mW;
+			map.y1 -= mH;
+			map.y2 += mH;
 			mW = mW*4;
 			mH = mH*4;
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
