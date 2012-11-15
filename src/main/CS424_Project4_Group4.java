@@ -37,7 +37,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
 	
-	PImage map;
+	Map map;
 	float mapX1, mapX2, mapY1, mapY2;
 	PVector mapCenter;
 	PVector moveDis;
@@ -75,16 +75,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		eHour = 14;
 		
 		// initial map
-		map = loadImage("map.png");
-		//mapWidth = Utilities.Converter(5216/16);
-		//mapHeight = Utilities.Converter(2653/16);
-		mapWidth = Positions.mapWidth;
-		mapHeight = Positions.mapHeight;
-		mapX1 = 0;
-		mapY1 = 0;
-		mapX2 = Utilities.mapMaxW;
-		mapY2 = Utilities.mapMaxH;
-		mapCenter = new PVector((mapX1+mapX1)/2,(mapY1+mapY2)/2);
+		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
+		
+		// setup initial range
+		map.setup(0, 0, U.mapMaxH, U.mapMaxH);
+		
 		moveDis = new PVector(0,0);
 
 		dataPos = new ArrayList<DataPos>();
@@ -149,7 +144,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		popStyle();
 		
 		// draw map
-		image(map,Positions.mapX,Positions.mapY,Positions.mapX+mapWidth,Positions.mapY+mapHeight,round(mapX1), round(mapY1), round(mapX2), round(mapY2));
+		map.draw();
 		
 		// draw button - will change
 		for (Button bc : controls) {
