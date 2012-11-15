@@ -44,7 +44,7 @@ public class Colors {
 	public static int map7;
 	
 	
-	// colors from p2g2
+	// colors from p2g2, thanks
 	public static int DARK_GRAY = 0xff1f1f1f;
 	public static int MEDIUM_GRAY = 0xff282826; // 2d2d2c
 	public static int LIGHT_GRAY = 0xff2d2d2c; // 565656

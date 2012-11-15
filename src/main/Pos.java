@@ -47,8 +47,8 @@ public class Pos {
 	public static float mapY = 0 + U.Converter(2);
 	
 	// weatherPanel
-	public static float weatherPanelWidth = U.width / 9 - U.Converter(3);
-	public static float weatherPanelHeight = U.height / 9 - U.Converter(3);
+	public static float weatherPanelWidth = U.width / 9;
+	public static float weatherPanelHeight = U.height / 8;
 	public static float weatherPanelX = mapX;
 	public static float weatherPanelY = mapY;
 

@@ -37,8 +37,12 @@ public class CS424_Project4_Group4 extends PApplet{
 	OmicronAPI omicronManager;
 	TouchListener touchListener;
 	
+	// map
 	Map map;
 	PVector moveDis;
+	
+	// weather panel
+	private WeatherPanel weatherPanel;
 	
 	float currentMX, currentMY; // current Mouse X & Y
 	
@@ -69,11 +73,16 @@ public class CS424_Project4_Group4 extends PApplet{
 		bHour = 10;
 		eHour = 14;
 		
-		// initial map
+		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
+		map.setup(0, 0, U.mapMaxW, U.mapMaxH); // initial range of the map by pixel in original image
 		
-		// setup initial range
-		map.setup(0, 0, U.mapMaxW, U.mapMaxH);
+		weatherPanel = new WeatherPanel(this,
+				Pos.weatherPanelX, Pos.weatherPanelY,
+				Pos.weatherPanelWidth, Pos.weatherPanelHeight, 
+				"Sunny", "7", "NW");		
+		
+		// end of components initialization
 		
 		moveDis = new PVector(0,0);
 
@@ -138,8 +147,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
-		// draw map
 		map.draw();
+		weatherPanel.draw();
 		
 		// draw button - will change
 		for (Button bc : controls) {
