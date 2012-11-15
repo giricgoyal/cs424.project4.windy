@@ -18,7 +18,7 @@ public class Button extends BasicControl {
 
 	public Button(PApplet parent, float x, float y, float width, float height) {
 		super(parent, x, y, width, height);
-		elps=true;
+		elps=false;
 	}
 	
 	@Override
@@ -31,8 +31,8 @@ public class Button extends BasicControl {
 			parent.strokeWeight(Utilities.Converter(2));
 		}
 		parent.rectMode(PConstants.CORNER);
-		//parent.ellipseMode(PConstants.CORNER);
-		//if(elps) parent.ellipse(myX, myY, myWidth, myHeight);
+		parent.ellipseMode(PConstants.CORNER);
+		if(elps) parent.ellipse(myX, myY, myWidth, myHeight);
 		//else 
 		parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);

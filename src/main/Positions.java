@@ -27,21 +27,11 @@ public class Positions {
 	public static float sampleTextX = Utilities.width/2;
 	public static float sampleTextY = Utilities.height/2;
 	
+	// day buttons
 	public static float dayButtonW = Utilities.Converter(15);
 	public static float dayButtonH = Utilities.Converter(10);
 	public static float dayButtonX = Utilities.Converter(40);
 	public static float dayButtonY = Utilities.height - Utilities.Converter(2) - Positions.dayButtonH;
-	
-	public static float zoomInButtonX = Utilities.width / 2;
-	public static float zoomInButtonY = Utilities.height / 2 - Utilities.Converter(18);
-	public static float zoomInButtonW = Utilities.Converter(20);
-	public static float zoomInButtonH = Utilities.Converter(15);
-	
-	public static float zoomOutButtonX = zoomInButtonX;
-	public static float zoomOutButtonY = Utilities.height / 2 + Utilities.Converter(3);
-	public static float zoomOutButtonW = zoomInButtonW;
-	public static float zoomOutButtonH = zoomInButtonH;
-	
 	
 	/**
 	 * positions coordinates for the items on the screen
@@ -56,8 +46,8 @@ public class Positions {
 	public static float mapY = 0 + Utilities.Converter(2);
 	
 	// weatherPanel
-	public static float weatherPanelWidth = U.width / 9 - U.Converter(3);
-	public static float weatherPanelHeight = U.height / 9 - U.Converter(3);
+	public static float weatherPanelWidth = U.width / 9;
+	public static float weatherPanelHeight = U.height / 8;
 	public static float weatherPanelX = mapX;
 	public static float weatherPanelY = mapY;
 
@@ -96,6 +86,18 @@ public class Positions {
 	public static float keyboardHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float keyboardX = Positions.wordCloudAfterX;
 	public static float keyboardY = Utilities.height * 2 / 3 + Utilities.Converter(1);
+	
+	// zoom buttons
+	// FIXME: right side of zoom buttons should be aligned with map, but not 
+	public static float zoomInButtonW = Utilities.Converter(20);
+	public static float zoomInButtonH = Utilities.Converter(15);
+	public static float zoomInButtonX = Pos.mapX + Pos.mapWidth - zoomInButtonW;
+	public static float zoomInButtonY = Pos.mapY + Pos.mapHeight / 2 - Utilities.Converter(18);
+	
+	public static float zoomOutButtonW = zoomInButtonW;
+	public static float zoomOutButtonH = zoomInButtonH;
+	public static float zoomOutButtonX = zoomInButtonX;
+	public static float zoomOutButtonY = Pos.mapY + Pos.mapHeight / 2 + Utilities.Converter(3);
 	
 
 }
