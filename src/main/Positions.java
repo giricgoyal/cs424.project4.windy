@@ -39,6 +39,19 @@ public class Positions {
 	 * Do study their structure before changing any value
 	 */
 	
+	// suggestion box
+	public static float suggestionBoxX;
+	public static float suggestionBoxY;
+	public static float suggestionBoxWidth;
+	public static float suggestionBoxHeight;
+	
+	// textBox
+	public static float textBoxX ;
+	public static float textBoxY ;
+	public static float textBoxWidth ;
+	public static float textBoxHeight ;
+	
+	
 	// map
 	public static float mapWidth = Utilities.width * 3 / 6 - Utilities.Converter(3);
 	public static float mapHeight = Utilities.height * 2 / 3 - Utilities.Converter(3);

@@ -46,11 +46,16 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	float currentMX, currentMY; // current Mouse X & Y
 	
-	ArrayList<Button> controls;
+	ArrayList<BasicControl> controls;
 	Button dayButton;
 	
 	Button zoomInBtn;
 	Button zoomOutBtn;
+	
+	Button hourPlus;
+	Button hourMinus;
+	
+	Keyboard keyboard;
 	
 	// data
 	ArrayList<DataPos> dataPos;
@@ -101,7 +106,7 @@ public class CS424_Project4_Group4 extends PApplet{
 
 	public void initControls() {
 		
-		controls = new ArrayList<Button>();
+		controls = new ArrayList<BasicControl>();
 		
 		for (int i=0;i<=20;i++) {
 			dayButton = new Button(this, Positions.dayButtonX+Utilities.Converter(20*i), Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH);
@@ -109,17 +114,24 @@ public class CS424_Project4_Group4 extends PApplet{
 			controls.add(dayButton);
 		}
 		
-		dayButton = new Button(this, Utilities.width*9/10, Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		dayButton.setName("h-");
-		controls.add(dayButton);
-		dayButton = new Button(this, Utilities.width*9/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		dayButton.setName("h+");
-		controls.add(dayButton);
+		hourMinus = new Button(this, Utilities.width*7/10, Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
+		hourMinus.setName("h-");
+		controls.add(hourMinus);
+		hourPlus = new Button(this, Utilities.width*7/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
+		hourPlus.setName("h+");
+		controls.add(hourPlus);
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
+		controls.add(zoomInBtn);
 		zoomOutBtn = new Button(this, Positions.zoomOutButtonX, Positions.zoomOutButtonY, Positions.zoomOutButtonW, Positions.zoomOutButtonH);
 		zoomOutBtn.setName("-");
+		controls.add(zoomOutBtn);
+		
+		keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY,
+				Positions.keyboardWidth, Positions.keyboardHeight);
+		controls.add(keyboard);
+		
 	}
 	
 	public void setup() {
@@ -152,7 +164,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		map.draw();
 		
 		// draw button - will change
-		for (Button bc : controls) {
+		for (BasicControl bc : controls) {
 			bc.draw();
 		}
 		
@@ -164,8 +176,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		// draw zoom in and out
-		zoomInBtn.draw();
-		zoomOutBtn.draw();
+		//zoomInBtn.draw();
+		//zoomOutBtn.draw();
 		
 		// draw weather panel
 		weatherPanel.draw(currentDay);
@@ -364,7 +376,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		isPressing = false;
 		
 		for (int i=0;i<=20;i++) {
-			if (controls.get(i).checkIn(mx,my)) {
+			if (((Button)controls.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
 				currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
@@ -374,7 +386,13 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 		}
-		if (controls.get(21).checkIn(mx,my)) {
+		
+		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
+				Positions.keyboardWidth, Positions.keyboardHeight)) {
+			System.out.println(keyboard.Click(mx, my));
+			//sb.updateTextBox(keyboard.Click(mx, my));
+		}
+		if (hourMinus.checkIn(mx,my)) {
 			System.out.println("hour- Clicked");
 			if (bHour>0) {
 				bHour --;
@@ -385,7 +403,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			return;
 		}
-		if (controls.get(22).checkIn(mx,my)) {
+		if (hourPlus.checkIn(mx,my)) {
 			System.out.println("hour+ Clicked");
 			if (eHour <24) {
 				bHour ++;
