@@ -60,6 +60,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	Keyboard keyboard;
 	
+	WordCloud beforeWordCloud, afterWordCloud;
+	
 	// data
 	ArrayList<DataPos> dataPos;
 	ArrayList<AbstractMarker> markers;
@@ -107,7 +109,10 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER); // this must be after map is initialized
 		
-		//Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
+		Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
+		
+		beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+		afterWordCloud = new WordCloud(this, Positions.wordCloudAfterX, Positions.wordCloudAfterY, Positions.wordCloudAfterWidth, Positions.wordCloudAfterHeight, "KeywordsAfter.txt");
 	}
 
 	public void initControls() {
@@ -138,10 +143,15 @@ public class CS424_Project4_Group4 extends PApplet{
 				Positions.keyboardWidth, Positions.keyboardHeight);
 		controls.add(keyboard);
 		
+		
+		
 	}
 	
 	public void setup() {
 		size((int) Utilities.width, (int) Utilities.height, JAVA2D);
+
+		background(Colors.DARK_GRAY);
+		
 		if (Utilities.isWall) {
 			initOmicron();
 		}
@@ -155,7 +165,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	}
 	
 	public void draw() {
-		background(Colors.DARK_GRAY);
 		noStroke();
 		
 		pushStyle();
@@ -192,7 +201,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		timeSlider.draw();
 		
 		// draw word cloud
-		
+		beforeWordCloud.draw();
+		afterWordCloud.draw();
 		
 		
 		if (U.drawGridLine) {

@@ -80,18 +80,18 @@ public class Positions {
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);
-	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float tweetWindowX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
 	public static float tweetWindowY = 0 + Utilities.Converter(2);
 	
 	// wordCloud
-	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float wordCloudBeforeHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float wordCloudBeforeX = Positions.tweetWindowX + Positions.tweetWindowWidth + Utilities.Converter(2);
 	public static float wordCloudBeforeY = 0 + Utilities.Converter(2);
 	
 	// wordCloud
-	public static float wordCloudAfterWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudAfterWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float wordCloudAfterHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float wordCloudAfterX = Positions.wordCloudBeforeX + Positions.wordCloudBeforeWidth + Utilities.Converter(2);
 	public static float wordCloudAfterY = 0 + Utilities.Converter(2);
