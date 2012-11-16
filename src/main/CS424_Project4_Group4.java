@@ -59,6 +59,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button hourMinus;
 	
 	Keyboard keyboard;
+	SuggestionBox sb;
 	
 	WordCloud beforeWordCloud, afterWordCloud;
 	
@@ -143,15 +144,18 @@ public class CS424_Project4_Group4 extends PApplet{
 				Positions.keyboardWidth, Positions.keyboardHeight);
 		controls.add(keyboard);
 		
+		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY,
+				Positions.textBoxWidth, Positions.textBoxHeight,this);
+		controls.add(sb);
+
+		
 		
 		
 	}
 	
 	public void setup() {
 		size((int) Utilities.width, (int) Utilities.height, JAVA2D);
-
 		background(Colors.DARK_GRAY);
-		
 		if (Utilities.isWall) {
 			initOmicron();
 		}
@@ -166,15 +170,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void draw() {
 		noStroke();
-		
-		pushStyle();
-		textAlign(PConstants.LEFT,PConstants.CENTER);
-		textSize(Utilities.Converter(10));
-		fill(Colors.WHITE);
-		text("current keyword: "+currentWord,Utilities.width*4/5,Utilities.height/2);
-		text("current Day: "+currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
-		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
-		popStyle();
 		
 		map.draw();
 		
@@ -217,6 +212,21 @@ public class CS424_Project4_Group4 extends PApplet{
 			line(U.width/6*4,0,U.width/6*4,U.height);
 			line(U.width/6*5,0,U.width/6*5,U.height);
 		}
+		
+		
+
+		pushStyle();
+		textAlign(PConstants.LEFT,PConstants.CENTER);
+		textSize(Utilities.Converter(10));
+		fill(Colors.WHITE);
+		text("current keyword: "+currentWord,Utilities.width*4/5,Utilities.height/2);
+		text("current Day: "+currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
+		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
+		popStyle();
+		
+		
+		
+		
 		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
@@ -423,9 +433,15 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			System.out.println(keyboard.Click(mx, my));
-			//sb.updateTextBox(keyboard.Click(mx, my));
+			sb.updateTextBox(keyboard.Click(mx, my));
 		}
+
+		if (isIn(mx, my, Positions.suggestionBoxX,
+				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+				Positions.suggestionBoxHeight)) {
+			sb.Click(mx, my);
+		}
+
 		if (hourMinus.checkIn(mx,my)) {
 			System.out.println("hour- Clicked");
 			if (bHour>0) {
