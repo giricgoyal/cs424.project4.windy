@@ -172,15 +172,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	public void draw() {
 		noStroke();
 		
-		pushStyle();
-		textAlign(PConstants.LEFT,PConstants.CENTER);
-		textSize(Utilities.Converter(10));
-		fill(Colors.WHITE);
-		text("current keyword: "+U.currentWord,Utilities.width*4/5,Utilities.height/2);
-		text("current Day: "+U.currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
-		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
-		popStyle();
-		
 		map.draw();
 		
 		// TODO: draw button - will change
@@ -223,6 +214,16 @@ public class CS424_Project4_Group4 extends PApplet{
 			line(U.width/6*4,0,U.width/6*4,U.height);
 			line(U.width/6*5,0,U.width/6*5,U.height);
 		}
+		
+		pushStyle();
+		textAlign(PConstants.LEFT,PConstants.CENTER);
+		textSize(Utilities.Converter(10));
+		fill(Colors.WHITE);
+		text("current keyword: "+U.currentWord,Utilities.width*4/5,Utilities.height/2);
+		text("current Day: "+U.currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
+		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
+		popStyle();
+		
 		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
