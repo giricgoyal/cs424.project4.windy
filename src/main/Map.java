@@ -40,7 +40,7 @@ public class Map {
 	}
 	
 	public void draw() {
-		p.image(pic, x0, y0, x0+w, y0+h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
+		p.image(pic, x0, y0, w, h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
 	}
 
 	public boolean move(float mx, float my, float currentMX, float currentMY) {

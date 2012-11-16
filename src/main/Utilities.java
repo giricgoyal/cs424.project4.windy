@@ -14,6 +14,7 @@ import processing.core.PFont;
  */
 public class Utilities {
 	public static boolean isWall = false;
+	public static boolean drawGridLine = true;
 	
 	public static float Converter(float pixel) {
 		if (isWall)
