@@ -123,7 +123,7 @@ public class SuggestionBox extends BasicControl {
 	public void updateTextBox(int charNum) {
 		//states = db.getStates(textBoxText);
 		System.out.println(charNum);
-		if (charNum == -1) {
+		if (charNum == 60) {
 			if (textBoxText.isEmpty()) {
 				System.out.println("empty");
 			}

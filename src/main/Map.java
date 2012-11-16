@@ -13,7 +13,7 @@ import processing.core.PVector;
  */
 public class Map {
 	
-	private PApplet p;
+	private PApplet parent;
 	private PImage pic;
 	public PVector cen;
 	private PVector dis;
@@ -21,9 +21,9 @@ public class Map {
 	public float x0, y0, w, h; // coordinates in screen
 	public float x1, x2, y1, y2; // the corner coordinate of the original image; (0,0)(5215,2652) means whole image
 	
-	public Map(PApplet p, String file, float x, float y, float w, float h) {
-			this.p = p;
-			pic = this.p.loadImage(file);
+	public Map(PApplet parent, String file, float x, float y, float w, float h) {
+			this.parent = parent;
+			pic = this.parent.loadImage(file);
 			x0 = x;
 			y0 = y;
 			this.w = w;
@@ -40,7 +40,11 @@ public class Map {
 	}
 	
 	public void draw() {
-		p.image(pic, x0, y0, w, h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
+		parent.strokeWeight(Utilities.Converter(1));
+		parent.stroke(Colors.BACKGROUND_COLOR);
+		parent.fill(Colors.BACKGROUND_COLOR);
+		parent.rect(Positions.mapX, Positions.mapY, Positions.mapWidth, Positions.mapHeight);
+		parent.image(pic, x0, y0, w, h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
 	}
 
 	public boolean move(float mx, float my, float currentMX, float currentMY) {
