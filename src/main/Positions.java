@@ -33,18 +33,6 @@ public class Positions {
 	 * Do study their structure before changing any value
 	 */
 	
-	// suggestion box
-	public static float suggestionBoxX;
-	public static float suggestionBoxY;
-	public static float suggestionBoxWidth;
-	public static float suggestionBoxHeight;
-	
-	// textBox
-	public static float textBoxX ;
-	public static float textBoxY ;
-	public static float textBoxWidth ;
-	public static float textBoxHeight ;
-	
 	
 	// map
 	public static float mapWidth = Utilities.width * 3 / 6 - Utilities.Converter(3);
@@ -80,18 +68,18 @@ public class Positions {
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);
-	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float tweetWindowX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
 	public static float tweetWindowY = 0 + Utilities.Converter(2);
 	
 	// wordCloud
-	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float wordCloudBeforeHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float wordCloudBeforeX = Positions.tweetWindowX + Positions.tweetWindowWidth + Utilities.Converter(2);
 	public static float wordCloudBeforeY = 0 + Utilities.Converter(2);
 	
 	// wordCloud
-	public static float wordCloudAfterWidth = Utilities.width / 6 - Utilities.Converter(3);
+	public static float wordCloudAfterWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float wordCloudAfterHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float wordCloudAfterX = Positions.wordCloudBeforeX + Positions.wordCloudBeforeWidth + Utilities.Converter(2);
 	public static float wordCloudAfterY = 0 + Utilities.Converter(2);
@@ -101,6 +89,18 @@ public class Positions {
 	public static float keyboardHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float keyboardX = Positions.wordCloudAfterX;
 	public static float keyboardY = Utilities.height * 2 / 3 + Utilities.Converter(1);
+	
+	// suggestion box
+	public static float suggestionBoxX;
+	public static float suggestionBoxY;
+	public static float suggestionBoxWidth;
+	public static float suggestionBoxHeight;
+	
+	// textBox
+	public static float textBoxWidth = Positions.keyboardWidth - Utilities.Converter(2);
+	public static float textBoxHeight = Utilities.Converter(11);
+	public static float textBoxX = Positions.keyboardX + Utilities.Converter(1);
+	public static float textBoxY = Positions.keyboardY - Positions.textBoxHeight - Utilities.Converter(1);
 	
 	// zoom buttons
 	public static float zoomInButtonW = Utilities.Converter(20);

@@ -14,7 +14,7 @@ import processing.core.PConstants;
 public class Keyboard extends BasicControl {
 
 	char[][] lowerCaseButtons = {
-			//{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
+			{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
 			{ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' },
 			{ 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
 			{ 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<'}, 
@@ -38,7 +38,7 @@ public class Keyboard extends BasicControl {
 
 	
 	char[][] upperCaseButtons = {
-			//{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
+			{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
 			{ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' },
 			{ 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' },
 			{ 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<'}, 
@@ -98,8 +98,8 @@ public class Keyboard extends BasicControl {
 		super(parent,keyboardX,keyboardY,keyboardWidth,keyboardY2);
 
 		// Setup the spacing
-		this.horizontalSpacing = Utilities.Converter(5);
-		this.verticalSpacing = Utilities.Converter(5);
+		this.horizontalSpacing = Utilities.Converter(2);
+		this.verticalSpacing = Utilities.Converter(2);
 
 		// Set the color of the buttons
 		this.buttonsBackgroundColor = Colors.gray;
@@ -167,6 +167,10 @@ public class Keyboard extends BasicControl {
 				}
 			}
 		}
+		
+		
+		
+		
 	}
 
 	public int Click(float X, float Y) {

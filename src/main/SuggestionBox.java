@@ -68,7 +68,10 @@ public class SuggestionBox extends BasicControl {
 		
 		int count = 0;
 		int matchCount = 0;
-		
+		parent.strokeWeight(Utilities.Converter(1));
+		parent.stroke(Colors.BACKGROUND_COLOR);
+		parent.fill(Colors.BACKGROUND_COLOR);
+		parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.stroke(textBoxBorderColor);
 		parent.fill(textBoxBackgroundColor);

@@ -20,7 +20,7 @@ public class Colors {
 	
 	public static int filterColor = 0xFF987E18;
 	
-	public static int windowBackground = 0xFF223322;//0xFF202020; 
+	public static int windowBackground = 0xff1f1f1f;//0xFF202020; 
 	
 	public static int grey = 0xFF999999;
 	
