@@ -113,6 +113,11 @@ public class Positions {
 	public static float zoomOutButtonX = zoomInButtonX;
 	public static float zoomOutButtonY = Positions.mapY + Positions.mapHeight / 2 + Utilities.Converter(3);
 	
-
+	//track buttons
+	public static float trackButtonW = U.Converter(30);
+	public static float trackButtonH = U.Converter(20);
+	public static float trackButtonX = U.width/2 + U.Converter(5);
+	public static float trackButtonY = U.width*9/10 + U.Converter(5);
+	
 }
 

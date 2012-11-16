@@ -55,6 +55,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomInBtn;
 	Button zoomOutBtn;
 	
+	Button trackButton;
 	Button hourPlus;
 	Button hourMinus;
 	
@@ -65,8 +66,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
 	
-	private int currentDay;
-	private String currentWord;
 	private int bHour; //begin hour
 	private int eHour; //end hour
 	
@@ -76,16 +75,15 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void initApp() {
 		Utilities.CS424_Project4_Group4 = this;
-		currentDay = 17;
-		currentWord = "accident";
+		U.currentWord = "accident";
 		bHour = 10;
 		eHour = 14;
 		
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
-		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-		//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 		//getWordCountPair(dataWords);
 		
 		// begin of components initialization
@@ -126,6 +124,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		hourPlus = new Button(this, Utilities.width*7/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
 		hourPlus.setName("h+");
 		controls.add(hourPlus);
+		trackButton = new Button(this, Pos.trackButtonX, Pos.trackButtonY, Pos.trackButtonW, Pos.trackButtonH/2);
+		hourPlus.setName("track");
+
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
@@ -162,14 +163,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		textAlign(PConstants.LEFT,PConstants.CENTER);
 		textSize(Utilities.Converter(10));
 		fill(Colors.WHITE);
-		text("current keyword: "+currentWord,Utilities.width*4/5,Utilities.height/2);
-		text("current Day: "+currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
+		text("current keyword: "+U.currentWord,Utilities.width*4/5,Utilities.height/2);
+		text("current Day: "+U.currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
 		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
 		popStyle();
 		
 		map.draw();
 		
-		// draw button - will change
+		// TODO: draw button - will change
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
@@ -186,10 +187,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		//zoomOutBtn.draw();
 		
 		// draw weather panel
-		weatherPanel.draw(currentDay);
+		weatherPanel.draw(U.currentDay);
 		
 		// draw time slider
 		timeSlider.draw();
+		
+		// draw track button
 		
 		// draw word cloud
 		
@@ -402,10 +405,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<=20;i++) {
 			if (((Button)controls.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
-				currentDay = i;
-				//dataPos = qManager.getDataPosByDateAndWord(currentDay, currentWord);
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+				U.currentDay = i;
+				//dataPos = qManager.getDataPosByDateAndWord(U.currentDay, U.currentWord);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				return;
 			}
@@ -421,8 +424,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (bHour>0) {
 				bHour --;
 				eHour --;
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-				dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+				dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
 			return;
@@ -432,8 +435,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (eHour <24) {
 				bHour ++;
 				eHour ++;
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(currentDay, bHour, eHour, currentWord);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(currentDay, bHour, eHour);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
 			return;

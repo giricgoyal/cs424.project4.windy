@@ -22,6 +22,7 @@ public class DefaultMarker extends AbstractMarker {
 	@Override
 	public void draw() {
 		p.pushStyle();
+		p.noStroke();
 		p.fill(Colors.LIGHT_BLUE);
 		p.ellipse(x+Pos.mapX, y+Pos.mapY, Utilities.Converter(2), Utilities.Converter(2));
 		p.popStyle();
