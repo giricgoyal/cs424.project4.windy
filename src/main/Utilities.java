@@ -13,8 +13,14 @@ import processing.core.PFont;
  *
  */
 public class Utilities {
+	
+	// configuration
 	public static boolean isWall = false;
 	public static boolean drawGridLine = true;
+	
+	// variables
+	public static int currentDay = 17;
+	public static String currentWord = "Accident";
 	
 	public static float Converter(float pixel) {
 		if (isWall)
