@@ -27,12 +27,6 @@ public class Positions {
 	public static float sampleTextX = Utilities.width/2;
 	public static float sampleTextY = Utilities.height/2;
 	
-	// day buttons
-	public static float dayButtonW = Utilities.Converter(15);
-	public static float dayButtonH = Utilities.Converter(10);
-	public static float dayButtonX = Utilities.Converter(40);
-	public static float dayButtonY = Utilities.height - Utilities.Converter(2) - Positions.dayButtonH;
-	
 	/**
 	 * positions coordinates for the items on the screen
 	 * Positions are relative to each other.
@@ -44,6 +38,12 @@ public class Positions {
 	public static float mapHeight = Utilities.height * 2 / 3 - Utilities.Converter(3);
 	public static float mapX = 0 + Utilities.Converter(2);
 	public static float mapY = 0 + Utilities.Converter(2);
+	
+	// day buttons
+	public static float dayButtonX = mapX;
+	public static float dayButtonY = Utilities.height * 6 / 7;
+	public static float dayButtonW = mapWidth/21;
+	public static float dayButtonH = Utilities.height - dayButtonY - Utilities.Converter(3);
 	
 	// weatherPanel
 	public static float weatherPanelWidth = U.width / 9;
@@ -59,9 +59,11 @@ public class Positions {
 
 	// timeSlider
 	public static float timeSliderWidth = Positions.mapWidth;
-	public static float timeSliderHeight = Utilities.height / (3*2) - Utilities.Converter(2);
+	public static float timeSliderHeight = Utilities.height / (3*2) - Utilities.Converter(3);
 	public static float timeSliderX = Positions.mapX;
-	public static float timeSliderY = Utilities.height * 2 / 3 - Utilities.Converter(2);
+	public static float timeSliderY = Utilities.height * 2 / 3 + Utilities.Converter(3);
+	public static float lockWidth = U.Converter(6);
+	public static float lockHeight = timeSliderHeight;
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);
@@ -88,7 +90,6 @@ public class Positions {
 	public static float keyboardY = Utilities.height * 2 / 3 + Utilities.Converter(1);
 	
 	// zoom buttons
-	// FIXME: right side of zoom buttons should be aligned with map, but not 
 	public static float zoomInButtonW = Utilities.Converter(20);
 	public static float zoomInButtonH = Utilities.Converter(15);
 	public static float zoomInButtonX = Pos.mapX + Pos.mapWidth - zoomInButtonW;

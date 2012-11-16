@@ -42,7 +42,10 @@ public class CS424_Project4_Group4 extends PApplet{
 	PVector moveDis;
 	
 	// weather panel
-	private WeatherPanel weatherPanel;
+	WeatherPanel weatherPanel;
+	
+	// timeSlider
+	TimeSlider timeSlider; 
 	
 	float currentMX, currentMY; // current Mouse X & Y
 	
@@ -63,7 +66,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	private int eHour; //end hour
 	
 	private boolean isPressing; // mouse pressing
-	
 	
 	QueryManager qManager;
 	
@@ -90,6 +92,10 @@ public class CS424_Project4_Group4 extends PApplet{
 				Pos.weatherPanelWidth, Pos.weatherPanelHeight, 
 				qManager.getAllWeather());
 		
+		timeSlider = new TimeSlider(this,
+				Pos.timeSliderX, Pos.timeSliderY,
+				Pos.timeSliderWidth, Pos.timeSliderHeight, Pos.lockWidth, Pos.lockHeight);
+		
 		// end of components initialization
 		
 		moveDis = new PVector(0,0);
@@ -104,7 +110,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls = new ArrayList<Button>();
 		
 		for (int i=0;i<=20;i++) {
-			dayButton = new Button(this, Positions.dayButtonX+Utilities.Converter(20*i), Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH);
+			dayButton = new Button(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH);
 			dayButton.setName("D"+i);
 			controls.add(dayButton);
 		}
@@ -170,7 +176,25 @@ public class CS424_Project4_Group4 extends PApplet{
 		// draw weather panel
 		weatherPanel.draw(currentDay);
 		
+		// draw time slider
+		timeSlider.draw();
+		
 		// draw word cloud
+		
+		
+		
+		if (U.drawGridLine) {
+			pushStyle();
+			strokeWeight(U.Converter(0.5));
+			stroke(Colors.RED);
+			line(0, U.height/3*1, U.width,  U.height/3*1);
+			line(0, U.height/3*2, U.width,  U.height/3*2);
+			line(U.width/6*1,0,U.width/6*1,U.height);
+			line(U.width/6*2,0,U.width/6*2,U.height);
+			line(U.width/6*3,0,U.width/6*3,U.height);
+			line(U.width/6*4,0,U.width/6*4,U.height);
+			line(U.width/6*5,0,U.width/6*5,U.height);
+		}
 		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
