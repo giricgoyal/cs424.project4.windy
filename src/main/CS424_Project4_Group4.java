@@ -152,7 +152,7 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 		controls.add(tw);
-		tw.setText("sample tweetttttttttttttttttt");
+		tw.setText("sample tweetttttt ttttttttttt ttttttt   ttttttttttt  tttttt ttttt tt t t ttt t t");
 		
 		
 		
