@@ -71,6 +71,8 @@ public class Positions {
 	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float tweetWindowX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
 	public static float tweetWindowY = 0 + Utilities.Converter(2);
+	public static float tweetWidth;
+	public static float tweetHeight;
 	
 	// wordCloud
 	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(2);

@@ -24,7 +24,7 @@ public class Colors {
 	
 	public static int grey = 0xFF999999;
 	
-	
+	public static int tweetColor = 0xFFE3F8FF;
 	
 	public static int map1;
 	public static int map2;

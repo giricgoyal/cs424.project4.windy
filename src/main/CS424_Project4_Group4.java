@@ -61,6 +61,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	Keyboard keyboard;
 	SuggestionBox sb;
+	TweetWindow tw;
 	
 	WordCloud beforeWordCloud, afterWordCloud;
 	
@@ -152,6 +153,9 @@ public class CS424_Project4_Group4 extends PApplet{
 				Positions.textBoxWidth, Positions.textBoxHeight,this);
 		controls.add(sb);
 
+		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+		controls.add(tw);
+		tw.setText("sample tweetttttttttttttttttt");
 		
 		
 		
