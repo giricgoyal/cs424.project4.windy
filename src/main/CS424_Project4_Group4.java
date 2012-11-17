@@ -56,8 +56,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomOutBtn;
 	
 	Button trackButton;
-	Button hourPlus;
-	Button hourMinus;
 	
 	Keyboard keyboard;
 	SuggestionBox sb;
@@ -128,13 +126,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			dayButton.setName("D"+i);
 			dayButtons.add(dayButton);
 		}
-		
-		hourMinus = new Button(this, Utilities.width*7/10, Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		hourMinus.setName("h-");
-		controls.add(hourMinus);
-		hourPlus = new Button(this, Utilities.width*7/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		hourPlus.setName("h+");
-		controls.add(hourPlus);
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
