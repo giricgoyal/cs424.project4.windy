@@ -51,7 +51,7 @@ public class TimeSlider {
 		p.pushStyle();
 
 		
-		p.strokeWeight(U.Converter(1));
+		p.strokeWeight(U.Converter(0.5));
 		p.stroke(Colors.WHITE);
 		p.fill(Colors.LIGHT_GRAY);
 

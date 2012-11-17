@@ -50,7 +50,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	float currentMX, currentMY; // current Mouse X & Y
 	
 	ArrayList<BasicControl> controls;
-	Button dayButton;
+	ArrayList<DayButton> dayButtons;
 	
 	Button zoomInBtn;
 	Button zoomOutBtn;
@@ -122,10 +122,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		controls = new ArrayList<BasicControl>();
 		
+		dayButtons = new ArrayList<DayButton>();
+		
 		for (int i=0;i<=20;i++) {
-			dayButton = new Button(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH);
+			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i]);
 			dayButton.setName("D"+i);
-			controls.add(dayButton);
+			dayButtons.add(dayButton);
 		}
 		
 		hourMinus = new Button(this, Utilities.width*7/10, Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
@@ -134,9 +136,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		hourPlus = new Button(this, Utilities.width*7/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
 		hourPlus.setName("h+");
 		controls.add(hourPlus);
-		trackButton = new Button(this, Pos.trackButtonX, Pos.trackButtonY, Pos.trackButtonW, Pos.trackButtonH/2);
-		hourPlus.setName("track");
-
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
@@ -182,6 +181,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		map.draw();
 		
 		// TODO: draw button - will change
+		for (DayButton d : dayButtons) {
+			d.draw();
+		}
+		
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
@@ -198,8 +201,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw time slider
 		timeSlider.draw();
-		
-		// draw track button
 		
 		// draw word cloud
 		beforeWordCloud.draw();
@@ -420,7 +421,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		isPressing = false;
 		
 		for (int i=0;i<=20;i++) {
-			if (((Button)controls.get(i)).checkIn(mx,my)) {
+			if ((dayButtons.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
 				U.currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(U.currentDay, U.currentWord);
