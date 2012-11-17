@@ -5,6 +5,7 @@ package main;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import types.DataCountPair;
 
 /**
  * @author joysword
@@ -16,11 +17,13 @@ public class TimeSlider {
 	private PApplet p;
 	private float x, y;
 	private float w, h;
+	private DataCountPair[] data; // size = 21
+	private int[] maxCnt; // size = 21
 	
 	Lock lLock, rLock;
 	
 
-	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lockW, float lockH) {
+	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lockW, float lockH, DataCountPair[] dataCountPair) {
 		this.p = p;
 		x = _x;
 		y = _y;
@@ -29,6 +32,19 @@ public class TimeSlider {
 		
 		lLock = new Lock(x, y+h/2, lockW, lockH);
 		rLock = new Lock(x+w, y+h/2, lockW, lockH);
+		
+		data = dataCountPair;
+		maxCnt = new int[21];
+		
+		for (int i=0;i<21;i++) {
+			maxCnt[i] = 0;
+			
+			for (int j=0;j<48;j++) {
+				if (maxCnt[i]<data[i].getCnt()[j]) {
+					maxCnt[i]=data[i].getCnt()[j];
+				}
+			}
+		}
 	}
 
 	public void draw() {
@@ -42,14 +58,21 @@ public class TimeSlider {
 		p.rectMode(PConstants.CORNER);
 		p.rect(x, y, w, h);
 
-		for (int col = 0; col < 21; col++) {
-			if (col % 2 == 0) {
-				//p.line(xx, y - h, xx, y + h);
-				// text(years[column], x, (plotY2 + textAscent() + 7)*scale);
-			}
+		p.fill(Colors.GRAPH_COLOR_1);
+		p.noStroke();
+		p.beginShape();
+		for (int col = 0; col < 48; col++) {
+			float plotX = PApplet.map((float)col, (float)0, (float)47, this.x, this.x+this.w);
+			float plotY = PApplet.map((float)data[U.currentDay].getCnt()[col], (float)0, (float)(maxCnt[U.currentDay]*1.1), this.y+this.h, this.y);
+			
+			p.vertex(plotX, plotY);
 		}
-
+		p.vertex(this.x+this.w, this.y+this.h);
+		p.vertex(this.x, this.y+this.h);
+		p.endShape();
+		
 		p.popStyle();
+		
 		lLock.draw();
 		rLock.draw();
 	}

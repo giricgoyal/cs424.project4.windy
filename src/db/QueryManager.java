@@ -51,6 +51,11 @@ public class QueryManager {
 	public DataWeather[] getAllWeather() {
 		return db.getAllWeather();
 	}
+	
+	public DataCountPair[] getAllCount_By_Keyword(String keyword) {
+		String filters = "keyword = '"+keyword+"'";
+		return db.getCount(keyword, filters);
+	}
 
 	//get Filters
 	private String getFilterDate(int date) {

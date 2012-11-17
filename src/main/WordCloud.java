@@ -25,7 +25,6 @@ public class WordCloud extends BasicControl{
 	
 	public WordCloud(PApplet parent, float x, float y, float width, float height, String fileName) {
 		super(parent, x, y, width, height);
-		// TODO Auto-generated constructor stub
 		
 		this.parent = parent;
 		canvas = new PGraphicsJava2D();
@@ -106,7 +105,6 @@ public class WordCloud extends BasicControl{
 	
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
 		/*parent.rectMode(PConstants.CORNER);
 		parent.noFill();
 		parent.stroke(Colors.DARK_WHITE);
