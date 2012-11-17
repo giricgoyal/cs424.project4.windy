@@ -7,6 +7,7 @@ import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
 import processing.core.PFont;
+import processing.core.PShape;
 
 /**
  * @author giric
@@ -47,6 +48,12 @@ public class Utilities {
 	
 	public static int mapMaxW = 5215;
 	public static int mapMaxH = 2652;
+	
+	public static PShape rain;
+	public static PShape cloudy;
+	public static PShape clear;
+	public static PShape showers;
+	
 	
 	public static AbstractMarker getMarkerType(AbstractMarker marker, MarkerType markerType) {
 

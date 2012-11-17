@@ -2,6 +2,8 @@ package main;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
+import processing.core.PShape;
 import types.DataWeather;
 
 /**
@@ -17,32 +19,59 @@ import types.DataWeather;
 
 public class WeatherPanel {
 	
-	PApplet p;
+	PApplet parent;
 	float x,y,w,h;
 	DataWeather[] info;
 	
+	PShape weather;
+	
 	public WeatherPanel(PApplet _p, float _x, float _y, float _w, float _h, DataWeather[] info) {
-		p = _p;
+		parent = _p;
 		x = _x;
 		y = _y;
 		w = _w;
 		h = _h;
 		this.info = info;
+		//Utilities.rain = parent.loadShape("rain.svg");
+		//Utilities.cloudy = parent.loadShape("cloudy.svg");
+		//Utilities.showers = parent.loadShape("rain.svg");
+		//Utilities.clear = parent.loadShape("clear.svg");
+		
 	}
 	
 	public void draw(int day) {
 		
-		p.pushStyle();
+		parent.pushStyle();
 		
-		p.rectMode(PConstants.CORNER);
-		p.fill(Colors.WHITE);
-		p.noStroke();
-		p.rect(x,y,w,h);
+		parent.rectMode(PConstants.CORNER);
+		parent.fill(Colors.WHITE);
+		parent.noStroke();
+		parent.rect(x,y,w,h);
 		
-		p.fill(Colors.DARK_GRAY);
-		p.textAlign(PConstants.LEFT, PConstants.TOP);
-		p.textSize(U.Converter(5));
-		p.text("Weather: "+ info[day].getWeather()+"\nWind Speed: "+ info[day].getSpeed()+" mph\nWind Direction: ", x+w/20, y+h/15);
+		parent.fill(Colors.DARK_GRAY);
+		parent.textAlign(PConstants.LEFT, PConstants.TOP);
+		parent.textSize(U.Converter(5));
+		
+		
+		if (info[day].getWeather().compareToIgnoreCase("clear") == 0){
+			this.weather = Utilities.clear;	
+		}
+		else if (info[day].getWeather().compareToIgnoreCase("rain")==0){
+			this.weather = Utilities.rain;
+		}
+		else if (info[day].getWeather().compareToIgnoreCase("showers")==0){
+			this.weather = Utilities.showers;
+		}
+		else if (info[day].getWeather().compareToIgnoreCase("cloudy") == 0) {
+			this.weather = Utilities.cloudy;
+		}
+		
+		if (weather!=null){
+			parent.shapeMode(PConstants.CORNER);
+			parent.shape(weather, x, y, w/2, h);
+			
+		}
+		parent.text("Weather: "+ info[day].getWeather()+"\nWind Speed: "+ info[day].getSpeed()+" mph\nWind Direction: ", x+w/20, y+h/15);
 		
 		if (info[day].getDirection().equals("E")) {
 			
@@ -66,6 +95,6 @@ public class WeatherPanel {
 			
 		}
 		
-		p.popStyle();
+		parent.popStyle();
 	}
 }
