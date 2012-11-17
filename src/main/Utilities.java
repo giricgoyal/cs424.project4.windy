@@ -23,6 +23,15 @@ public class Utilities {
 	// variables
 	public static int currentDay = 17;
 	public static String currentWord = "Accident";
+	public static int bHalf = 20; // include
+	public static int eHalf = 28; // exclude
+	public static int bHalf_temp;
+	public static int eHalf_temp;
+	
+	// constants
+	public static int NEITHER = -1;
+	public static int LEFT = 0;
+	public static int RIGHT = 1;
 	
 	public static float Converter(float pixel) {
 		if (isWall)
