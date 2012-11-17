@@ -36,6 +36,7 @@ public class DatabaseManager {
 			while (msql.next()) {
 				array.add(new DataPos(msql.getFloat("lat"),msql.getFloat("lon")));
 			}
+			msql.close();
 		}
 		return array;
 	}
@@ -50,6 +51,7 @@ public class DatabaseManager {
 			while (msql.next()) {
 				array.add(new DataPid(msql.getInt("pid")));
 			}
+			msql.close();
 		}
 		return array;
 	}
@@ -70,6 +72,7 @@ public class DatabaseManager {
 			}
 			String reg = "[,\\.\\s;!?]+";
 			String[] temp = str.split(reg); // temp contains all words
+			msql.close();
 			return temp;
 		}
 		return null;
@@ -87,8 +90,28 @@ public class DatabaseManager {
 				array[i] = new DataWeather(msql.getString("weather"), msql.getString("wspeed"), msql.getString("direction"));
 				i++;
 			}
+			msql.close();
 			return array;
 		}
 		return null;
+	}
+	
+	public DataCountPair[] getCount(String key, String filters) {
+		DataCountPair[] array = new DataCountPair[21];
+		for (int day=0;day<21;day++) {
+			int[] cnt = new int[48];
+			String query;
+			if (msql.connect()) {
+				query = "select halfhour, totalcount from microblogcount where day = "+day+" and "+filters;
+				System.out.println(query);
+				msql.query(query);
+				while (msql.next()) {
+					cnt[msql.getInt("halfhour")]=msql.getInt("totalcount");
+				}
+				array[day] = new DataCountPair(key, cnt);
+				msql.close();
+			}
+		}
+		return array;
 	}
 }

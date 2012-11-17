@@ -42,7 +42,6 @@ public class SuggestionBox extends BasicControl {
 	
 	public SuggestionBox(PApplet parent, float x, float y, float width,	float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
-		// TODO Auto-generated constructor stub
 		this.textBoxText = "";
 		this.textBoxBorderColor = Colors.black;
 		this.textBoxBackgroundColor = Colors.gray;

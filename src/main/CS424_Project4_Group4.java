@@ -45,7 +45,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	WeatherPanel weatherPanel;
 	
 	// timeSlider
-	TimeSlider timeSlider; 
+	TimeSlider timeSlider;
 	
 	float currentMX, currentMY; // current Mouse X & Y
 	
@@ -66,6 +66,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	// data
 	ArrayList<DataPos> dataPos;
+	DataCountPair[] dataCount;
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
 	
@@ -86,6 +87,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 		//getWordCountPair(dataWords);
 		
@@ -100,7 +102,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		timeSlider = new TimeSlider(this,
 				Pos.timeSliderX, Pos.timeSliderY,
-				Pos.timeSliderWidth, Pos.timeSliderHeight, Pos.lockWidth, Pos.lockHeight);
+				Pos.timeSliderWidth, Pos.timeSliderHeight, Pos.lockWidth, Pos.lockHeight,
+				dataCount);
 		
 		// end of components initialization
 		
@@ -185,10 +188,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				m.draw();
 			}
 		}
-		
-		// draw zoom in and out
-		//zoomInBtn.draw();
-		//zoomOutBtn.draw();
 		
 		// draw weather panel
 		weatherPanel.draw(U.currentDay);
