@@ -65,6 +65,8 @@ public class Utilities {
 	public static PShape clear;
 	public static PShape showers;
 	
+	public static String currentTweet = "";
+	
 	public static boolean suggestionBox = false;
 	
 	

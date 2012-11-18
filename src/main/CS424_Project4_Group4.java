@@ -443,7 +443,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		// first reset every variable that indicates 'pressing' to original value
 		if (isTouchingMap) {
 			isTouchingMap = false;
-			return;
+			//return;
 		}
 		
 		if (whichLock == U.LEFT) {
@@ -494,6 +494,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (locationButton.isInRectangle(mx, my)){
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
+				if (locationButton.isSelected())
+					
 				return;
 			}
 		}
@@ -519,7 +521,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
 */
-
 
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
