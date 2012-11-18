@@ -29,12 +29,12 @@ public class DatabaseManager {
 		ArrayList<DataPos> array  = new ArrayList<DataPos>();
 		String query;
 		if (msql.connect()) {
-			query = "select lat, lon from microblog where "+
+			query = "select pid, day, hour, min, lat, lon, text from microblog where "+
 					filters;
 			System.out.println(query);
 			msql.query(query);
 			while (msql.next()) {
-				array.add(new DataPos(msql.getFloat("lat"),msql.getFloat("lon")));
+				array.add(new DataPos(msql.getInt("pid"), msql.getInt("day"), msql.getInt("hour"), msql.getInt("min"),msql.getFloat("lat"),msql.getFloat("lon"), msql.getString("text")));
 			}
 			msql.close();
 			System.out.println("done!");

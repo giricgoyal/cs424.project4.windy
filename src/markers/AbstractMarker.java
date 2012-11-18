@@ -1,16 +1,25 @@
 package markers;
 
+import Util.U;
 import processing.core.PApplet;
 
 public class AbstractMarker {
 	float x;
 	float y;
+	int pid;
+	int hour;
+	int min;
+	String text;
 	PApplet p;
 	
-	public AbstractMarker(PApplet p, float x, float y) {
+	public AbstractMarker(PApplet p, float x, float y, int pid, int hour, int min, String text) {
 		this.p = p;
 		this.x = x;
 		this.y = y;
+		this.pid = pid;
+		this.hour = hour;
+		this.min = min;
+		this.text = text;
 	}
 	
 	public void draw() {
@@ -40,5 +49,25 @@ public class AbstractMarker {
 	
 	public float getY() {
 		return y;
+	}
+	
+	public int getPid() {
+		return pid;
+	}
+	
+	public int getHour() {
+		return hour;
+	}
+	
+	public int getMin() {
+		return min;
+	}
+	
+	public String getTweet() {
+		return text;
+	}
+	
+	public boolean checkIn(float _x, float _y) {
+		return (_x > x - U.markerHalfWidth && _x < x + U.markerHalfWidth && _y > y - U.markerHalfHeight && _y < y + U.markerHalfHeight);
 	}
 }

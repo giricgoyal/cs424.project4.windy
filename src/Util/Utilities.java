@@ -28,11 +28,14 @@ public class Utilities {
 	public static int eHalf = 28; // exclude
 	public static int bHalf_temp;
 	public static int eHalf_temp;
+	public static String currentTweet = "";
+	public static String tweetTime = "";
+	public static int tweetPid = -1;
 	
 	// constants
-	public static int NEITHER = -1;
-	public static int LEFT = 0;
-	public static int RIGHT = 1;
+	public static final int NEITHER = -1;
+	public static final int LEFT = 0;
+	public static final int RIGHT = 1;
 	
 	public static float Converter(float pixel) {
 		if (isWall)
@@ -72,18 +75,21 @@ public class Utilities {
 
 		switch (markerType) {
 		case DEFAULT_MARKER:
-		    return new DefaultMarker(marker.getP(), marker.getX(), marker.getY());
+		    return new DefaultMarker(marker.getP(), marker.getX(), marker.getY(), marker.getPid(), marker.getHour(), marker.getMin(), marker.getTweet());
 		default:
 		    return null;
 	    }
 	}
 	
 	// total number of Tweets of each day
-	public static int[] totalTweets = {
+	public static final int[] totalTweets = {
 		44336, 45257, 45082, 44384, 46669, 44400, 44978,
 		46302, 44446, 44717, 44766, 46785, 45239, 46667,
 		45556, 44964, 48975, 46534, 61871, 71279, 69870
 	};
-	public static int maxTweets = 71279; // day 19 (second last day)
+	public static final int maxTweets = 71279; // day 19 (second last day)
+	
+	public static final float markerHalfWidth = U.Converter(5);
+	public static final float markerHalfHeight = U.Converter(5);
 }
 	

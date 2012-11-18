@@ -93,9 +93,18 @@ public class CS424_Project4_Group4 extends PApplet{
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
-		dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
-		getWordCountPair(dataWords);
+		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+		//getWordCountPair(dataWords);
 		
+		/*
+		for (int day=0;day<21;day++) {
+			for (int h = 0;h<48;h++) {
+				dataWords = qManager.getAllText_By_Date_TimeRange(day, h, h+1);
+				saveStrings(dataPath("D"+day+"H"+h+".txt"), getWordCountPair_ToFile(dataWords));
+				System.out.println("D"+day+"H"+h+".txt done!");
+			}
+		}*/
+			
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
 		map.setup(0, 0, U.mapMaxW, U.mapMaxH); // initial range of the map by pixel in original image
@@ -264,10 +273,10 @@ public class CS424_Project4_Group4 extends PApplet{
 			float y = map(_y, y1Lat, y2Lat, map.y0, map.h);	
 			switch (type) {
 			case DEFAULT_MARKER:
-				markers.add(new DefaultMarker(this,x,y));
+				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet()));
 				break;
 			default:
-				markers.add(new DefaultMarker(this,x,y));
+				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet()));
 			}
 		}
 	}
@@ -315,6 +324,46 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		System.out.println("total count: "+cnt);
 		return result;
+	}
+	
+	private String[] getWordCountPair_ToFile(String[] words) {
+		List<WordCountPair> entry = new ArrayList<WordCountPair>();
+		for (int i=0;i<words.length;i++) {
+			boolean exist = false;
+			for (WordCountPair e : entry) {
+				if (words[i].equals(e.getWord())) {
+					e.countInc();
+					exist = true;
+					break;
+				}
+			}
+			if (!exist) {
+				entry.add(new WordCountPair(words[i]));
+			}
+			System.out.println(i+" ("+(float)i*100/words.length+"%)");
+		}
+		Collections.sort(entry, new Comparator<WordCountPair>() {
+		    public int compare(WordCountPair a, WordCountPair b) {
+		    	if (a.getCount()>b.getCount()) return -1;
+		    	else if (a.getCount()<b.getCount()) return 1;
+		    	return 0;
+		    }
+		});
+		int cnt = 0;
+		ArrayList<WordCountPair> result = new ArrayList<WordCountPair>();
+		for (WordCountPair e : entry) {
+			if (!isStopWord(e.getWord()) && e.getCount()>entry.size()*0.005) {
+				System.out.println(e.getWord()+" "+e.getCount());
+				result.add(new WordCountPair(e.getWord(),e.getCount()));
+				cnt++;
+			}
+		}
+		System.out.println("total count: "+cnt);
+		String[] fff = new String[result.size()];
+		for (int i=0;i<result.size();i++) {
+			fff[i] = result.get(i).getWord() + "," + result.get(i).getCount();
+		}
+		return fff;
 	}
 	
 	private boolean isStopWord(String str) {
@@ -443,23 +492,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		// first reset every variable that indicates 'pressing' to original value
 		if (isTouchingMap) {
 			isTouchingMap = false;
-			return;
 		}
 		
 		if (whichLock == U.LEFT) {
 			whichLock = U.NEITHER;
 			U.bHalf = U.bHalf_temp;
 			dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+			getWordCountPair(dataWords);
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
 			whichLock = U.NEITHER;
 			U.eHalf = U.eHalf_temp;
 			dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+			getWordCountPair(dataWords);
 			return;
 		}
 		
@@ -468,10 +518,10 @@ public class CS424_Project4_Group4 extends PApplet{
 			if ((dayButtons.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
 				U.currentDay = i;
-				//dataPos = qManager.getDataPosByDateAndWord(U.currentDay, U.currentWord);
 				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHalf, eHalf);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+				getWordCountPair(dataWords);
 				return;
 			}
 		}
@@ -497,29 +547,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 		}
-/*
-		if (hourMinus.checkIn(mx,my)) {
-			System.out.println("hour- Clicked");
-			if (bHour>0) {
-				bHour --;
-				eHour --;
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
-				dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			}
-			return;
-		}
-		if (hourPlus.checkIn(mx,my)) {
-			System.out.println("hour+ Clicked");
-			if (eHour <24) {
-				bHour ++;
-				eHour ++;
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			}
-*/
-
 
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
@@ -556,6 +583,21 @@ public class CS424_Project4_Group4 extends PApplet{
 				//updateMarkerPos(markers);
 			}
 			return;
+		}
+		
+		for (AbstractMarker m : markers) {
+			if (map.checkIn(m.getX(),m.getY())) {
+				if (m.checkIn(mx, my)) {
+					U.currentTweet = m.getTweet();
+					U.tweetTime = (m.getHour() > 9)? 
+							((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+							: 
+							( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+					U.tweetPid = m.getPid();
+					System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+					return;
+				}
+			}
 		}
 	}
 	

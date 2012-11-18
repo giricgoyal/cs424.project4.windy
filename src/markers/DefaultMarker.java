@@ -15,8 +15,8 @@ import markers.AbstractMarker;
  */
 public class DefaultMarker extends AbstractMarker {
 
-	public DefaultMarker(PApplet p, float x, float y) {
-		super(p, x, y);
+	public DefaultMarker(PApplet p, float x, float y, int pid, int hour, int min, String text) {
+		super(p, x, y, pid, hour, min, text);
 	}
 	
 	@Override
