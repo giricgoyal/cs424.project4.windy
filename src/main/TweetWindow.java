@@ -81,7 +81,7 @@ public class TweetWindow extends BasicControl{
 			spaceIndex = (int)length;
 			while(spaceIndex > index + maxLenghtPerLine ) {
 				spaceIndex = (int)(Utilities.currentTweet.lastIndexOf(" ", spaceIndex-1));
-				System.out.println(spaceIndex);
+				//System.out.println(spaceIndex);
 			}
 			index = spaceIndex;
 			array[spaceIndex] = '\n';
@@ -96,7 +96,6 @@ public class TweetWindow extends BasicControl{
 	
 	
 	public void drawText() {
-		setTweet();
 		parent.noStroke();
 		parent.fill(Colors.BLACK);
 		parent.textSize(Utilities.Converter(5));

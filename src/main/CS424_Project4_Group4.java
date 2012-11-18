@@ -598,6 +598,7 @@ public class CS424_Project4_Group4 extends PApplet{
 							( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
 					U.tweetPid = m.getPid();
 					System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+					tw.setTweet();
 					return;
 				}
 			}
