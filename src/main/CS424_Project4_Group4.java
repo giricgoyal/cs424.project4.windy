@@ -580,6 +580,28 @@ public class CS424_Project4_Group4 extends PApplet{
 				map.x2 += mW;
 				map.y1 -= mH;
 				map.y2 += mH;
+				
+				// we don't want blank
+				float offsetX = 0;
+				float offsetY = 0;
+				if (map.x1<0) {
+					offsetX = 0-map.x1;
+				}
+				else if (map.x2 > U.mapMaxW) {
+					offsetX = U.mapMaxW - map.x2;
+				}
+				if (map.y1<0) {
+					offsetY = 0-map.y1;
+				}
+				else if (map.y2 > U.mapMaxH){
+					offsetY = U.mapMaxH-map.y2;
+				}
+				map.x1 += offsetX;
+				map.x2 += offsetX;
+				map.y1 += offsetY;
+				map.y2 += offsetY;
+				// end
+				
 				mW = mW*4;
 				mH = mH*4;
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
