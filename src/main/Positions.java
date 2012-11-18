@@ -63,8 +63,8 @@ public class Positions {
 	public static float timeSliderHeight = Utilities.height / (3*2) - Utilities.Converter(3);
 	public static float timeSliderX = Positions.mapX;
 	public static float timeSliderY = Utilities.height * 2 / 3 + Utilities.Converter(3);
-	public static float lockWidth = U.Converter(6);
 	public static float lockHeight = timeSliderHeight;
+	public static float lockWidth = lockHeight*2/5;
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);

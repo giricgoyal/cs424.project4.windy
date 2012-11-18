@@ -50,14 +50,12 @@ public class CS424_Project4_Group4 extends PApplet{
 	float currentMX, currentMY; // current Mouse X & Y
 	
 	ArrayList<BasicControl> controls;
-	Button dayButton;
+	ArrayList<DayButton> dayButtons;
 	
 	Button zoomInBtn;
 	Button zoomOutBtn;
 	
 	Button trackButton;
-	Button hourPlus;
-	Button hourMinus;
 	
 	Button locationButton;
 	
@@ -73,25 +71,22 @@ public class CS424_Project4_Group4 extends PApplet{
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
 	
-	private int bHour; //begin hour
-	private int eHour; //end hour
+	private boolean isTouchingMap = false; // mouse pressing
 	
-	private boolean isPressing; // mouse pressing
+	private int whichLock = U.NEITHER;
 	
 	QueryManager qManager;
 	
 	public void initApp() {
 		Utilities.CS424_Project4_Group4 = this;
 		U.currentWord = "accident";
-		bHour = 10;
-		eHour = 14;
 		
 		dataPos = new ArrayList<DataPos>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
-		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
-		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
+		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHalf, eHalf);
 		//getWordCountPair(dataWords);
 		
 		// begin of components initialization
@@ -104,8 +99,10 @@ public class CS424_Project4_Group4 extends PApplet{
 				qManager.getAllWeather());
 		
 		timeSlider = new TimeSlider(this,
-				Pos.timeSliderX, Pos.timeSliderY,
-				Pos.timeSliderWidth, Pos.timeSliderHeight, Pos.lockWidth, Pos.lockHeight,
+				Pos.timeSliderX, Pos.timeSliderY, Pos.timeSliderWidth, Pos.timeSliderHeight,
+				map(U.bHalf, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth),
+				map(U.eHalf, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth),
+				Pos.lockWidth, Pos.lockHeight,
 				dataCount);
 		
 		// end of components initialization
@@ -124,21 +121,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		controls = new ArrayList<BasicControl>();
 		
-		for (int i=0;i<=20;i++) {
-			dayButton = new Button(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH);
-			dayButton.setName("D"+i);
-			controls.add(dayButton);
-		}
+		dayButtons = new ArrayList<DayButton>();
 		
-		hourMinus = new Button(this, Utilities.width*7/10, Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		hourMinus.setName("h-");
-		controls.add(hourMinus);
-		hourPlus = new Button(this, Utilities.width*7/10+Utilities.Converter(20), Utilities.height*9/10, Positions.dayButtonW, Positions.dayButtonH);
-		hourPlus.setName("h+");
-		controls.add(hourPlus);
-		trackButton = new Button(this, Pos.trackButtonX, Pos.trackButtonY, Pos.trackButtonW, Pos.trackButtonH/2);
-		hourPlus.setName("track");
-
+		for (int i=0;i<=20;i++) {
+			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i]);
+			dayButton.setName("D"+i);
+			dayButtons.add(dayButton);
+		}
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
@@ -187,6 +176,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		map.draw();
 		
 		// TODO: draw button - will change
+		for (DayButton d : dayButtons) {
+			d.draw();
+		}
+		
 		for (BasicControl bc : controls) {
 			bc.draw();
 		}
@@ -203,8 +196,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw time slider
 		timeSlider.draw();
-		
-		// draw track button
 		
 		// draw word cloud
 		beforeWordCloud.draw();
@@ -224,12 +215,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		pushStyle();
-		textAlign(PConstants.LEFT,PConstants.CENTER);
-		textSize(Utilities.Converter(10));
-		fill(Colors.WHITE);
-		text("current keyword: "+U.currentWord,Utilities.width*4/5,Utilities.height/2);
-		text("current Day: "+U.currentDay,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(10));
-		text("current Time: "+bHour+" - "+eHour,Utilities.width*4/5,Utilities.height/2+Utilities.Converter(20));
+		textAlign(PConstants.LEFT,PConstants.TOP);
+		textSize(Utilities.Converter(7));
+		fill(Colors.TEXT_GRAY);
+		text("current keyword: "+U.currentWord,Utilities.width*4/6,Utilities.height/3);
+		text("current Day: "+U.currentDay,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(10));
+		text("current Time: "+U.bHalf+" - "+U.eHalf,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(20));
 		popStyle();
 		
 		
@@ -329,7 +320,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	}
 	
 	
-	// not used
+	//FIXME: not using updateMarkerPos
 	private void updateMarkerPos(ArrayList<AbstractMarker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
 		for(AbstractMarker m : markers) {
 			m.updatePos(x1, x2, x3, x4, y1, y2, y3, y4);
@@ -380,6 +371,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		return (bx <= mx && mx <= bx + bw && by <= my && my <= by + bh);
 	}
 	
+	public boolean isInCenter(float _x, float _y, float x, float y, float w, float h) {
+		return (_x > x-w/2 && _x < x+w/2 && _y > y-h/2 && _y < y+h/2);
+	}
+	
 	public boolean isIn(float mx, float my, float bx, float by, float bw,
 			float bh, float tolerance) {
 		return (bx * (1 - tolerance) <= mx && mx <= bx + bw * (1 + tolerance)
@@ -401,15 +396,23 @@ public class CS424_Project4_Group4 extends PApplet{
 	Hashtable touchList;
 
 	public void myPressed(int id, float mx, float my) {
-		if (isIn(mx,my,Pos.mapX,Pos.mapY,map.w,map.h)) {
-			isPressing = true;
-			currentMX = mx;
-			currentMY = my;
+		if (isTouchingMap == false && whichLock == U.NEITHER) {
+			if (isIn(mx,my,Pos.mapX,Pos.mapY,map.w,map.h)) {
+				isTouchingMap = true;
+				currentMX = mx;
+				currentMY = my;
+			}
+			else if (isInCenter(mx,my,timeSlider.getLeftLockX(),timeSlider.getLockY(),Pos.lockWidth,Pos.lockHeight)) {
+				whichLock = U.LEFT;
+			}
+			else if (isInCenter(mx,my,timeSlider.getRightLockX(),timeSlider.getLockY(),Pos.lockWidth,Pos.lockHeight)) {
+				whichLock = U.RIGHT;
+			}
 		}
 	}
 	
 	public void myDragged(int id, float mx, float my) {
-		if (isPressing) {
+		if (isTouchingMap) {
 			boolean moved = map.move(mx,my,currentMX,currentMY);
 			if (moved) {
 				moveMarkers(markers, mx-currentMX, my-currentMY);
@@ -417,20 +420,56 @@ public class CS424_Project4_Group4 extends PApplet{
 			currentMX = mx;
 			currentMY = my;
 		}
+		else if (whichLock == U.LEFT) {
+			int half = round(map(mx, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth, 0, 48));
+			if (half<0) half = 0;
+			if (half>=U.eHalf) half = U.eHalf - 1;
+			U.bHalf_temp = half;
+			timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth));	
+		}
+		else if (whichLock == U.RIGHT) {
+			int half = round(map(mx, timeSlider.getX(), timeSlider.getX()+timeSlider.getW(), 0, 48));
+			if (half<=U.bHalf) half = U.bHalf + 1;
+			if (half>48) half = 48;
+			U.eHalf_temp = half;
+			timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth));
+		}
 	}
 	
 	public void myReleased(int id, float mx, float my) {
 		//touchList.remove(id);
 		
-		isPressing = false;
+		// first reset every variable that indicates 'pressing' to original value
+		if (isTouchingMap) {
+			isTouchingMap = false;
+			return;
+		}
 		
+		if (whichLock == U.LEFT) {
+			whichLock = U.NEITHER;
+			U.bHalf = U.bHalf_temp;
+			dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
+			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			return;
+		}
+		else if (whichLock == U.RIGHT) {
+			whichLock = U.NEITHER;
+			U.eHalf = U.eHalf_temp;
+			dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
+			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			return;
+		}
+		
+		// then check interfaces
 		for (int i=0;i<=20;i++) {
-			if (((Button)controls.get(i)).checkIn(mx,my)) {
+			if ((dayButtons.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
 				U.currentDay = i;
 				//dataPos = qManager.getDataPosByDateAndWord(U.currentDay, U.currentWord);
-				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHalf, eHalf);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				return;
 			}
@@ -439,7 +478,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
 			sb.updateTextBox(keyboard.Click(mx, my));
+			return;
 		}
+<<<<<<< HEAD
 		if (Utilities.suggestionBox){
 			if (isIn(mx, my, Positions.suggestionBoxX,
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
@@ -474,8 +515,16 @@ public class CS424_Project4_Group4 extends PApplet{
 				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
+=======
+
+		if (isIn(mx, my, Positions.suggestionBoxX,
+				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+				Positions.suggestionBoxHeight)) {
+			sb.Click(mx, my);
+>>>>>>> db6ec05a8e6782c83c34bbbecfd506019be57a1a
 			return;
 		}
+
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
 			float mW =  map.x2 - map.x1 + 1;

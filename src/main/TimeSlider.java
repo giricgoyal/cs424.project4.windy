@@ -23,15 +23,16 @@ public class TimeSlider {
 	Lock lLock, rLock;
 	
 
-	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lockW, float lockH, DataCountPair[] dataCountPair) {
+	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lPos, float rPos, float lockW, float lockH,
+			DataCountPair[] dataCountPair) {
 		this.p = p;
 		x = _x;
 		y = _y;
 		w = _w;
 		h = _h;
 		
-		lLock = new Lock(x, y+h/2, lockW, lockH);
-		rLock = new Lock(x+w, y+h/2, lockW, lockH);
+		lLock = new Lock(this.p, lPos, y+h/2, lockW, lockH);
+		rLock = new Lock(this.p, rPos, y+h/2, lockW, lockH);
 		
 		data = dataCountPair;
 		maxCnt = new int[21];
@@ -51,7 +52,7 @@ public class TimeSlider {
 		p.pushStyle();
 
 		
-		p.strokeWeight(U.Converter(1));
+		p.strokeWeight(U.Converter(0.5));
 		p.stroke(Colors.WHITE);
 		p.fill(Colors.LIGHT_GRAY);
 
@@ -62,7 +63,7 @@ public class TimeSlider {
 		p.noStroke();
 		p.beginShape();
 		for (int col = 0; col < 48; col++) {
-			float plotX = PApplet.map((float)col, (float)0, (float)47, this.x, this.x+this.w);
+			float plotX = PApplet.map((float)col, (float)-0.5, (float)47.5, this.x, this.x+this.w);
 			float plotY = PApplet.map((float)data[U.currentDay].getCnt()[col], (float)0, (float)(maxCnt[U.currentDay]*1.1), this.y+this.h, this.y);
 			
 			p.vertex(plotX, plotY);
@@ -75,6 +76,34 @@ public class TimeSlider {
 		
 		lLock.draw();
 		rLock.draw();
+	}
+	
+	public float getLeftLockX() {
+		return lLock.getX();
+	}
+	
+	public float getLockY() {
+		return lLock.getY(); // both left lock and right lock have same Y
+	}
+	
+	public float getRightLockX() {
+		return rLock.getX();
+	}
+	
+	public float getX() {
+		return x; 
+	}
+	
+	public float getW() {
+		return w;
+	}
+	
+	public void updateLeft(float _x) {
+		lLock.update(_x);
+	}
+	
+	public void updateRight(float _x) {
+		rLock.update(_x);
 	}
 
 	public void resume() {

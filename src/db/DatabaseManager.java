@@ -37,6 +37,7 @@ public class DatabaseManager {
 				array.add(new DataPos(msql.getFloat("lat"),msql.getFloat("lon")));
 			}
 			msql.close();
+			System.out.println("done!");
 		}
 		return array;
 	}
@@ -52,6 +53,7 @@ public class DatabaseManager {
 				array.add(new DataPid(msql.getInt("pid")));
 			}
 			msql.close();
+			System.out.println("done!");
 		}
 		return array;
 	}
@@ -73,6 +75,7 @@ public class DatabaseManager {
 			String reg = "[,\\.\\s;!?]+";
 			String[] temp = str.split(reg); // temp contains all words
 			msql.close();
+			System.out.println("done!");
 			return temp;
 		}
 		return null;
@@ -91,6 +94,7 @@ public class DatabaseManager {
 				i++;
 			}
 			msql.close();
+			System.out.println("done!");
 			return array;
 		}
 		return null;
@@ -110,6 +114,7 @@ public class DatabaseManager {
 				}
 				array[day] = new DataCountPair(key, cnt);
 				msql.close();
+				System.out.println("done!");
 			}
 		}
 		return array;

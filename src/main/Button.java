@@ -32,6 +32,9 @@ public class Button extends BasicControl {
 			parent.stroke(Colors.medium);
 			parent.strokeWeight(Utilities.Converter(2));
 		}
+		else {
+			parent.noStroke();
+		}
 		parent.rectMode(PConstants.CORNER);
 		parent.ellipseMode(PConstants.CORNER);
 		if(elps) parent.ellipse(myX, myY, myWidth, myHeight);

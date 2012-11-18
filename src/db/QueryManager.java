@@ -33,18 +33,18 @@ public class QueryManager {
 		return db.getDataPos(filters);
 	}
 	
-	public ArrayList<DataPos> getDataPos_By_Date_TimeRange_Word(int date, int hour1, int hour2, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2)+" and "+getFilterWord(word);
+	public ArrayList<DataPos> getDataPos_By_Date_TimeRange_Word(int date, int half1, int half2, String word) {
+		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2)+" and "+getFilterWord(word);
 		return db.getDataPos(filters);
 	}
 	
-	public String[] getAllText_By_Date_TimeRange_Word(int date, int hour1, int hour2, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2)+" and "+getFilterWord(word);
+	public String[] getAllText_By_Date_TimeRange_Word(int date, int half1, int half2, String word) {
+		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2)+" and "+getFilterWord(word);
 		return db.getAllText(filters);
 	}
 	
-	public String[] getAllText_By_Date_TimeRange(int date, int hour1, int hour2) {
-		String filters = getFilterDate(date) + " and "+getFilterTimeRange(hour1,hour2);
+	public String[] getAllText_By_Date_TimeRange(int date, int half1, int half2) {
+		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2);
 		return db.getAllText(filters);
 	}
 	
@@ -70,7 +70,7 @@ public class QueryManager {
 		return "and pid = "+pid;
 	}
 	
-	private String getFilterTimeRange(int hour1, int hour2) {
-		return "hour >= "+hour1+" and hour < "+hour2;
+	private String getFilterTimeRange(int half1, int half2) {
+		return "halfhour >= "+half1+" and halfhour < "+half2;
 	}
 }
