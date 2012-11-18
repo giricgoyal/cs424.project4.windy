@@ -145,6 +145,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 		controls.add(tw);
+		//tw.setText("1234 6789 234567891 3456 891234 678912345678912345678912 456 89");
 		
 		
 		locationButton = new Button(this, Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonWidth, Positions.locationButtonHeight);

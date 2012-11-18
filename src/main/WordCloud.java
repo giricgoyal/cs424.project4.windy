@@ -6,6 +6,7 @@ package main;
 import java.awt.Color;
 import java.util.Random;
 
+import Util.Colors;
 import Util.Utilities;
 
 import processing.core.PApplet;
@@ -62,7 +63,7 @@ public class WordCloud extends BasicControl{
 	
 	WordPlacer customPlacer() {
 	        final Random r = new Random();
-	        final float stdev = 0.5f;
+	        final float stdev = 0.4f;
 
 	        return new WordPlacer() {
 
@@ -107,18 +108,18 @@ public class WordCloud extends BasicControl{
 	
 	@Override
 	public void draw() {
-		/*parent.rectMode(PConstants.CORNER);
+		parent.rectMode(PConstants.CORNER);
 		parent.noFill();
 		parent.stroke(Colors.DARK_WHITE);
 		parent.strokeWeight(Utilities.Converter(0.5));
 		parent.rect(myX, myY, myWidth, myHeight);
-		*/
-		wordCram.drawAll();
-		/*
+		
+		//wordCram.drawAll();
+		
 		if (wordCram.hasMore()) {
 		    wordCram.drawNext();
 		  }
-		*/
+		
 		Word[] words  = wordCram.getWords();  
 		  Word[] skippedWords = wordCram.getSkippedWords();
 		  //println(skippedWords);  // Probably a long list!

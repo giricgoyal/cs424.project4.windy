@@ -71,32 +71,36 @@ public class TweetWindow extends BasicControl{
 		drawText();
 	}
 	
-	public void setText(String tweetText) {
-		/*this.tweetText = tweetText;
-		float length = this.tweetText.length();
+	public void setTweet() {
+		char[] array = Utilities.currentTweet.toCharArray();
+		float length = Utilities.currentTweet.length();
 		float maxLenghtPerLine = (v5x - v4x - 10)/Utilities.Converter(5);
 		int spaceIndex = (int)length;
 		int index = 0;
-		System.out.println(length + "  " + maxLenghtPerLine);
 		while(length > maxLenghtPerLine){
+			spaceIndex = (int)length;
 			while(spaceIndex > index + maxLenghtPerLine ) {
-				spaceIndex = (int)(this.tweetText.lastIndexOf(" ", spaceIndex-1));
+				spaceIndex = (int)(Utilities.currentTweet.lastIndexOf(" ", spaceIndex-1));
 				System.out.println(spaceIndex);
 			}
 			index = spaceIndex;
-			this.tweetText = this.tweetText.replace(this.tweetText.charAt(spaceIndex), '\n');
-			System.out.println(this.tweetText);
+			array[spaceIndex] = '\n';
+			//this.tweetText = this.tweetText.replace(this.tweetText.charAt(spaceIndex), '\n');
+			//System.out.println(array);
 			length = length - spaceIndex + 1;
 		}
-		*/
+		for (int counter = 0; counter < array.length; counter++)
+			this.tweetText = this.tweetText + array[counter];
+		
 	}
 	
 	
 	public void drawText() {
+		setTweet();
 		parent.noStroke();
 		parent.fill(Colors.BLACK);
 		parent.textSize(Utilities.Converter(5));
-		parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+		parent.textAlign(PConstants.LEFT, PConstants.TOP);
 		parent.text(this.tweetText, v3x + Utilities.Converter(3), v3y + Utilities.Converter(4));
 	}
 
