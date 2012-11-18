@@ -93,8 +93,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
-		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHalf, eHalf);
-		//getWordCountPair(dataWords);
+		dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
+		getWordCountPair(dataWords);
 		
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
@@ -277,7 +277,15 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<words.length;i++) {
 			boolean exist = false;
 			for (WordCountPair e : entry) {
-				if (isStopWord(words[i])==true) continue;
+				//boolean flag = false;
+				//for (int j=0;j<StopWords.list.length;j++) {
+				//	if (StopWords.list[j].equals(words[i])) {
+				//		flag = true;
+				//		break;
+				//	}
+				//}
+				//if (flag) continue;
+				//if (isStopWord(words[i])==true) continue;
 				if (words[i].equals(e.getWord())) {
 					e.countInc();
 					exist = true;
@@ -287,6 +295,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (!exist) {
 				entry.add(new WordCountPair(words[i]));
 			}
+			System.out.println(i+" ("+(float)i*100/words.length+"%)");
 		}
 		Collections.sort(entry, new Comparator<WordCountPair>() {
 		    public int compare(WordCountPair a, WordCountPair b) {
@@ -295,12 +304,17 @@ public class CS424_Project4_Group4 extends PApplet{
 		    	return 0;
 		    }
 		});
-	for (WordCountPair e : entry) {
-		if (e.getCount()>100) {
-			System.out.println(e.getWord()+" "+e.getCount());
+		int cnt = 0;
+		ArrayList<WordCountPair> result = new ArrayList<WordCountPair>();
+		for (WordCountPair e : entry) {
+			if (!isStopWord(e.getWord()) && e.getCount()>entry.size()*0.01) {
+				System.out.println(e.getWord()+" "+e.getCount());
+				result.add(new WordCountPair(e.getWord(),e.getCount()));
+				cnt++;
+			}
 		}
-	}
-		return entry;
+		System.out.println("total count: "+cnt);
+		return result;
 	}
 	
 	private boolean isStopWord(String str) {

@@ -75,6 +75,9 @@ public class DatabaseManager {
 			String reg = "[,\\.\\s;!?]+";
 			String[] temp = str.split(reg); // temp contains all words
 			msql.close();
+			for (int i=0;i<temp.length;i++) {
+				temp[i] = temp[i].toLowerCase();
+			}
 			System.out.println("done!");
 			return temp;
 		}

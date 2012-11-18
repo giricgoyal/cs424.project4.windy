@@ -9,6 +9,11 @@ public class WordCountPair {
 		count = 1;
 	}
 	
+	public WordCountPair(String word, int count) {
+		this.word = word;
+		this.count = count;
+	}
+	
 	public String getWord() {
 		return word;
 	}
