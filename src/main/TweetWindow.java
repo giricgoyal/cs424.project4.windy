@@ -74,10 +74,11 @@ public class TweetWindow extends BasicControl{
 	public void setTweet() {
 		char[] array = Utilities.currentTweet.toCharArray();
 		float length = Utilities.currentTweet.length();
-		float maxLenghtPerLine = (v5x - v4x - 10)/Utilities.Converter(5);
-		int spaceIndex = (int)length;
+		float maxLenghtPerLine = (v5x - v4x) / Utilities.Converter(3);
+		int spaceIndex = 0;
 		int index = 0;
-		while(length > maxLenghtPerLine){
+		/*
+		while(length > maxLenghtPerLine + 1){
 			spaceIndex = (int)length;
 			while(spaceIndex > index + maxLenghtPerLine ) {
 				spaceIndex = (int)(Utilities.currentTweet.lastIndexOf(" ", spaceIndex-1));
@@ -89,6 +90,18 @@ public class TweetWindow extends BasicControl{
 			//System.out.println(array);
 			length = length - spaceIndex + 1;
 		}
+		*/
+		
+		for (int counter = 0; counter < length; counter++){
+			if (array[counter] == ' ')
+				spaceIndex = counter;
+			if (counter > maxLenghtPerLine + index) {
+				array[spaceIndex] = '\n';
+				index = spaceIndex;
+			}
+			
+		}
+		this.tweetText = "";
 		for (int counter = 0; counter < array.length; counter++)
 			this.tweetText = this.tweetText + array[counter];
 		
