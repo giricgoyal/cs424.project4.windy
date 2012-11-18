@@ -12,6 +12,10 @@ package main;
 
 import java.util.ArrayList;
 
+import Util.Colors;
+import Util.Positions;
+import Util.Utilities;
+
 //import com.modestmaps.InteractiveMap;
 //import com.modestmaps.geo.Location;
 

@@ -3,6 +3,10 @@
  */
 package main;
 
+import Util.Colors;
+import Util.Positions;
+import Util.U;
+import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;

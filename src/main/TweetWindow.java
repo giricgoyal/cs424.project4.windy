@@ -1,5 +1,8 @@
 package main;
 
+import Util.Colors;
+import Util.Positions;
+import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PShape;

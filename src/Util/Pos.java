@@ -1,4 +1,4 @@
-package main;
+package Util;
 
 public class Pos extends Positions {}
 

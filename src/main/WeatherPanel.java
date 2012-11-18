@@ -1,5 +1,8 @@
 package main;
 
+import Util.Colors;
+import Util.U;
+import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;

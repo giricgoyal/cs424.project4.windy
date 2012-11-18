@@ -3,10 +3,10 @@
  */
 package markers;
 
+import Util.Colors;
+import Util.Pos;
+import Util.Utilities;
 import processing.core.PApplet;
-import main.Colors;
-import main.Pos;
-import main.Utilities;
 import markers.AbstractMarker;
 
 /**

@@ -1,5 +1,7 @@
 package main;
 
+import Util.Colors;
+import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
 

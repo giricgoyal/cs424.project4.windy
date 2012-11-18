@@ -10,6 +10,13 @@ import java.util.Hashtable;
 import java.util.Comparator;
 import java.util.List;
 
+import Util.Colors;
+import Util.Pos;
+import Util.Positions;
+import Util.StopWords;
+import Util.U;
+import Util.Utilities;
+
 import omicronAPI.OmicronAPI;
 import processing.core.*;
 import db.*;
@@ -251,7 +258,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<words.length;i++) {
 			boolean exist = false;
 			for (WordCountPair e : entry) {
-				if (isNormalWord(words[i])==true) continue;
+				if (isStopWord(words[i])==true) continue;
 				if (words[i].equals(e.getWord())) {
 					e.countInc();
 					exist = true;
@@ -277,43 +284,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		return entry;
 	}
 	
-	private boolean isNormalWord(String str) {
-		if (str.equals("I")) return true;
-		if (str.equals("i")) return true;
-		if (str.equals("is")) return true;
-		if (str.equals("Is")) return true;
-		if (str.equals("the")) return true;
-		if (str.equals("to")) return true;
-		if (str.equals("a")) return true;
-		if (str.equals("my")) return true;
-		if (str.equals("of")) return true;
-		if (str.equals("and")) return true;
-		if (str.equals("&")) return true;
-		if (str.equals("in")) return true;
-		if (str.equals("on")) return true;
-		if (str.equals("that")) return true;
-		if (str.equals("for")) return true;
-		//if (str.equals("this")) return true;
-		if (str.equals("be")) return true;
-		if (str.equals("not")) return true;
-		if (str.equals("at")) return true;
-		if (str.equals("with")) return true;
-		if (str.equals("The")) return true;
-		if (str.equals("but")) return true;
-		if (str.equals("just")) return true;
-		if (str.equals("are")) return true;
-		if (str.equals("an")) return true;
-		if (str.equals("get")) return true;
-		
-		if (str.equals("-")) return true;
-		if (str.equals("A")) return true;
-		if (str.equals("or")) return true;
-		//if (str.equals("if")) return true;
-		if (str.equals("&")) return true;
-		if (str.equals("by")) return true;
-		return false;
+	private boolean isStopWord(String str) {
+		return StopWords.check(str);
 	}
-	
 	
 	//FIXME: not using updateMarkerPos
 	private void updateMarkerPos(ArrayList<AbstractMarker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
