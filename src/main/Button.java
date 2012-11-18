@@ -28,7 +28,7 @@ public class Button extends BasicControl {
 	@Override
 	public void draw() {
 		parent.pushStyle();
-		if(showClicked) parent.fill(selected?Colors.LIGHT_ORANGE:Colors.LIGHT_BLUE);
+		if(showClicked) parent.fill(selected?Colors.buttonSelectedColor:Colors.buttonColor);
 		else parent.fill(Colors.medium);
 		if(addStroke) {
 			parent.stroke(Colors.medium);
