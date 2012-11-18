@@ -52,9 +52,9 @@ public class SuggestionBox extends BasicControl {
 		this.program=program;
 		
 		Positions.suggestionBoxX = myX;
-		Positions.suggestionBoxY = myY - Utilities.Converter(1) - myHeight*5;
+		Positions.suggestionBoxY = myY + Utilities.Converter(2) - myHeight*5;
 		Positions.suggestionBoxWidth = myWidth;
-		Positions.suggestionBoxHeight = myHeight*5;
+		Positions.suggestionBoxHeight = myHeight*5 - Utilities.Converter(3);
 		states = new ArrayList<DataState>();
 		db = new DatabaseManager(parent);
 	}
@@ -67,10 +67,6 @@ public class SuggestionBox extends BasicControl {
 		
 		int count = 0;
 		int matchCount = 0;
-		parent.strokeWeight(Utilities.Converter(1));
-		parent.stroke(Colors.BACKGROUND_COLOR);
-		parent.fill(Colors.BACKGROUND_COLOR);
-		parent.rect(Positions.suggestionBoxX, Positions.suggestionBoxY, Positions.suggestionBoxWidth, Positions.suggestionBoxHeight);
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.stroke(textBoxBorderColor);
 		parent.fill(textBoxBackgroundColor);

@@ -136,14 +136,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		zoomOutBtn.setName("-");
 		controls.add(zoomOutBtn);
 		
-		keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY,
-				Positions.keyboardWidth, Positions.keyboardHeight);
-		controls.add(keyboard);
-		
-		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY,
-				Positions.textBoxWidth, Positions.textBoxHeight,this);
-		controls.add(sb);
-
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 		controls.add(tw);
 		
@@ -152,6 +144,18 @@ public class CS424_Project4_Group4 extends PApplet{
 		locationButton.setName("Location");
 		locationButton.setShowClick();
 		controls.add(locationButton);
+		
+		
+		
+		
+		keyboard = new Keyboard(this, Positions.keyboardX, Positions.keyboardY,
+				Positions.keyboardWidth, Positions.keyboardHeight);
+		controls.add(keyboard);
+		
+		sb = new SuggestionBox(this, Positions.textBoxX, Positions.textBoxY,
+				Positions.textBoxWidth, Positions.textBoxHeight,this);
+		controls.add(sb);
+
 		
 	}
 	
@@ -170,9 +174,11 @@ public class CS424_Project4_Group4 extends PApplet{
 				
 	}
 	
+	
 	public void draw() {
 		noStroke();
 		
+		reDrawbackground();
 		map.draw();
 		
 		// TODO: draw button - will change
@@ -228,6 +234,14 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (Utilities.isWall) {
 			omicronManager.process();
 		}
+	}
+	
+	void reDrawbackground() {
+		rectMode(PConstants.CORNER);
+		fill(Colors.BACKGROUND_COLOR);
+		rect(0,0, Utilities.width * 4 / 6, Utilities.height);
+		rect(Utilities.width * 4 / 6, Utilities.height / 3, Utilities.width, Utilities.height);
+		
 	}
 	
 	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers, MarkerType type) {
@@ -486,15 +500,17 @@ public class CS424_Project4_Group4 extends PApplet{
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 					Positions.suggestionBoxHeight)) {
 				sb.Click(mx, my);
+				return;
 			}
 		}
 		if (!Utilities.suggestionBox){
 			if (locationButton.isInRectangle(mx, my)){
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
+				return;
 			}
 		}
-
+/*
 		if (hourMinus.checkIn(mx,my)) {
 			System.out.println("hour- Clicked");
 			if (bHour>0) {
@@ -515,14 +531,8 @@ public class CS424_Project4_Group4 extends PApplet{
 				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
+*/
 
-
-		if (isIn(mx, my, Positions.suggestionBoxX,
-				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
-				Positions.suggestionBoxHeight)) {
-			sb.Click(mx, my);
-			return;
-		}
 
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");

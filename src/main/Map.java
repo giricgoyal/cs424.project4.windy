@@ -40,10 +40,6 @@ public class Map {
 	}
 	
 	public void draw() {
-		parent.strokeWeight(Utilities.Converter(1));
-		parent.stroke(Colors.BACKGROUND_COLOR);
-		parent.fill(Colors.BACKGROUND_COLOR);
-		parent.rect(Positions.mapX, Positions.mapY, Positions.mapWidth, Positions.mapHeight);
 		parent.image(pic, x0, y0, w, h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
 	}
 
