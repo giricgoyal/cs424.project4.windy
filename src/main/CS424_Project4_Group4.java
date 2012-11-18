@@ -480,7 +480,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			sb.updateTextBox(keyboard.Click(mx, my));
 			return;
 		}
-<<<<<<< HEAD
+
 		if (Utilities.suggestionBox){
 			if (isIn(mx, my, Positions.suggestionBoxX,
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
@@ -515,13 +515,12 @@ public class CS424_Project4_Group4 extends PApplet{
 				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			}
-=======
+
 
 		if (isIn(mx, my, Positions.suggestionBoxX,
 				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 				Positions.suggestionBoxHeight)) {
 			sb.Click(mx, my);
->>>>>>> db6ec05a8e6782c83c34bbbecfd506019be57a1a
 			return;
 		}
 
