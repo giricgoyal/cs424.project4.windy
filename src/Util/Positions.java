@@ -121,6 +121,13 @@ public class Positions {
 	public static float trackButtonH = U.Converter(20);
 	public static float trackButtonX = U.width/2 + U.Converter(5);
 	public static float trackButtonY = U.width*9/10 + U.Converter(5);
+
+	
+	//location list button
+	public static float locationButtonWidth = textBoxWidth;
+	public static float locationButtonHeight = textBoxHeight;
+	public static float locationButtonX = textBoxX;
+	public static float locationButtonY = textBoxY - locationButtonHeight - Utilities.Converter(2);
 	
 }
 

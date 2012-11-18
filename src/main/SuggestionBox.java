@@ -126,16 +126,24 @@ public class SuggestionBox extends BasicControl {
 	public void updateTextBox(int charNum) {
 		//states = db.getStates(textBoxText);
 		System.out.println(charNum);
-		if (charNum == 60) {
+		if (charNum == -1) {
 			if (textBoxText.isEmpty()) {
 				System.out.println("empty");
+				Utilities.suggestionBox = false;
 			}
 			else {
 				textBoxText = textBoxText.substring(0, textBoxText.length()-1);
+				Utilities.suggestionBox = true;
+				if (textBoxText.isEmpty())
+					Utilities.suggestionBox = false;
+				
 			}
 		}
 		else {
 			textBoxText = textBoxText.concat(String.valueOf((char)charNum));
+			Utilities.suggestionBox = true;
+			if (textBoxText.isEmpty())
+				Utilities.suggestionBox = false;
 			//String a = String.valueOf(textBoxText.charAt(0));
 			//textBoxText = a.toUpperCase() + textBoxText.substring(1);
 		}
@@ -160,6 +168,7 @@ public class SuggestionBox extends BasicControl {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
 							clickedString = states.get(count).getName();
 							textBoxText = "";
+							Utilities.suggestionBox = false;
 						}
 					}
 					matchCount++;
@@ -167,6 +176,8 @@ public class SuggestionBox extends BasicControl {
 			count++;
 			}
 		}
+		else
+			Utilities.suggestionBox = false;
 		
 		for (int i=0;i<states.size();i++) {
 			if (states.get(i).getName().equals(clickedString)) {
@@ -184,6 +195,7 @@ public class SuggestionBox extends BasicControl {
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
 							clickedString = states.get(count).getName();
+							
 						}
 					}
 				//parent.text(testString[count], Positions.suggestionBoxX, Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);

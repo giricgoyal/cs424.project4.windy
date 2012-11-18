@@ -65,6 +65,8 @@ public class Utilities {
 	public static PShape clear;
 	public static PShape showers;
 	
+	public static boolean suggestionBox = false;
+	
 	
 	public static AbstractMarker getMarkerType(AbstractMarker marker, MarkerType markerType) {
 

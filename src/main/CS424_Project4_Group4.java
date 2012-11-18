@@ -64,6 +64,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	Button trackButton;
 	
+	Button locationButton;
+	
 	Keyboard keyboard;
 	SuggestionBox sb;
 	TweetWindow tw;
@@ -151,9 +153,12 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 		controls.add(tw);
-		tw.setText("sample tweetttttt ttttttttttt ttttttt   ttttttttttt  tttttt ttttt tt t t ttt t t");
 		
 		
+		locationButton = new Button(this, Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonWidth, Positions.locationButtonHeight);
+		locationButton.setName("Location");
+		locationButton.setShowClick();
+		controls.add(locationButton);
 		
 	}
 	
@@ -448,6 +453,42 @@ public class CS424_Project4_Group4 extends PApplet{
 			sb.updateTextBox(keyboard.Click(mx, my));
 			return;
 		}
+
+		if (Utilities.suggestionBox){
+			if (isIn(mx, my, Positions.suggestionBoxX,
+					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+					Positions.suggestionBoxHeight)) {
+				sb.Click(mx, my);
+			}
+		}
+		if (!Utilities.suggestionBox){
+			if (locationButton.isInRectangle(mx, my)){
+				System.out.println("Location Clicked");
+				locationButton.setSelected(!locationButton.isSelected());
+			}
+		}
+
+		if (hourMinus.checkIn(mx,my)) {
+			System.out.println("hour- Clicked");
+			if (bHour>0) {
+				bHour --;
+				eHour --;
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+				dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			}
+			return;
+		}
+		if (hourPlus.checkIn(mx,my)) {
+			System.out.println("hour+ Clicked");
+			if (eHour <24) {
+				bHour ++;
+				eHour ++;
+				dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, bHour, eHour, U.currentWord);
+				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, bHour, eHour);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+			}
+
 
 		if (isIn(mx, my, Positions.suggestionBoxX,
 				Positions.suggestionBoxY, Positions.suggestionBoxWidth,

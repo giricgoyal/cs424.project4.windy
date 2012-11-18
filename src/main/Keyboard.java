@@ -16,7 +16,7 @@ import processing.core.PConstants;
 public class Keyboard extends BasicControl {
 
 	char[][] lowerCaseButtons = {
-			{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
+			{ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'},
 			{ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' },
 			{ 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
 			{ 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<'}, 
@@ -40,7 +40,7 @@ public class Keyboard extends BasicControl {
 
 	
 	char[][] upperCaseButtons = {
-			{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'},
+			{ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'},
 			{ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' },
 			{ 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' },
 			{ 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<'}, 
@@ -65,7 +65,7 @@ public class Keyboard extends BasicControl {
 	int enterButtonRow = 3;
 	int enterButtonColumn = 8;
 
-	int backspaceButtonRow = 2;
+	int backspaceButtonRow = 3;
 	int backspaceButtonColumn = 7;
 
 	float horizontalSpacing;
@@ -152,6 +152,12 @@ public class Keyboard extends BasicControl {
 							+ buttonsLocations[i][j].Width *0.2),
 							buttonsLocations[i][j].Y,
 							buttonsLocations[i][j].Width, this.buttonsHeight);
+					if (lowerCaseButtons[i][j] == ' '){
+						parent.text("Space", (float) (buttonsLocations[i][j].X
+								+ buttonsLocations[i][j].Width *0.2),
+								buttonsLocations[i][j].Y,
+								buttonsLocations[i][j].Width, this.buttonsHeight);
+					}
 				}
 			}
 		} else {
