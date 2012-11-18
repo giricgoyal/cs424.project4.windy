@@ -25,6 +25,11 @@ public class Colors {
 	public static int grey = 0xFF999999;
 	
 	public static int tweetColor = 0xFFE3F8FF;
+	public static int buttonColor = 0xff65B6F3;
+	public static int buttonSelectedColor = 0xffEBBD61;
+	
+	public static int buttonBorder = 0xff3B6DC2;
+	public static int buttonSelectedBorder = 0xffCD6519;
 	
 	public static int map1;
 	public static int map2;

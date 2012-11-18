@@ -19,12 +19,14 @@ public class Button extends BasicControl {
 	public Button(PApplet parent, float x, float y, float width, float height) {
 		super(parent, x, y, width, height);
 		elps=false;
+		selected = false;
+		showClicked = false;
 	}
 	
 	@Override
 	public void draw() {
 		parent.pushStyle();
-		if(showClicked) parent.fill(selected?Colors.medium:Colors.dark);
+		if(showClicked) parent.fill(selected?Colors.LIGHT_ORANGE:Colors.LIGHT_BLUE);
 		else parent.fill(Colors.medium);
 		if(addStroke) {
 			parent.stroke(Colors.medium);

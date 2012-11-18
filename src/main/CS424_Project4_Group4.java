@@ -59,6 +59,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button hourPlus;
 	Button hourMinus;
 	
+	Button locationButton;
+	
 	Keyboard keyboard;
 	SuggestionBox sb;
 	TweetWindow tw;
@@ -155,9 +157,12 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 		controls.add(tw);
-		tw.setText("sample tweetttttt ttttttttttt ttttttt   ttttttttttt  tttttt ttttt tt t t ttt t t");
 		
 		
+		locationButton = new Button(this, Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonWidth, Positions.locationButtonHeight);
+		locationButton.setName("Location");
+		locationButton.setShowClick();
+		controls.add(locationButton);
 		
 	}
 	
@@ -435,11 +440,18 @@ public class CS424_Project4_Group4 extends PApplet{
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
 			sb.updateTextBox(keyboard.Click(mx, my));
 		}
-
-		if (isIn(mx, my, Positions.suggestionBoxX,
-				Positions.suggestionBoxY, Positions.suggestionBoxWidth,
-				Positions.suggestionBoxHeight)) {
-			sb.Click(mx, my);
+		if (Utilities.suggestionBox){
+			if (isIn(mx, my, Positions.suggestionBoxX,
+					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+					Positions.suggestionBoxHeight)) {
+				sb.Click(mx, my);
+			}
+		}
+		if (!Utilities.suggestionBox){
+			if (locationButton.isInRectangle(mx, my)){
+				System.out.println("Location Clicked");
+				locationButton.setSelected(!locationButton.isSelected());
+			}
 		}
 
 		if (hourMinus.checkIn(mx,my)) {
