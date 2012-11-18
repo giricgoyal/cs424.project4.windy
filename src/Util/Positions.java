@@ -1,7 +1,8 @@
 /**
  * 
  */
-package main;
+package Util;
+
 
 import com.jogamp.opengl.util.texture.TextureData.Flusher;
 

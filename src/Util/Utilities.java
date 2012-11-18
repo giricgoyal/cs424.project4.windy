@@ -1,8 +1,9 @@
 /**
  * 
  */
-package main;
+package Util;
 
+import main.CS424_Project4_Group4;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
