@@ -108,13 +108,13 @@ public class Positions {
 	// zoom buttons
 	public static float zoomInButtonW = Utilities.Converter(20);
 	public static float zoomInButtonH = Utilities.Converter(15);
-	public static float zoomInButtonX = Positions.mapX + Positions.mapWidth - zoomInButtonW;
-	public static float zoomInButtonY = Positions.mapY + Positions.mapHeight / 2 - Utilities.Converter(18);
+	public static float zoomInButtonX = Positions.mapX + Positions.mapWidth + Utilities.Converter(3);
+	public static float zoomInButtonY = Utilities.height - Positions.zoomInButtonW;
 	
 	public static float zoomOutButtonW = zoomInButtonW;
 	public static float zoomOutButtonH = zoomInButtonH;
 	public static float zoomOutButtonX = zoomInButtonX;
-	public static float zoomOutButtonY = Positions.mapY + Positions.mapHeight / 2 + Utilities.Converter(3);
+	public static float zoomOutButtonY = Positions.zoomInButtonY - Positions.zoomInButtonW;
 	
 	//track buttons
 	public static float trackButtonW = U.Converter(30);
