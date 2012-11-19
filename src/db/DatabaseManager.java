@@ -62,10 +62,11 @@ public class DatabaseManager {
 		ArrayList<DataLocation> array = new ArrayList<DataLocation>();
 		String query;
 		if (msql.connect()) {
-			query = "select, id, name, category, cid, parentId from loactions";
+			query = "select id, name, category, cid, parentId from locations order by name";
 			System.out.println(query);
+			msql.query(query);	
 			while(msql.next()){
-				array.add(new DataLocation(msql.getInt("id"), msql.getString("name"), msql.getString("category"), msql.getInt("cid"), msql.getInt("parentId")));
+				array.add(new DataLocation(msql.getInt("id"), msql.getString("name"), msql.getString("category"), msql.getInt("cid"), msql.getString("parentId")));
 			}
 			msql.close();
 			System.out.println("done locations!!");

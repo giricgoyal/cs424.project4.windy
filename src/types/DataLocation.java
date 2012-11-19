@@ -13,9 +13,9 @@ public class DataLocation {
 	String name;
 	String category;
 	int cid;
-	int parentId;
+	String parentId;
 	
-	public DataLocation(int id, String name, String category, int cid, int parentId){
+	public DataLocation(int id, String name, String category, int cid, String parentId){
 		this.id = id;
 		this.name = name;
 		this.category = category;
@@ -25,8 +25,6 @@ public class DataLocation {
 	
 	public int getId() {
 		return this.id;
-		
-		
 	}
 	
 	public String getName() {
@@ -41,7 +39,7 @@ public class DataLocation {
 		return this.cid;
 	}
 	
-	public int getParentId() {
+	public String getParentId() {
 		return this.parentId;
 	}
 }

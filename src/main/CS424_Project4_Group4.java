@@ -65,6 +65,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button trackButton;
 	
 	Button locationButton;
+	ListArea listArea;
 	
 	Keyboard keyboard;
 	SuggestionBox sb;
@@ -166,6 +167,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		locationButton.setShowClick();
 		controls.add(locationButton);
 		
+		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight);
 		
 		
 		
@@ -209,6 +211,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		for (BasicControl bc : controls) {
 			bc.draw();
+		}
+		
+		if (locationButton.isSelected()){
+			listArea.draw();
 		}
 		
 		// draw markers
@@ -549,9 +555,11 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (locationButton.isInRectangle(mx, my)){
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
-				if (locationButton.isSelected())
-					
-				return;
+				if (locationButton.isSelected()){
+					listArea.setButtonSelected(Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
+					listArea.setLocationData(dataLocation, 0);
+					return;
+				}
 			}
 		}
 

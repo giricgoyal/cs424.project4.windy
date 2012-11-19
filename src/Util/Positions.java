@@ -130,9 +130,9 @@ public class Positions {
 	public static float locationButtonY = textBoxY - locationButtonHeight - Utilities.Converter(2);
 	
 	// list window
-	public static float listWindowWidth = Utilities.width / 6 - Utilities.Converter(2);
+	public static float listWindowWidth = Utilities.width / 12;
 	public static float listWindowHeight = Utilities.height * 2 /3 - Utilities.Converter(15);
-	public static float listWindowX = Utilities.width * 4 / 6 + Utilities.Converter(1);
+	public static float listWindowX = Utilities.width * 4 / 6 + Positions.listWindowWidth - Utilities.Converter(10);
 	public static float listWindowY = Utilities.height / 3 + Utilities.Converter(2);
 
 }

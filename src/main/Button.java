@@ -22,6 +22,7 @@ public class Button extends BasicControl {
 		super(parent, x, y, width, height);
 		elps=false;
 		selected = false;
+		addStroke = false;
 		showClicked = false;
 	}
 	
