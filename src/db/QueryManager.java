@@ -18,6 +18,10 @@ public class QueryManager {
 		db = new DatabaseManager(context);
 	}
 	
+	public ArrayList<DataLocation> getDataLocationAll() {
+		return db.getAllLocation();
+	}
+	
 	public ArrayList<DataPos> getDataPos_By_Date_Word(int date, String word) {
 		String filters = getFilterDate(date) + " and "+getFilterWord(word);
 		return db.getDataPos(filters);

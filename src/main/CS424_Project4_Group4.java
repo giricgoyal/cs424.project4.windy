@@ -74,6 +74,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	// data
 	ArrayList<DataPos> dataPos;
+	ArrayList<DataLocation> dataLocation;
 	DataCountPair[] dataCount;
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
@@ -89,10 +90,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		U.currentWord = "accident";
 		
 		dataPos = new ArrayList<DataPos>();
+		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
 		dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
+		dataLocation = qManager.getDataLocationAll();
+		
 		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 		//getWordCountPair(dataWords);
 		
