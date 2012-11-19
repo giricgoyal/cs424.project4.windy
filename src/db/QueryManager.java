@@ -47,6 +47,11 @@ public class QueryManager {
 		return db.getDataPos(filters);
 	}
 	
+	public ArrayList<DataPos> getDataPos_By_Date(int date) {
+		String filters = getFilterDate(date);
+		return db.getDataPos(filters);
+	}
+	
 	public String[] getAllText_By_Date_TimeRange_Word(int date, int half1, int half2, String word) {
 		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2)+" and "+getFilterWord(word);
 		return db.getAllText(filters);

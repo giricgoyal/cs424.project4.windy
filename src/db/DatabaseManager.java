@@ -29,8 +29,13 @@ public class DatabaseManager {
 		ArrayList<DataPos> array  = new ArrayList<DataPos>();
 		String query;
 		if (msql.connect()) {
-			query = "select pid, day, hour, min, lat, lon, text from microblog where "+
-					filters;
+			if (filters.length() > 0) {
+				query = "select pid, day, hour, min, lat, lon, text from microblog where "+
+						filters;
+			}
+			else {
+				query = "select pid, day, hour, min, lat, lon, text from microblog";
+			}
 			System.out.println(query);
 			msql.query(query);
 			while (msql.next()) {
