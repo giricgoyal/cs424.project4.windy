@@ -230,7 +230,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			bc.draw();
 		}
 		
-<<<<<<< HEAD
+
 		if (locationButton.isSelected()){
 			listArea.draw();
 		}
@@ -242,8 +242,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 		
-=======
->>>>>>> 9be85e64bcdd20caea25811f3004565e17e182cf
+
 		// draw weather panel
 		weatherPanel.draw(U.currentDay);
 		
