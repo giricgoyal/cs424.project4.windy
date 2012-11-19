@@ -58,6 +58,22 @@ public class DatabaseManager {
 		return array;
 	}
 	
+	public ArrayList<DataLocation> getAllLocation() {
+		ArrayList<DataLocation> array = new ArrayList<DataLocation>();
+		String query;
+		if (msql.connect()) {
+			query = "select, id, name, category, cid, parentId from loactions";
+			System.out.println(query);
+			while(msql.next()){
+				array.add(new DataLocation(msql.getInt("id"), msql.getString("name"), msql.getString("category"), msql.getInt("cid"), msql.getInt("parentId")));
+			}
+			msql.close();
+			System.out.println("done locations!!");
+		}
+		return array;
+	}
+	
+	
 	public String[] getAllText(String filters) {
 		String str = "";
 		ArrayList<String> array = new ArrayList<String>();
@@ -102,6 +118,7 @@ public class DatabaseManager {
 		}
 		return null;
 	}
+	
 	
 	public DataCountPair[] getCount(String key, String filters) {
 		DataCountPair[] array = new DataCountPair[21];
