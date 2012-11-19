@@ -23,7 +23,7 @@ public class Utilities {
 	
 	// variables
 	public static int currentDay = 17;
-	public static String currentWord = "Accident";
+	public static String currentWord = "accident";
 	public static int bHalf = 20; // include
 	public static int eHalf = 28; // exclude
 	public static int bHalf_temp;
