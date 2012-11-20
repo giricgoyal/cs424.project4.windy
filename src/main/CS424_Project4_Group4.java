@@ -631,9 +631,17 @@ public class CS424_Project4_Group4 extends PApplet{
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
 				if (locationButton.isSelected()){
-					listArea.setButtonSelected(Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
-					listArea.setLocationData(dataLocation, 0);
+					listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
+					listArea.setLocationData(dataLocation, 0, "null");
+					listArea.setSelected(!listArea.isSelected());
 					return;
+				}
+			}
+			if (listArea.isSelected()){
+				if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
+					listArea.click(mx, my);
+					if (!listArea.isSelected())
+						locationButton.setSelected(!locationButton.isSelected());
 				}
 			}
 		}

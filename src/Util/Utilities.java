@@ -68,6 +68,8 @@ public class Utilities {
 	public static PShape clear;
 	public static PShape showers;
 	
+	public static int selectedLocationId = 0; // this is equal to 0 if all locations are selected
+	
 	public static boolean suggestionBox = false;
 	
 	
