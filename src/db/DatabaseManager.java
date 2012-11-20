@@ -14,8 +14,8 @@ public class DatabaseManager {
 		String user = "windy";
 		String pass = "windywindy";
 		String database = "p4";
-		//String localhost = "project4dbinstance.chestadraypc.us-east-1.rds.amazonaws.com";
-		String localhost = "localhost";
+		String localhost = "project4dbinstance.chestadraypc.us-east-1.rds.amazonaws.com";
+		//String localhost = "localhost";
 		msql = new MySQL(context, localhost, database, user, pass);
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
