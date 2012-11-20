@@ -1,5 +1,7 @@
 package db;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import processing.core.PApplet;
 import types.*;
@@ -13,6 +15,7 @@ public class DatabaseManager {
 		String pass = "windywindy";
 		String database = "p4";
 		String localhost = "project4dbinstance.chestadraypc.us-east-1.rds.amazonaws.com";
+		//String localhost = "localhost";
 		msql = new MySQL(context, localhost, database, user, pass);
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -26,6 +29,7 @@ public class DatabaseManager {
 	 * @return
 	 */
 	public ArrayList<DataPos> getDataPos(String filters) {
+		Date date = new Date();
 		ArrayList<DataPos> array  = new ArrayList<DataPos>();
 		String query;
 		if (msql.connect()) {
@@ -43,6 +47,8 @@ public class DatabaseManager {
 			}
 			msql.close();
 			System.out.println("done!");
+			Date date1 = new Date();
+			System.out.println("time: "+(date1.getTime()/1000 -date.getTime()/1000)); 
 		}
 		return array;
 	}
