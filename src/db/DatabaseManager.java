@@ -1,5 +1,5 @@
 package db;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -48,7 +48,7 @@ public class DatabaseManager {
 			msql.close();
 			System.out.println("done!");
 			Date date1 = new Date();
-			System.out.println("time: "+(date1.getTime()/1000 -date.getTime()/1000)); 
+			System.out.println("time: "+((date1.getTime() -date.getTime())/1000.0)); 
 		}
 		return array;
 	}
