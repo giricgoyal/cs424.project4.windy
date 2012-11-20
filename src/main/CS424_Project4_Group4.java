@@ -630,10 +630,10 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (locationButton.isInRectangle(mx, my)){
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
+				listArea.setSelected(!listArea.isSelected());
 				if (locationButton.isSelected()){
 					listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
 					listArea.setLocationData(dataLocation, 0, "null");
-					listArea.setSelected(!listArea.isSelected());
 					return;
 				}
 			}

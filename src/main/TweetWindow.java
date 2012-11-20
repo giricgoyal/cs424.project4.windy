@@ -28,6 +28,29 @@ public class TweetWindow extends BasicControl{
 		Positions.tweetWidth = tweet.width/Utilities.Converter(8);
 		Positions.tweetHeight = tweet.height/Utilities.Converter(8);
 		
+		
+		v1x = myX;
+		v1y = myY;
+		
+		v2x = v1x;
+		v2y = myY + myHeight;
+		
+		v6x = myX + myWidth;
+		v6y = v2y;
+		
+		v7x = v6x;
+		v7y = v1y;
+		
+		v3x = myX + Utilities.Converter(20);
+		v3y = v2y;
+		
+		v5x = v3x + Utilities.Converter(5);
+		v5y = v2y;
+		
+		v4x = myX + Positions.tweetWidth + Utilities.Converter(2);
+		v4y = v5y + Utilities.Converter(6);
+		
+		/*
 		v2x = myX + Utilities.Converter(20);
 		v2y = myY + Positions.tweetHeight + Utilities.Converter(3);
 		
@@ -48,14 +71,14 @@ public class TweetWindow extends BasicControl{
 		
 		v1x = myX + Positions.tweetWidth + Utilities.Converter(2);
 		v1y = v2y - Utilities.Converter(8);
-	
+		*/
 	}
 
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
 		parent.shapeMode(PConstants.CORNER);
-		parent.shape(tweet, myX, myY, Positions.tweetWidth, Positions.tweetHeight);
+		parent.shape(tweet, myX, myY + myHeight, Positions.tweetWidth, Positions.tweetHeight);
 		parent.fill(Colors.tweetColor);
 		parent.strokeWeight(Utilities.Converter(0.5));
 		parent.stroke(Colors.DARK_GRAY);

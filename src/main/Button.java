@@ -44,7 +44,7 @@ public class Button extends BasicControl {
 		//else 
 		parent.rect(myX, myY, myWidth, myHeight);
 		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
-		parent.fill(Colors.light);
+		parent.fill(Colors.black);
 		//if(elps) parent.textSize(Utilities.Converter(20));
 		//else 
 		parent.textSize(Utilities.Converter(7));

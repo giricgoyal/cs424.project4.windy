@@ -33,7 +33,7 @@ public class ListArea extends BasicControl {
 	
 	boolean selected;
 	
-	int level;
+	//int level;
 	
 	float v1x, v2x, v3x, v4x, v5x, v6x;
 	float v1y, v2y, v3y, v4y, v5y, v6y;
@@ -44,7 +44,9 @@ public class ListArea extends BasicControl {
 		// TODO Auto-generated constructor stub
 		
 		this.parent = parent;
-		this.level = 0;
+		//this.level = 0;
+		this.cid = 0;
+		this.parentId = "null";
 		
 		v1x = myX;
 		v1y = myY;
@@ -87,7 +89,7 @@ public class ListArea extends BasicControl {
 			int count = 0;
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Utilities.Converter(5));
-			parent.fill(Colors.white);
+			parent.fill(Colors.black);
 			if (this.parentId.compareToIgnoreCase("null") == 0) {
 				if (this.cid == 0){
 					
@@ -97,7 +99,11 @@ public class ListArea extends BasicControl {
 					parent.text("Vast River", myX + Utilities.Converter(5), myY + Utilities.Converter(35));
 				}
 				else {
-					int matchCount = 0;
+					int matchCount = 1;
+					if (this.cid == 1)
+						parent.text("All areas", myX + Utilities.Converter(5), myY + Utilities.Converter(4));
+					else if (this.cid == 6)
+						parent.text("All Interstates", myX + Utilities.Converter(5), myY + Utilities.Converter(4));
 					while(count< this.array.size()){
 						if (this.array.get(count).getCid() == this.cid){
 							parent.text(this.array.get(count).getName(), myX + Utilities.Converter(5), myY + Utilities.Converter(4 * (2*matchCount + 1)));
@@ -109,9 +115,13 @@ public class ListArea extends BasicControl {
 				}
 			}
 			else {
-				int matchCount = 0;
+				int matchCount = 1;
+				
 				while(count< this.array.size()){
-					if (this.array.get(count).getParentId() == this.parentId){
+					if (this.array.get(count).getId() == Integer.valueOf(this.parentId)){
+						parent.text(this.array.get(count).getName(), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4));
+					}
+					if (this.array.get(count).getParentId().compareToIgnoreCase(this.parentId) == 0){
 						parent.text(this.array.get(count).getName(), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*matchCount + 1)));
 						matchCount++;
 					}
@@ -131,24 +141,110 @@ public class ListArea extends BasicControl {
 	
 	public void click(float  mx, float my){
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
-			if (this.cid == 1 || this.cid == 6) {
-				this.cid = 0;
+			
+			if (this.parentId.compareTo("null") == 0) {
+				if (this.cid == 0) {
+					this.selected = false;
+				}
+				else if (this.cid == 1 || this.cid == 6) {
+					this.cid = 0;
+				}
+			}
+			else {
+				this.cid = 1;
+				this.parentId = "null";
 			}
 		}
-		if (this.parentId.compareToIgnoreCase("null") == 0 && this.cid == 0){
-			if (mx > myX && my > myY && mx < myX + myWidth && my < myY + Utilities.Converter(10)){
-				Utilities.selectedLocationId = 0;
-				System.out.println("All locations Selected");
-				this.selected = false;
+		else {
+			if (this.parentId.compareToIgnoreCase("null") == 0){
+				if (this.cid == 0) {
+					if (mx > myX && my > myY && mx < myX + myWidth && my < myY + Utilities.Converter(10)){
+						Utilities.selectedLocationId = 0;
+						System.out.println("All locations Selected" + " : " + Utilities.selectedLocationId);
+						this.selected = false;
+					}
+					if (mx > myX && my > myY + Utilities.Converter(10) && mx < myX + myWidth && my < myY + Utilities.Converter(20))
+						this.cid = 1;
+					if (mx > myX && my > myY + Utilities.Converter(20) && mx < myX + myWidth && my < myY + Utilities.Converter(30))
+						this.cid = 6;
+					if (mx > myX && my > myY + Utilities.Converter(30) && mx < myX + myWidth && my < myY + Utilities.Converter(40)) {
+						Utilities.selectedLocationId = 35;
+						System.out.println("VAst LAke selected" + " : " + Utilities.selectedLocationId);
+						this.selected = false;
+					}
+				}
+				else if (this.cid == 6) {
+					int count = 0;
+					int matchCount = 1;
+					if (mx >  myX && mx < myX + myWidth) {
+						if (my > myY && my < myY + Utilities.Converter(8)){
+							Utilities.selectedLocationId = 47;
+							System.out.println("All interstates selected" + " : " + Utilities.selectedLocationId);
+							this.selected = false;
+						}
+					}
+					while(count< this.array.size()){
+						if (this.array.get(count).getCid() == this.cid){
+							if (mx > myX && mx < myX + myWidth) {
+								if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
+									Utilities.selectedLocationId = this.array.get(count).getId();
+									this.selected = false;
+									System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+								}
+							}
+							matchCount++;
+						}
+						count++;
+					}
+				}
+				else if (this.cid == 1) {
+					int count = 0;
+					int matchCount = 1;
+					if (mx >  myX && mx < myX + myWidth) {
+						if (my > myY && my < myY + Utilities.Converter(8)){
+							Utilities.selectedLocationId = 48;
+							System.out.println("All areas except interstates and the vast river selected" + " : " + Utilities.selectedLocationId);
+							this.selected = false;
+						}
+					}
+					while(count< this.array.size()){
+						if (this.array.get(count).getCid() == this.cid){
+							if (mx > myX && mx < myX + myWidth) {
+								if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
+									this.parentId = String.valueOf(this.array.get(count).getId());
+								}
+							}
+							matchCount++;
+						}
+						count++;
+					}
+				}
 			}
-			if (mx > myX && my > myY + Utilities.Converter(10) && mx < myX + myWidth && my < myY + Utilities.Converter(20))
-				this.cid = 1;
-			if (mx > myX && my > myY + Utilities.Converter(20) && mx < myX + myWidth && my < myY + Utilities.Converter(30))
-				this.cid = 6;
-			if (mx > myX && my > myY + Utilities.Converter(30) && mx < myX + myWidth && my < myY + Utilities.Converter(40)) {
-				Utilities.selectedLocationId = 35;
-				System.out.println("VAst LAke selected");
-				this.selected = false;
+			else if (this.parentId.compareToIgnoreCase("null")!=0) {
+				int count = 0;
+				int matchCount = 1;
+				while(count < this.array.size()){
+					if (this.array.get(count).getId() == Integer.valueOf(this.parentId)) {
+						if (mx > myX && mx < myX + myWidth) {
+							if (my > myY && my < myY + Utilities.Converter(8)){
+								Utilities.selectedLocationId = this.array.get(count).getId();
+								this.selected = false;
+								System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+							}
+						}
+					}
+					if (this.array.get(count).getParentId().compareToIgnoreCase(this.parentId) == 0){
+						if (mx > myX && mx < myX + myWidth) {
+							if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
+								Utilities.selectedLocationId = this.array.get(count).getId();
+								this.selected = false;
+								System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+							}
+						}
+						matchCount++;
+					}
+					count++;
+				}
 			}
 		}
 		//return 0;
