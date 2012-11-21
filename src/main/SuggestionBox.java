@@ -185,6 +185,7 @@ public class SuggestionBox extends BasicControl {
 							clickedString = dataWords[count];
 							textBoxText = "";
 							Utilities.suggestionBox = false;
+							System.out.println(clickedString);
 						}
 					}
 					matchCount++;
@@ -211,7 +212,7 @@ public class SuggestionBox extends BasicControl {
 			Utilities.suggestionBox = false;
 		
 		for (int i=0;i<dataWords.length;i++) {
-			if (dataWords[count].equals(clickedString)) {
+			if (dataWords[i].equals(clickedString)) {
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
 				//program.gm.computeGridValues();
