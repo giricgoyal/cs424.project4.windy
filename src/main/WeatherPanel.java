@@ -21,6 +21,7 @@ import types.DataWeather;
  * @since Nov 14
  */
 
+@SuppressWarnings("unused")
 public class WeatherPanel {
 	
 	PApplet parent;

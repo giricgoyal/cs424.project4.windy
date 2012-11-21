@@ -12,6 +12,7 @@ import processing.core.PVector;
  * @author joysword
  *
  */
+@SuppressWarnings("unused")
 public class Lock {
 	
 	private PApplet p;

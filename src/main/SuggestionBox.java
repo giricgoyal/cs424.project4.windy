@@ -139,7 +139,7 @@ public class SuggestionBox extends BasicControl {
 	 */
 	
 	public void updateTextBox(int charNum) {
-		dataWords = Utilities.dataWords;
+		this.dataWords = Utilities.dataWords;
 		//states = db.getStates(textBoxText);
 		System.out.println(charNum);
 		if (charNum == -1) {

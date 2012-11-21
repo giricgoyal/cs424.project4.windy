@@ -3,7 +3,6 @@
  */
 package main;
 
-import java.awt.Color;
 import java.util.Random;
 
 import Util.Colors;
@@ -21,6 +20,7 @@ import wordcram.WordColorer;
 import wordcram.WordCram;
 import wordcram.WordPlacer;
 
+@SuppressWarnings("unused")
 public class WordCloud extends BasicControl{
 	WordCram wordCram;
 	PGraphicsJava2D canvas;
