@@ -40,11 +40,12 @@ public class WordCloud extends BasicControl{
 			// scale according to the scale factor.--------------------------------------
 			// change the values here ---------------------------------------------------
 			.sizedByWeight((int)Utilities.Converter(3), (int)Utilities.Converter(12))             
-			
+			//.maxAttemptsToPlaceWord(50)
 	        .angledAt(0)
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
 	        .withPlacer(customPlacer())
+	        .maxNumberOfWordsToDraw(80)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())
@@ -114,12 +115,12 @@ public class WordCloud extends BasicControl{
 		parent.strokeWeight(Utilities.Converter(0.5));
 		parent.rect(myX, myY, myWidth, myHeight);
 		
-		//wordCram.drawAll();
-		
+		wordCram.drawAll();
+		/*
 		if (wordCram.hasMore()) {
 		    wordCram.drawNext();
 		  }
-		
+		*/
 		Word[] words  = wordCram.getWords();  
 		  Word[] skippedWords = wordCram.getSkippedWords();
 		  //println(skippedWords);  // Probably a long list!
