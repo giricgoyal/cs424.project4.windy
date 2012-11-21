@@ -81,6 +81,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	DataCountPair[] dataCount;
 	ArrayList<AbstractMarker> markers;
 	String[] dataWords;
+	ArrayList<WordCountPair> dataWordCountPair;
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -95,6 +96,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		dataPos = new ArrayList<DataPos>();
 		dataAll = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
+		dataWordCountPair = new ArrayList<WordCountPair>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
@@ -110,7 +112,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 		dataWords = setCurrentWords();
 		Utilities.dataWords = dataWords;
-		//getWordCountPair(dataWords);
+		dataWordCountPair = getWordCountPair(dataWords);
 		
 		/*
 		for (int day=0;day<21;day++) {
@@ -375,8 +377,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		return result;
 	}
 	
-	private List<WordCountPair> getWordCountPair(String[] words) {
-		List<WordCountPair> entry = new ArrayList<WordCountPair>();
+	private ArrayList<WordCountPair> getWordCountPair(String[] words) {
+		ArrayList<WordCountPair> entry = new ArrayList<WordCountPair>();
 		for (int i=0;i<words.length;i++) {
 			boolean exist = false;
 			for (WordCountPair e : entry) {
@@ -401,23 +403,21 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (i%1000 == 0)
 				System.out.println(i+" ("+(float)i*100/words.length+"%)");
 		}
+		/*
 		Collections.sort(entry, new Comparator<WordCountPair>() {
 		    public int compare(WordCountPair a, WordCountPair b) {
 		    	if (a.getCount()>b.getCount()) return -1;
 		    	else if (a.getCount()<b.getCount()) return 1;
 		    	return 0;
 		    }
-		});
-		int cnt = 0;
+		});*/
 		ArrayList<WordCountPair> result = new ArrayList<WordCountPair>();
 		for (WordCountPair e : entry) {
 			if (!isStopWord(e.getWord()) && e.getCount()>entry.size()*0.01) {
-				System.out.println(e.getWord()+" "+e.getCount());
+				//System.out.println(e.getWord()+" "+e.getCount());
 				result.add(new WordCountPair(e.getWord(),e.getCount()));
-				cnt++;
 			}
 		}
-		System.out.println("total count: "+cnt);
 		return result;
 	}
 	
@@ -598,7 +598,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			dataWords = setCurrentWords();
-			//getWordCountPair(dataWords);
+			dataWordCountPair = getWordCountPair(dataWords);
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
@@ -610,7 +610,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			dataWords = setCurrentWords();
-			//getWordCountPair(dataWords);
+			dataWordCountPair = getWordCountPair(dataWords);
 			return;
 		}
 		
@@ -626,7 +626,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 				dataWords = setCurrentWords();
-				//getWordCountPair(dataWords);
+				dataWordCountPair = getWordCountPair(dataWords);
 				return;
 			}
 		}
