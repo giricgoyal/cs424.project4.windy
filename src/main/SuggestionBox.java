@@ -38,6 +38,8 @@ public class SuggestionBox extends BasicControl {
 	DatabaseManager db;
 	CS424_Project4_Group4 program;
 	
+	String[] dataWords;
+	
 	/**
 	 * temp test string
 	 */
@@ -59,6 +61,8 @@ public class SuggestionBox extends BasicControl {
 		Positions.suggestionBoxY = myY + Utilities.Converter(2) - myHeight*5;
 		Positions.suggestionBoxWidth = myWidth;
 		Positions.suggestionBoxHeight = myHeight*5 - Utilities.Converter(3);
+		
+		
 		states = new ArrayList<DataState>();
 		db = new DatabaseManager(parent);
 	}
@@ -92,6 +96,17 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
+			while (count < dataWords.length) {
+				if (dataWords[count].toLowerCase().contains(textBoxText)) {
+					parent.text(dataWords[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
+					matchCount++;
+				}
+				if (matchCount == 5) {
+					break;
+				}
+				count++;
+			}
+			/*
 			while(count<states.size()) {
 				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
 					parent.text(states.get(count).getName(), Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
@@ -102,7 +117,11 @@ public class SuggestionBox extends BasicControl {
 				}
 			count++;
 			}
+			*/
+			
 		}
+		
+		
 		/*
 		else {
 			while(count<5&&states.size()>0) {
@@ -120,6 +139,7 @@ public class SuggestionBox extends BasicControl {
 	 */
 	
 	public void updateTextBox(int charNum) {
+		dataWords = Utilities.dataWords;
 		//states = db.getStates(textBoxText);
 		System.out.println(charNum);
 		if (charNum == -1) {
@@ -158,6 +178,20 @@ public class SuggestionBox extends BasicControl {
 		int matchCount = 0;
 		String clickedString = "";
 		if (!textBoxText.isEmpty()) {
+			while(count < dataWords.length) {
+				if (dataWords[count].toLowerCase().contains(textBoxText)) {
+					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
+						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
+							clickedString = dataWords[count];
+							textBoxText = "";
+							Utilities.suggestionBox = false;
+						}
+					}
+					matchCount++;
+				}
+				count++;
+			}
+			/*
 			while(count<states.size()) {
 				if(states.get(count).getName().toLowerCase().contains(textBoxText)){
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
@@ -171,12 +205,13 @@ public class SuggestionBox extends BasicControl {
 				}
 			count++;
 			}
+			*/
 		}
 		else
 			Utilities.suggestionBox = false;
 		
-		for (int i=0;i<states.size();i++) {
-			if (states.get(i).getName().equals(clickedString)) {
+		for (int i=0;i<dataWords.length;i++) {
+			if (dataWords[count].equals(clickedString)) {
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
 				//program.gm.computeGridValues();

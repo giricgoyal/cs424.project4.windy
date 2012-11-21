@@ -57,6 +57,8 @@ public class Utilities {
 	
 	public static CS424_Project4_Group4 CS424_Project4_Group4;
 	
+	public static String[] dataWords;
+	
 	public static PFont font;
 	
 	public static boolean sampleText = false;
