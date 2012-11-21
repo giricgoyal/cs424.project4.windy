@@ -45,7 +45,7 @@ public class WordCloud extends BasicControl{
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
 	        .withPlacer(customPlacer())
-	        .maxNumberOfWordsToDraw(80)
+	        .maxNumberOfWordsToDraw(20)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())
@@ -136,10 +136,10 @@ public class WordCloud extends BasicControl{
 		      // println(word.word + " was placed!");
 		    }
 		    if (word.wasSkipped()) {
-		      System.out.println(word.word + " was skipped!");
+		      //System.out.println(word.word + " was skipped!");
 
 		      if (word.wasSkippedBecause() == WordCram.NO_SPACE) {
-		        System.out.println(word.word + " was skipped because there was no room");
+		        //System.out.println(word.word + " was skipped because there was no room");
 		      }
 		    }
 		  }
