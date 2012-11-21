@@ -3,7 +3,10 @@
  */
 package Util;
 
+import java.util.ArrayList;
+
 import main.CS424_Project4_Group4;
+import main.WordCountPair;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
@@ -57,6 +60,7 @@ public class Utilities {
 	
 	public static CS424_Project4_Group4 CS424_Project4_Group4;
 	
+	public static ArrayList<WordCountPair> dataWordCountPair;
 	public static String[] dataWords;
 	
 	public static PFont font;

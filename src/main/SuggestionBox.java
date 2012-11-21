@@ -44,7 +44,7 @@ public class SuggestionBox extends BasicControl {
 	 * temp test string
 	 */
 	//String[] testString = {"hello","yoyo honey singh","holaaa","wadddhhuppp","blah blah","uncle","haloween","home"};
-	ArrayList<DataState> states;
+	ArrayList<WordCountPair> dataWordCountPair;
 	
 	public SuggestionBox(PApplet parent, float x, float y, float width,	float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
@@ -60,10 +60,10 @@ public class SuggestionBox extends BasicControl {
 		Positions.suggestionBoxX = myX;
 		Positions.suggestionBoxY = myY + Utilities.Converter(2) - myHeight*5;
 		Positions.suggestionBoxWidth = myWidth;
-		Positions.suggestionBoxHeight = myHeight*5 - Utilities.Converter(3);
+		Positions.suggestionBoxHeight = myHeight*5 - Utilities.Converter(2);
 		
 		
-		states = new ArrayList<DataState>();
+		dataWordCountPair = new ArrayList<WordCountPair>();
 		db = new DatabaseManager(parent);
 	}
 
@@ -96,9 +96,9 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
-			while (count < dataWords.length) {
-				if (dataWords[count].toLowerCase().contains(textBoxText)) {
-					parent.text(dataWords[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2);
+			while (count < dataWordCountPair.size()) {
+				if (dataWordCountPair.get(count).getWord().toLowerCase().contains(textBoxText)) {
+					parent.text(dataWordCountPair.get(count).getWord(), Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
 					matchCount++;
 				}
 				if (matchCount == 5) {
@@ -139,7 +139,8 @@ public class SuggestionBox extends BasicControl {
 	 */
 	
 	public void updateTextBox(int charNum) {
-		this.dataWords = Utilities.dataWords;
+		//this.dataWordCountPair = Utilities.dataWordCountPair;
+		
 		//states = db.getStates(textBoxText);
 		System.out.println(charNum);
 		if (charNum == -1) {
@@ -163,6 +164,12 @@ public class SuggestionBox extends BasicControl {
 			//String a = String.valueOf(textBoxText.charAt(0));
 			//textBoxText = a.toUpperCase() + textBoxText.substring(1);
 		}
+		this.dataWordCountPair = new ArrayList<WordCountPair>();
+		for (WordCountPair wcp : Utilities.dataWordCountPair) {
+			if (wcp.getWord().contains(textBoxText)) {
+				this.dataWordCountPair.add(new WordCountPair(wcp.getWord()));
+			}
+		}
 		System.out.println(textBoxText);
 	}
 	
@@ -178,14 +185,13 @@ public class SuggestionBox extends BasicControl {
 		int matchCount = 0;
 		String clickedString = "";
 		if (!textBoxText.isEmpty()) {
-			while(count < dataWords.length) {
-				if (dataWords[count].toLowerCase().contains(textBoxText)) {
+			while(count < dataWordCountPair.size()) {
+				if (dataWordCountPair.get(count).getWord().toLowerCase().contains(textBoxText)) {
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
-						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) && y < Positions.suggestionBoxY + myHeight*(5-matchCount)) {
-							clickedString = dataWords[count];
+						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) - Utilities.Converter(1) && y < Positions.suggestionBoxY + myHeight*(5-matchCount) - Utilities.Converter(1)) {
+							clickedString = dataWordCountPair.get(count).getWord();
 							textBoxText = "";
 							Utilities.suggestionBox = false;
-							System.out.println(clickedString);
 						}
 					}
 					matchCount++;
@@ -211,8 +217,13 @@ public class SuggestionBox extends BasicControl {
 		else
 			Utilities.suggestionBox = false;
 		
-		for (int i=0;i<dataWords.length;i++) {
-			if (dataWords[i].equals(clickedString)) {
+		/**
+		 * Whatever needs to be updated, call that here
+		 * 
+		 */
+		for (count = 0; count < dataWordCountPair.size(); count++) {
+			if (dataWordCountPair.get(count).getWord().equals(clickedString)) {
+				System.out.println(dataWordCountPair.get(count).getWord());
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
 				//program.gm.computeGridValues();

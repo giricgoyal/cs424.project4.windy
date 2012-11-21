@@ -111,8 +111,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 		dataWords = setCurrentWords();
-		Utilities.dataWords = dataWords;
+		
 		dataWordCountPair = getWordCountPair(dataWords);
+		Utilities.dataWordCountPair = dataWordCountPair;
 		
 		/*
 		for (int day=0;day<21;day++) {
