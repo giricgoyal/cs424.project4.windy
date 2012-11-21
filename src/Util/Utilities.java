@@ -8,6 +8,7 @@ import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
 import processing.core.PFont;
+import processing.core.PImage;
 import processing.core.PShape;
 
 /**
@@ -63,10 +64,20 @@ public class Utilities {
 	public static int mapMaxW = 5215;
 	public static int mapMaxH = 2652;
 	
-	public static PShape rain;
-	public static PShape cloudy;
-	public static PShape clear;
-	public static PShape showers;
+	public static PImage rain;
+	public static PImage cloudy;
+	public static PImage clear;
+	public static PImage showers;
+	public static PImage N;
+	public static PImage S;
+	public static PImage E;
+	public static PImage W;
+	public static PImage SE;
+	public static PImage SW;
+	public static PImage NE;
+	public static PImage NW;
+	public static PImage NNW;
+	public static PImage WNW;
 	
 	/**
 	 * this is equal to 

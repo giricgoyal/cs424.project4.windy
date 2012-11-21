@@ -31,6 +31,8 @@ public class Colors {
 	public static int buttonBorder = 0xff3B6DC2;
 	public static int buttonSelectedBorder = 0xffCD6519;
 	
+	public static int weatherPanel = 0x80111111;
+	
 	public static int map1;
 	public static int map2;
 	public static int map3;

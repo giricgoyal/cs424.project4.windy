@@ -97,7 +97,7 @@ public class TweetWindow extends BasicControl{
 	public void setTweet() {
 		char[] array = Utilities.currentTweet.toCharArray();
 		float length = Utilities.currentTweet.length();
-		float maxLenghtPerLine = (v5x - v4x) / Utilities.Converter(3);
+		float maxLenghtPerLine = (v7x - v1x) / Utilities.Converter(3);
 		int spaceIndex = 0;
 		int index = 0;
 		/*
@@ -136,7 +136,7 @@ public class TweetWindow extends BasicControl{
 		parent.fill(Colors.BLACK);
 		parent.textSize(Utilities.Converter(5));
 		parent.textAlign(PConstants.LEFT, PConstants.TOP);
-		parent.text(this.tweetText, v3x + Utilities.Converter(3), v3y + Utilities.Converter(4));
+		parent.text(this.tweetText, v1x + Utilities.Converter(3), v1y + Utilities.Converter(4));
 	}
 
 }

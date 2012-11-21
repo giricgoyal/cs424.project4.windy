@@ -49,7 +49,7 @@ public class Positions {
 	
 	// weatherPanel
 	public static float weatherPanelWidth = Utilities.width / 9;
-	public static float weatherPanelHeight = Utilities.height / 8;
+	public static float weatherPanelHeight = Utilities.height / 6;
 	public static float weatherPanelX = mapX;
 	public static float weatherPanelY = mapY;
 
