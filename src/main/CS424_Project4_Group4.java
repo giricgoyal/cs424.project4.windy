@@ -108,7 +108,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		
 		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
-		//dataWords = setCurrentWords(U.bHalf, U.eHalf);
+		dataWords = setCurrentWords();
 		//getWordCountPair(dataWords);
 		
 		/*
@@ -341,6 +341,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
+	/* old version -- to get keywords directly from the Tweets
 	private String[] setCurrentWords(int bHalf, int eHalf) {
 		String str = "";
 		System.out.println("setting current words");
@@ -354,6 +355,23 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		System.out.println("done!");
 		return temp;
+	}*/
+	
+	// new version == to get keywords from keywords
+	private String[] setCurrentWords() {
+		String str = "";
+		System.out.println("setting current words");
+		for (DataPos data : dataPos) {
+			str = str + data.getKeywords()+ " ";
+		}
+		String[] result = split(str, ' '); // temp contains all words
+		for (int i=0;i<result.length;i++) {
+				result[i] = result[i].toLowerCase();
+		}
+		saveStrings(dataPath("KeywordsBefore.txt"), result);
+		saveStrings(dataPath("KeywordsAfter.txt"), result);
+		System.out.println("done!");
+		return result;
 	}
 	
 	private List<WordCountPair> getWordCountPair(String[] words) {
@@ -578,7 +596,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
-			//dataWords = setCurrentWords(U.bHalf, U.eHalf);
+			dataWords = setCurrentWords();
 			//getWordCountPair(dataWords);
 			return;
 		}
@@ -590,7 +608,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
-			//dataWords = setCurrentWords(U.bHalf, U.eHalf);
+			dataWords = setCurrentWords();
 			//getWordCountPair(dataWords);
 			return;
 		}
@@ -606,7 +624,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
-				//dataWords = setCurrentWords(U.bHalf, U.eHalf);
+				dataWords = setCurrentWords();
 				//getWordCountPair(dataWords);
 				return;
 			}

@@ -1,5 +1,5 @@
 package db;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -34,21 +34,21 @@ public class DatabaseManager {
 		String query;
 		if (msql.connect()) {
 			if (filters.length() > 0) {
-				query = "select pid, day, hour, min, lat, lon, text from microblog where "+
+				query = "select pid, day, hour, min, lat, lon, text, keywords from microblog where "+
 						filters;
 			}
 			else {
-				query = "select pid, day, hour, min, lat, lon, text from microblog";
+				query = "select pid, day, hour, min, lat, lon, text, keywords from microblog";
 			}
 			System.out.println(query);
 			msql.query(query);
 			while (msql.next()) {
-				array.add(new DataPos(msql.getInt("pid"), msql.getInt("day"), msql.getInt("hour"), msql.getInt("min"),msql.getFloat("lat"),msql.getFloat("lon"), msql.getString("text")));
+				array.add(new DataPos(msql.getInt("pid"), msql.getInt("day"), msql.getInt("hour"), msql.getInt("min"),msql.getFloat("lat"),msql.getFloat("lon"), msql.getString("text"), msql.getString("keywords")));
 			}
 			msql.close();
 			System.out.println("done!");
 			Date date1 = new Date();
-			System.out.println("time: "+(date1.getTime()/1000 -date.getTime()/1000)); 
+			System.out.println("time: "+((date1.getTime() -date.getTime())/1000.0)); 
 		}
 		return array;
 	}
