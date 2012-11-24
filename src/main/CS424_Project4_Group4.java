@@ -138,7 +138,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				map(U.bHalf, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth),
 				map(U.eHalf, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth),
 				Pos.lockWidth, Pos.lockHeight,
-				dataCount);
+				dataCount, U.bHalf, U.eHalf);
 		
 		// end of components initialization
 		
@@ -301,7 +301,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		textSize(Utilities.Converter(7));
 		fill(Colors.TEXT_GRAY);
 		text("current keyword: "+U.currentWord,Utilities.width*4/6,Utilities.height/3);
-		text("current Time: "+U.bHalf+" - "+U.eHalf,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(20));
 		popStyle();
 		
 		
@@ -596,14 +595,14 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (half<0) half = 0;
 			if (half>=U.eHalf) half = U.eHalf - 1;
 			U.bHalf_temp = half;
-			timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth));	
+			timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);	
 		}
 		else if (whichLock == U.RIGHT) {
 			int half = round(map(mx, timeSlider.getX(), timeSlider.getX()+timeSlider.getW(), 0, 48));
 			if (half<=U.bHalf) half = U.bHalf + 1;
 			if (half>48) half = 48;
 			U.eHalf_temp = half;
-			timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth));
+			timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
 		}
 	}
 	

@@ -26,15 +26,15 @@ public class TimeSlider {
 	
 
 	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lPos, float rPos, float lockW, float lockH,
-			DataCountPair[] dataCountPair) {
+			DataCountPair[] dataCountPair, int bHalf, int eHalf) {
 		this.p = p;
 		x = _x;
 		y = _y;
 		w = _w;
 		h = _h;
 		
-		lLock = new Lock(this.p, lPos, y+h/2, lockW, lockH);
-		rLock = new Lock(this.p, rPos, y+h/2, lockW, lockH);
+		lLock = new Lock(this.p, lPos, y+h/2, lockW, lockH, bHalf);
+		rLock = new Lock(this.p, rPos, y+h/2, lockW, lockH, eHalf);
 		
 		data = dataCountPair;
 		maxCnt = new int[21];
@@ -100,12 +100,12 @@ public class TimeSlider {
 		return w;
 	}
 	
-	public void updateLeft(float _x) {
-		lLock.update(_x);
+	public void updateLeft(float _x, int half) {
+		lLock.update(_x, half);
 	}
 	
-	public void updateRight(float _x) {
-		rLock.update(_x);
+	public void updateRight(float _x, int half) {
+		rLock.update(_x, half);
 	}
 
 	public void resume() {
