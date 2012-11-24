@@ -159,7 +159,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		dayButtons = new ArrayList<DayButton>();
 		
 		for (int i=0;i<=20;i++) {
-			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i]);
+			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i], i);
 			dayButton.setName("D"+i);
 			if (i == U.currentDay) {
 				dayButton.setSelected(true);

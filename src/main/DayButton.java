@@ -16,12 +16,19 @@ public class DayButton extends Button {
 	
 	PApplet p;
 	int count;
+	String text;
 	boolean selected;
 	
-	public DayButton(PApplet p, float x, float y, float width, float height, int cnt) {
+	public DayButton(PApplet p, float x, float y, float width, float height, int cnt, int day) {
 		super(p, x, y, width, height);
 		this.p = p;
 		count = cnt;
+		if (day == 0) {
+			text = "4/30";
+		}
+		else {
+			text = "5/"+day;
+		}
 		selected = false;
 	}
 	
@@ -43,6 +50,10 @@ public class DayButton extends Button {
 		p.noFill();
 		p.rectMode(PConstants.CORNER);
 		p.rect(myX,myY,myWidth,myHeight);
+		p.fill(Colors.BLACK);
+		p.textAlign(PConstants.CENTER,PConstants.BOTTOM);
+		p.textSize(U.Converter(5.5));
+		p.text(text, myX+this.myWidth/2, myY+myHeight*9/10);
 		p.popStyle();
 	}
 	
