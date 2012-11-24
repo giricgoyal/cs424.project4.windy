@@ -13,6 +13,8 @@ public class TweetWindow extends BasicControl{
 	
 	PShape tweet;
 	String tweetText = "";
+	String tweetTime = "";
+	int tweetPid = -1;
 	
 	float v1x, v1y, v2x, v2y, v3x, v3y, v4x, v4y, v5x, v5y, v6x, v6y, v7x, v7y, v8x, v8y;
 	
@@ -91,10 +93,23 @@ public class TweetWindow extends BasicControl{
 			parent.vertex(v6x, v6y);
 			parent.vertex(v7x, v7y);
 		parent.endShape(PConstants.CLOSE);
+		parent.fill(Colors.tweetColor2);
+		parent.beginShape();
+			parent.vertex(v2x, v2y);
+			parent.vertex(v3x, v3y);
+			parent.vertex(v4x, v4y);
+			parent.vertex(v5x, v5y);
+			parent.vertex(v6x, v6y);
+			parent.vertex(v6x, v6y - Utilities.Converter(10));
+			parent.vertex(v2x, v6y - Utilities.Converter(10));
+		parent.endShape(PConstants.CLOSE);
+			
 		drawText();
 	}
 	
 	public void setTweet() {
+		this.tweetTime = Utilities.tweetTime;
+		this.tweetPid = Utilities.tweetPid;
 		char[] array = Utilities.currentTweet.toCharArray();
 		float length = Utilities.currentTweet.length();
 		float maxLenghtPerLine = (v7x - v1x) / Utilities.Converter(3);
@@ -132,11 +147,25 @@ public class TweetWindow extends BasicControl{
 	
 	
 	public void drawText() {
-		parent.noStroke();
-		parent.fill(Colors.BLACK);
-		parent.textSize(Utilities.Converter(5));
-		parent.textAlign(PConstants.LEFT, PConstants.TOP);
-		parent.text(this.tweetText, v1x + Utilities.Converter(3), v1y + Utilities.Converter(4));
+		if (this.tweetText != "") {
+			parent.noStroke();
+			parent.fill(Colors.BLACK);
+			parent.textSize(Utilities.Converter(5));
+			parent.textAlign(PConstants.LEFT, PConstants.TOP);
+			parent.text(this.tweetText, v1x + Utilities.Converter(3), v1y + Utilities.Converter(4));
+			parent.textAlign(PConstants.RIGHT , PConstants.BOTTOM);
+			
+			if (Utilities.currentDay == 30) {
+				parent.text(this.tweetTime + ", April " + Utilities.currentDay, v6x - Utilities.Converter(2), v6y - Utilities.Converter(2));
+				parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+				parent.text("PID : " + this.tweetPid, v2x + Utilities.Converter(2), v2y - Utilities.Converter(2));
+			}
+			else {
+				parent.text(this.tweetTime + ", May " + Utilities.currentDay, v6x - Utilities.Converter(2), v6y - Utilities.Converter(2));
+				parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+				parent.text("PID : " + this.tweetPid, v2x + Utilities.Converter(2), v2y - Utilities.Converter(2));
+			}
+		}
 	}
 
 }
