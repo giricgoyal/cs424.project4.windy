@@ -168,7 +168,7 @@ public class ListArea extends BasicControl {
 					if (mx > myX && my > myY + Utilities.Converter(20) && mx < myX + myWidth && my < myY + Utilities.Converter(30))
 						this.cid = 6;
 					if (mx > myX && my > myY + Utilities.Converter(30) && mx < myX + myWidth && my < myY + Utilities.Converter(40)) {
-						Utilities.selectedLocationId = 35;
+						Utilities.selectedLocationId = 36;
 						System.out.println("VAst LAke selected" + " : " + Utilities.selectedLocationId);
 						this.selected = false;
 					}
