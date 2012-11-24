@@ -9,8 +9,9 @@ public class DataPos {
 	private int min;
 	private String text;
 	private String keywords;
+	private int lid;
 	
-	public DataPos(int pid, int day, int hour, int min, float _lat, float _lon, String _txt, String _key) {
+	public DataPos(int pid, int day, int hour, int min, float _lat, float _lon, String _txt, String _key, int _lid) {
 		this.pid = pid;
 		this.day = day;
 		this.hour = hour;
@@ -19,6 +20,7 @@ public class DataPos {
 		lon = _lon;
 		text = _txt;
 		keywords = _key;
+		lid = _lid;
 	}
 	
 	public int getPid() {
@@ -51,5 +53,9 @@ public class DataPos {
 	
 	public String getKeywords() {
 		return keywords;
+	}
+	
+	public int getLocation() {
+		return lid;
 	}
 }

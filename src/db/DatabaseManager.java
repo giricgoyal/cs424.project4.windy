@@ -34,16 +34,19 @@ public class DatabaseManager {
 		String query;
 		if (msql.connect()) {
 			if (filters.length() > 0) {
-				query = "select pid, day, hour, min, lat, lon, text, keywords from microblog where "+
+				query = "select pid, day, hour, min, lat, lon, text, keywords, lid from microblog where "+
 						filters;
 			}
 			else {
-				query = "select pid, day, hour, min, lat, lon, text, keywords from microblog";
+				query = "select pid, day, hour, min, lat, lon, text, keywords, lid from microblog";
 			}
 			System.out.println(query);
 			msql.query(query);
 			while (msql.next()) {
-				array.add(new DataPos(msql.getInt("pid"), msql.getInt("day"), msql.getInt("hour"), msql.getInt("min"),msql.getFloat("lat"),msql.getFloat("lon"), msql.getString("text"), msql.getString("keywords")));
+				array.add(new DataPos(msql.getInt("pid"),
+						msql.getInt("day"), msql.getInt("hour"), msql.getInt("min"),
+						msql.getFloat("lat"), msql.getFloat("lon"),
+						msql.getString("text"), msql.getString("keywords"), msql.getInt("lid")));
 			}
 			msql.close();
 			System.out.println("done!");

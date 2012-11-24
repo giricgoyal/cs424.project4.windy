@@ -220,11 +220,42 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		reDrawbackground();
 		map.draw();
-				
+		
 		// draw markers
-		for (AbstractMarker m : markers) {
-			if (map.checkIn(m.getX(),m.getY())) {
-				m.draw();
+		if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
+			for (AbstractMarker m : markers) {
+				if (map.checkIn(m.getX(),m.getY())) {
+					m.draw();
+				}
+			}
+		}
+		// all locations except interstates and river
+		else if (U.selectedLocationId == 98) {
+			for (AbstractMarker m : markers) {
+				if (m.loc < 36 && m.loc >0) {
+					if (map.checkIn(m.getX(),m.getY())) {
+						m.draw();
+					}
+				}
+			}
+		}
+		// all interstates
+		else if (U.selectedLocationId == 97) {
+			for (AbstractMarker m : markers) {
+				if (m.loc >= 37 && m.loc <=47) {
+					if (map.checkIn(m.getX(),m.getY())) {
+						m.draw();
+					}
+				}
+			}
+		}
+		else {
+			for (AbstractMarker m : markers) {
+				if (m.loc == U.selectedLocationId) {
+					if (map.checkIn(m.getX(),m.getY())) {
+						m.draw();
+					}
+				}
 			}
 		}
 		
@@ -241,14 +272,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (locationButton.isSelected()){
 			listArea.draw();
 		}
-		
-		// draw markers
-		for (AbstractMarker m : markers) {
-			if (map.checkIn(m.getX(),m.getY())) {
-				m.draw();
-			}
-		}
-		
 
 		// draw weather panel
 		weatherPanel.draw(U.currentDay);
@@ -278,7 +301,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		textSize(Utilities.Converter(7));
 		fill(Colors.TEXT_GRAY);
 		text("current keyword: "+U.currentWord,Utilities.width*4/6,Utilities.height/3);
-		text("current Day: "+U.currentDay,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(10));
 		text("current Time: "+U.bHalf+" - "+U.eHalf,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(20));
 		popStyle();
 		
@@ -340,10 +362,10 @@ public class CS424_Project4_Group4 extends PApplet{
 			float y = map(_y, y1Lat, y2Lat, map.y0, map.h);	
 			switch (type) {
 			case DEFAULT_MARKER:
-				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet()));
+				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
 				break;
 			default:
-				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet()));
+				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
 			}
 		}
 	}

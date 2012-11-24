@@ -87,11 +87,11 @@ public class Utilities {
 	
 	/**
 	 * this is equal to 
-	 * 0  : if all locations are selected
-	 * 47 : if all interstates selected
-	 * 48 : if all areas except interstates and vast river selected
+	 * 99  : if all locations are selected
+	 * 97 : if all interstates selected
+	 * 98 : if all areas except interstates and vast river selected
 	 */
-	public static int selectedLocationId = 0; 
+	public static int selectedLocationId = -1; 
 	
 	public static boolean suggestionBox = false;
 	
@@ -100,7 +100,7 @@ public class Utilities {
 
 		switch (markerType) {
 		case DEFAULT_MARKER:
-		    return new DefaultMarker(marker.getP(), marker.getX(), marker.getY(), marker.getPid(), marker.getHour(), marker.getMin(), marker.getTweet());
+		    return new DefaultMarker(marker.getP(), marker.getX(), marker.getY(), marker.getPid(), marker.getHour(), marker.getMin(), marker.getTweet(), marker.getKeywords(), marker.getLocation());
 		default:
 		    return null;
 	    }

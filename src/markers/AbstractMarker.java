@@ -10,9 +10,11 @@ public class AbstractMarker {
 	int hour;
 	int min;
 	String text;
+	String keywords;
+	public int loc;
 	PApplet p;
 	
-	public AbstractMarker(PApplet p, float x, float y, int pid, int hour, int min, String text) {
+	public AbstractMarker(PApplet p, float x, float y, int pid, int hour, int min, String text, String keywords, int loc) {
 		this.p = p;
 		this.x = x;
 		this.y = y;
@@ -20,6 +22,8 @@ public class AbstractMarker {
 		this.hour = hour;
 		this.min = min;
 		this.text = text;
+		this.keywords = keywords;
+		this.loc = loc;
 	}
 	
 	public void draw() {
@@ -65,6 +69,14 @@ public class AbstractMarker {
 	
 	public String getTweet() {
 		return text;
+	}
+	
+	public String getKeywords() {
+		return keywords;
+	}
+	
+	public int getLocation() {
+		return loc;
 	}
 	
 	public boolean checkIn(float _x, float _y) {
