@@ -161,6 +161,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<=20;i++) {
 			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i]);
 			dayButton.setName("D"+i);
+			if (i == U.currentDay) {
+				dayButton.setSelected(true);
+			}
 			dayButtons.add(dayButton);
 		}
 		
@@ -619,7 +622,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<=20;i++) {
 			if ((dayButtons.get(i)).checkIn(mx,my)) {
 				System.out.println("Day "+i+" Clicked");
+				dayButtons.get(U.currentDay).setSelected(false);
 				U.currentDay = i;
+				dayButtons.get(U.currentDay).setSelected(true);
 				//dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 				//setCurrentData(dataPos,dataAll,U.currentDay,U.bHalf,U.eHalf,U.currentWord);
 				dataDay = qManager.getDataPos_By_Date(U.currentDay);

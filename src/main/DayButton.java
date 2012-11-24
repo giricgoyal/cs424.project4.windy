@@ -16,18 +16,25 @@ public class DayButton extends Button {
 	
 	PApplet p;
 	int count;
+	boolean selected;
 	
 	public DayButton(PApplet p, float x, float y, float width, float height, int cnt) {
 		super(p, x, y, width, height);
 		this.p = p;
 		count = cnt;
+		selected = false;
 	}
 	
 	@Override
 	public void draw() {
 		p.pushStyle();
 		p.noStroke();
-		p.fill(Colors.GRAPH_COLOR_3);
+		if (selected) {
+			p.fill(Colors.GRAPH_COLOR_4);
+		}
+		else {
+			p.fill(Colors.GRAPH_COLOR_3);
+		}
 		p.rectMode(PConstants.CORNERS);
 		float Y = PApplet.map(count, U.dayButtonLowerBound, U.maxTweets * (float)1.05, myY+myHeight, myY);
 		p.rect(myX, Y, myX+myWidth, myY+myHeight);
@@ -37,5 +44,9 @@ public class DayButton extends Button {
 		p.rectMode(PConstants.CORNER);
 		p.rect(myX,myY,myWidth,myHeight);
 		p.popStyle();
+	}
+	
+	public void setSelected(boolean st) {
+		selected = st;
 	}
 }
