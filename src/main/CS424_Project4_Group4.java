@@ -74,14 +74,13 @@ public class CS424_Project4_Group4 extends PApplet{
 	WordCloud beforeWordCloud, afterWordCloud;
 	
 	// data
-	ArrayList<DataPos> dataAll;
-	ArrayList<DataPos> dataDay;
-	ArrayList<DataPos> dataPos;
-	ArrayList<DataLocation> dataLocation;
-	DataCountPair[] dataCount;
-	ArrayList<AbstractMarker> markers;
-	String[] dataWords;
-	ArrayList<WordCountPair> dataWordCountPair;
+	ArrayList<DataPos> dataDay; //all data for current day
+	ArrayList<DataPos> dataPos; //all data for current time and current keyword
+	ArrayList<DataLocation> dataLocation; // locations
+	DataCountPair[] dataCount; //all counts for every halfhour (keyword not implemented)
+	ArrayList<AbstractMarker> markers; // markers, contain all information
+	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
+	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -94,35 +93,20 @@ public class CS424_Project4_Group4 extends PApplet{
 		U.currentWord = "accident";
 		
 		dataPos = new ArrayList<DataPos>();
-		dataAll = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
 		dataWordCountPair = new ArrayList<WordCountPair>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
-		//dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-		//dataAll = qManager.getDataPos_Everything();
 		dataDay = qManager.getDataPos_By_Date(U.currentDay);
-		//setCurrentData(dataPos, dataAll, U.currentDay, U.bHalf, U.eHalf, U.currentWord);
 		setCurrentData(dataPos, dataDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
 		
-		
-		//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 		dataWords = setCurrentWords();
 		
 		dataWordCountPair = getWordCountPair(dataWords);
 		Utilities.dataWordCountPair = dataWordCountPair;
-		
-		/*
-		for (int day=0;day<21;day++) {
-			for (int h = 0;h<48;h++) {
-				dataWords = qManager.getAllText_By_Date_TimeRange(day, h, h+1);
-				saveStrings(dataPath("D"+day+"H"+h+".txt"), getWordCountPair_ToFile(dataWords));
-				System.out.println("D"+day+"H"+h+".txt done!");
-			}
-		}*/
 			
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
@@ -337,12 +321,17 @@ public class CS424_Project4_Group4 extends PApplet{
 	// second version - get all data from database when launching
 	private void setCurrentData(ArrayList<DataPos> current, ArrayList<DataPos> day, int bHalf, int eHalf, String keyword) {
 		current.clear();
-		System.out.println("start update current data");
+		System.out.println("start updating current data");
 		for (DataPos data : day) {
 			int half = data.getHour()*2 + data.getMin()/30;
 			if (bHalf <= half && half < eHalf) {
-				//TODO: get keyword of a tweet
-				current.add(data);
+				String[] words = split(data.getKeywords(),(' '));
+				for (int ii = 0; ii<words.length; ii++) {
+					if (keyword.equals(words[ii])) {
+						current.add(data);
+						break;
+					}
+				}
 			}
 		}
 		System.out.println("done!");
@@ -617,11 +606,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (whichLock == U.LEFT) {
 			whichLock = U.NEITHER;
 			U.bHalf = U.bHalf_temp;
-			//dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-			//setCurrentData(dataPos,dataAll,U.currentDay,U.bHalf,U.eHalf,U.currentWord);
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			dataWords = setCurrentWords();
 			dataWordCountPair = getWordCountPair(dataWords);
 			return;
@@ -629,11 +615,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		else if (whichLock == U.RIGHT) {
 			whichLock = U.NEITHER;
 			U.eHalf = U.eHalf_temp;
-			//dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-			//setCurrentData(dataPos,dataAll,U.currentDay,U.bHalf,U.eHalf,U.currentWord);
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 			dataWords = setCurrentWords();
 			dataWordCountPair = getWordCountPair(dataWords);
 			return;
@@ -646,12 +629,9 @@ public class CS424_Project4_Group4 extends PApplet{
 				dayButtons.get(U.currentDay).setSelected(false);
 				U.currentDay = i;
 				dayButtons.get(U.currentDay).setSelected(true);
-				//dataPos = qManager.getDataPos_By_Date_TimeRange_Word(U.currentDay, U.bHalf, U.eHalf, U.currentWord);
-				//setCurrentData(dataPos,dataAll,U.currentDay,U.bHalf,U.eHalf,U.currentWord);
 				dataDay = qManager.getDataPos_By_Date(U.currentDay);
 				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//dataWords = qManager.getAllText_By_Date_TimeRange(U.currentDay, U.bHalf, U.eHalf);
 				dataWords = setCurrentWords();
 				dataWordCountPair = getWordCountPair(dataWords);
 				Utilities.currentTweet = "";
