@@ -159,7 +159,7 @@ public class ListArea extends BasicControl {
 			if (this.parentId.compareToIgnoreCase("null") == 0){
 				if (this.cid == 0) {
 					if (mx > myX && my > myY && mx < myX + myWidth && my < myY + Utilities.Converter(10)){
-						Utilities.selectedLocationId = 0;
+						Utilities.selectedLocationId = 99;
 						System.out.println("All locations Selected" + " : " + Utilities.selectedLocationId);
 						this.selected = false;
 					}
@@ -178,7 +178,7 @@ public class ListArea extends BasicControl {
 					int matchCount = 1;
 					if (mx >  myX && mx < myX + myWidth) {
 						if (my > myY && my < myY + Utilities.Converter(8)){
-							Utilities.selectedLocationId = 47;
+							Utilities.selectedLocationId = 97;
 							System.out.println("All interstates selected" + " : " + Utilities.selectedLocationId);
 							this.selected = false;
 						}
@@ -202,7 +202,7 @@ public class ListArea extends BasicControl {
 					int matchCount = 1;
 					if (mx >  myX && mx < myX + myWidth) {
 						if (my > myY && my < myY + Utilities.Converter(8)){
-							Utilities.selectedLocationId = 48;
+							Utilities.selectedLocationId = 98;
 							System.out.println("All areas except interstates and the vast river selected" + " : " + Utilities.selectedLocationId);
 							this.selected = false;
 						}
