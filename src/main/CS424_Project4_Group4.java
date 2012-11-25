@@ -356,85 +356,34 @@ public class CS424_Project4_Group4 extends PApplet{
 	public void setCurrentData(ArrayList<DataPos> current, ArrayList<DataPos> day, int bHalf, int eHalf, String keyword) {
 		current.clear();
 		System.out.println("start updating current data");
-
-					String str = "";
-					// all location
-					if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
-						for (DataPos data : day) {
-							int half = data.getHour()*2 + data.getMin()/30;
-							if (bHalf <= half && half < eHalf) {
-								str = str + data.getKeywords()+ " ";
-								
-								String[] words = split(data.getKeywords(),(' '));
-								for (int ii = 0; ii<words.length; ii++) {
-									if (keyword.equals(words[ii])) {
-										current.add(data);
-										break;
-									}
-								}
-							}
-						}
+		for (DataPos data : day) {
+			int half = data.getHour()*2 + data.getMin()/30;
+			if (bHalf <= half && half < eHalf) {
+				/*
+				String[] words = split(data.getKeywords(),(' '));
+				for (int ii = 0; ii<words.length; ii++) {
+					if (keyword.equals(words[ii])) {
+						current.add(data);
+						break;
 					}
-					// all locations except interstates and river
-					else if (U.selectedLocationId == 98) {
-						for (DataPos data : day) {
-							if (data.getLocation() < 36 && data.getLocation() > 0) {
-								int half = data.getHour()*2 + data.getMin()/30;
-								if (bHalf <= half && half < eHalf) {
-									str = str + data.getKeywords()+ " ";
-									
-									String[] words = split(data.getKeywords(),(' '));
-									for (int ii = 0; ii<words.length; ii++) {
-										if (keyword.equals(words[ii])) {
-											current.add(data);
-											break;
-										}
-									}
-								}
-							}
-						}
+				}*/
+				current.add(data);
+			}
+		}
+		setTodayWordsToFile(current);
+		current.clear();
+		for (DataPos data : day) {
+			int half = data.getHour()*2 + data.getMin()/30;
+			if (bHalf <= half && half < eHalf) {
+				String[] words = split(data.getKeywords(),(' '));
+				for (int ii = 0; ii<words.length; ii++) {
+					if (keyword.equals(words[ii])) {
+						current.add(data);
+						break;
 					}
-					// all interstates
-					else if (U.selectedLocationId == 97) {
-						for (DataPos data : day) {
-							if (data.getLocation() >= 37 && data.getLocation() <=47) {
-								int half = data.getHour()*2 + data.getMin()/30;
-								if (bHalf <= half && half < eHalf) {
-									str = str + data.getKeywords()+ " ";
-									
-									String[] words = split(data.getKeywords(),(' '));
-									for (int ii = 0; ii<words.length; ii++) {
-										if (keyword.equals(words[ii])) {
-											current.add(data);
-											break;
-										}
-									}
-								}
-							}
-						}
-					}
-					else {
-						for (DataPos data : day) {
-							if (data.getLocation() == U.selectedLocationId) {
-								int half = data.getHour()*2 + data.getMin()/30;
-								if (bHalf <= half && half < eHalf) {
-									str = str + data.getKeywords()+ " ";
-									
-									String[] words = split(data.getKeywords(),(' '));
-									for (int ii = 0; ii<words.length; ii++) {
-										if (keyword.equals(words[ii])) {
-											current.add(data);
-											break;
-										}
-									}
-								}
-							}
-						}
-					}
-					String[] result = new String[1];
-					result[0] = str;
-					saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
-					
+				}
+			}
+		}
 		System.out.println("done!");
 	}
 	
@@ -475,86 +424,46 @@ public class CS424_Project4_Group4 extends PApplet{
 		return temp;
 	}/*/
 	
-	// new version == to get keywords from keywords
-	private String[] setCurrentWords() {
-		String str = "";
-		System.out.println("setting current words");
-		
-			// all location
-			if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
-				for (DataPos data : dataPos) {
-					str = str + data.getKeywords()+ " ";
-				}
-			}
-			// all locations except interstates and river
-			else if (U.selectedLocationId == 98) {
-				for (DataPos data : dataPos) {
-					if (data.getLocation() < 36 && data.getLocation() > 0) {
-						str = str + data.getKeywords()+ " ";
-					}
-				}
-			}
-			// all interstates
-			else if (U.selectedLocationId == 97) {
-				for (DataPos data : dataPos) {
-					if (data.getLocation() >= 37 && data.getLocation() <=47) {
-						str = str + data.getKeywords()+ " ";
-					}
-				}
-			}
-			else {
-				for (DataPos data : dataPos) {
-					if (data.getLocation() == U.selectedLocationId) {
-						str = str + data.getKeywords()+ " ";
-					}
-				}
-			}
-			
-		String[] result = split(str, ' '); // temp contains all words
-		for (int i=0;i<result.length;i++) {
-				result[i] = result[i].toLowerCase();
-		}
-		//saveStrings(dataPath("KeywordsBefore.txt"), result);
-		//saveStrings(dataPath("KeywordsAfter.txt"), result);
-		System.out.println("done!");
-		return result;
-	}//
-	
-	// not using this -- integrated into setCurrentData()
 	private void setTodayWordsToFile(ArrayList<DataPos> dataPos) {
-		String str = "";
+		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting current words");
 					// all location
 					if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
 						for (DataPos data : dataPos) {
-							str = str + data.getKeywords()+ " ";
+							//str = str + data.getKeywords()+ " ";
+							str.add(data.keywords);
 						}
 					}
 					// all locations except interstates and river
 					else if (U.selectedLocationId == 98) {
 						for (DataPos data : dataPos) {
-							if (data.getLocation() < 36 && data.getLocation() > 0) {
-								str = str + data.getKeywords()+ " ";
+							if (data.lid < 36 && data.lid > 0) {
+								//str = str + data.getKeywords()+ " ";
+								str.add(data.keywords);
 							}
 						}
 					}
 					// all interstates
 					else if (U.selectedLocationId == 97) {
 						for (DataPos data : dataPos) {
-							if (data.getLocation() >= 37 && data.getLocation() <=47) {
-								str = str + data.getKeywords()+ " ";
+							if (data.lid >= 37 && data.lid <=47) {
+								//str = str + data.getKeywords()+ " ";
+								str.add(data.keywords);
 							}
 						}
 					}
 					else {
 						for (DataPos data : dataPos) {
-							if (data.getLocation() == U.selectedLocationId) {
-								str = str + data.getKeywords()+ " ";
+							if (data.lid == U.selectedLocationId) {
+								//str = str + data.getKeywords()+ " ";
+								str.add(data.keywords);
 							}
 						}
 					}
-		String[] result = new String[1];
-		result[0] = str;
+		String[] result = new String[str.size()];
+		for (int ii=0;ii<result.length;ii++) {
+			result[ii] = str.get(ii);
+		}
 		System.out.println("start to write!");	
 		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
 		System.out.println("done!");
@@ -603,47 +512,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		return result;
 	}
-	
-	private String[] getWordCountPair_ToFile(String[] words) {
-		List<WordCountPair> entry = new ArrayList<WordCountPair>();
-		for (int i=0;i<words.length;i++) {
-			boolean exist = false;
-			for (WordCountPair e : entry) {
-				if (words[i].equals(e.getWord())) {
-					e.countInc();
-					exist = true;
-					break;
-				}
-			}
-			if (!exist) {
-				entry.add(new WordCountPair(words[i]));
-			}
-			System.out.println(i+" ("+(float)i*100/words.length+"%)");
-		}
-		Collections.sort(entry, new Comparator<WordCountPair>() {
-		    public int compare(WordCountPair a, WordCountPair b) {
-		    	if (a.getCount()>b.getCount()) return -1;
-		    	else if (a.getCount()<b.getCount()) return 1;
-		    	return 0;
-		    }
-		});
-		int cnt = 0;
-		ArrayList<WordCountPair> result = new ArrayList<WordCountPair>();
-		for (WordCountPair e : entry) {
-			if (!isStopWord(e.getWord()) && e.getCount()>entry.size()*0.005) {
-				System.out.println(e.getWord()+" "+e.getCount());
-				result.add(new WordCountPair(e.getWord(),e.getCount()));
-				cnt++;
-			}
-		}
-		System.out.println("total count: "+cnt);
-		String[] fff = new String[result.size()];
-		for (int i=0;i<result.size();i++) {
-			fff[i] = result.get(i).getWord() + "," + result.get(i).getCount();
-		}
-		return fff;
-	}
-	
+		
 	private boolean isStopWord(String str) {
 		return StopWords.check(str);
 	}

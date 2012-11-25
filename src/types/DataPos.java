@@ -8,8 +8,8 @@ public class DataPos {
 	private int hour;
 	private int min;
 	private String text;
-	private String keywords;
-	private int lid;
+	public String keywords;
+	public int lid;
 	
 	public DataPos(int pid, int day, int hour, int min, float _lat, float _lon, String _txt, String _key, int _lid) {
 		this.pid = pid;
