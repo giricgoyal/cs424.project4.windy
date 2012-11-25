@@ -100,6 +100,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		qManager = new QueryManager(this);
 		dataDay = qManager.getDataPos_By_Date(U.currentDay);
 		setCurrentData(dataPos, dataDay, U.bHalf, U.eHalf, U.currentWord);
+		setTodayWordsToFile();
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
 		
@@ -387,10 +388,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<result.length;i++) {
 				result[i] = result[i].toLowerCase();
 		}
-		saveStrings(dataPath("KeywordsBefore.txt"), result);
-		saveStrings(dataPath("KeywordsAfter.txt"), result);
+		//saveStrings(dataPath("KeywordsBefore.txt"), result);
+		//saveStrings(dataPath("KeywordsAfter.txt"), result);
 		System.out.println("done!");
 		return result;
+	}
+	
+	private void setTodayWordsToFile() {
+		String str = "";
+		System.out.println("setting today words");
+		for (DataPos data : dataDay) {
+			str = str + data.getKeywords()+ " ";
+		}
+		String[] result = split(str, ' '); // temp contains all words
+		for (int i=0;i<result.length;i++) {
+				result[i] = result[i].toLowerCase();
+		}
+		saveStrings(dataPath("KeywordsBefore.txt"), result);
+		System.out.println("done!");
 	}
 	
 	private ArrayList<WordCountPair> getWordCountPair(String[] words) {
@@ -636,6 +651,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				dataWords = setCurrentWords();
 				dataWordCountPair = getWordCountPair(dataWords);
+				setTodayWordsToFile();
 				Utilities.currentTweet = "";
 				tw.setTweet();
 				return;
