@@ -76,7 +76,7 @@ public class Positions {
 	public static float tweetHeight;
 	
 	// wordCloud
-	public static float wordCloudBeforeWidth = Utilities.width / 6 - Utilities.Converter(2);
+	public static float wordCloudBeforeWidth = Utilities.width * 2 / 6 - Utilities.Converter(2);
 	public static float wordCloudBeforeHeight = Utilities.height / 3 - Utilities.Converter(3);
 	public static float wordCloudBeforeX = Positions.tweetWindowX + Positions.tweetWindowWidth + Utilities.Converter(2);
 	public static float wordCloudBeforeY = 0 + Utilities.Converter(2);
@@ -90,7 +90,7 @@ public class Positions {
 	// keyboard
 	public static float keyboardWidth = Utilities.width / 6 - Utilities.Converter(3);
 	public static float keyboardHeight = Utilities.height / 3 - Utilities.Converter(3);
-	public static float keyboardX = Positions.wordCloudAfterX;
+	public static float keyboardX = Utilities.width * 5 /6 + Utilities.Converter(1);
 	public static float keyboardY = Utilities.height * 2 / 3 + Utilities.Converter(1);
 	
 	// suggestion box
