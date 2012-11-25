@@ -60,4 +60,8 @@ public class DayButton extends Button {
 	public void setSelected(boolean st) {
 		selected = st;
 	}
+	
+	public void updateCount(int cnt) {
+		count = cnt;
+	}
 }
