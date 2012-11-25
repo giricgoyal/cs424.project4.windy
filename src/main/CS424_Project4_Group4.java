@@ -205,6 +205,16 @@ public class CS424_Project4_Group4 extends PApplet{
 		KeywordList.setShowClick();
 		controls.add(KeywordList);
 		
+		EventList = new Button(this, Positions.eventListX, Positions.eventListY, Positions.eventListWidth, Positions.eventListHeight);
+		EventList.setName("Event List");
+		EventList.setShowClick();
+		controls.add(EventList);
+		
+		PersonList = new Button(this, Positions.personListX, Positions.personListY, Positions.personListWidth, Positions.personListHeight);
+		PersonList.setName("Person List");
+		PersonList.setShowClick();
+		controls.add(PersonList);
+		
 		
 		
 		
@@ -446,7 +456,7 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		System.out.println("start to write!");
 		saveStrings(dataPath("KeywordsBefore.txt"), result);
-
+		
 		System.out.println("done!");
 	}
 	
@@ -720,13 +730,55 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (locationButton.isInRectangle(mx, my)){
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
-				listArea.setSelected(!listArea.isSelected());
+				listArea.setSelected(locationButton.isSelected());
 				if (locationButton.isSelected()){
 					listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
 					listArea.setLocationData(dataLocation, 0, "null");
+					KeywordList.setSelected(false);
+					PersonList.setSelected(false);
+					EventList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+				}
+				
+			}
+			
+			if (KeywordList.isInRectangle(mx, my)) {
+				System.out.println("Keyword List Selected");
+				KeywordList.setSelected(!KeywordList.isSelected());
+				if (KeywordList.isSelected()) {
+					locationButton.setSelected(false);
+					PersonList.setSelected(false);
+					EventList.setSelected(false);
+					trackPerson.setSelected(false);
 					return;
 				}
 			}
+			
+			if (PersonList.isInRectangle(mx, my)) {
+				System.out.println("Person List Selected");
+				PersonList.setSelected(!PersonList.isSelected());
+				if (PersonList.isSelected()) {
+					locationButton.setSelected(false);
+					KeywordList.setSelected(false);
+					EventList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+				}
+			}
+			
+			if (EventList.isInRectangle(mx, my)) {
+				System.out.println("Event List Selected");
+				EventList.setSelected(!EventList.isSelected());
+				if (EventList.isSelected()) {
+					locationButton.setSelected(false);
+					PersonList.setSelected(false);
+					KeywordList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+				}
+			}
+			
 			if (listArea.isSelected()){
 				if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
 					listArea.click(mx, my);
@@ -736,7 +788,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 		
-		if (!locationButton.isSelected()) {
+		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
 			if (add2Graph.isInRectangle(mx, my)){
 				System.out.println("Toggle add to graph");
 				add2Graph.setSelected(!add2Graph.isSelected());
