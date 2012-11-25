@@ -129,6 +129,24 @@ public class Positions {
 	public static float locationButtonX = textBoxX;
 	public static float locationButtonY = textBoxY - locationButtonHeight - Utilities.Converter(2);
 	
+	// button KeywordList
+	public static float keywordListWidth = locationButtonWidth;
+	public static float keywordListHeight = locationButtonHeight;
+	public static float keywordListX = locationButtonX;
+	public static float keywordListY = locationButtonY - keywordListHeight - Utilities.Converter(2);
+	
+	// button EventList
+	public static float eventListWidth = locationButtonWidth;
+	public static float eventListHeight = locationButtonHeight;
+	public static float eventListX = locationButtonX;
+	public static float eventListY = keywordListY - eventListHeight - Utilities.Converter(2);
+	
+	// button personList
+	public static float personListWidth = locationButtonWidth;
+	public static float personListHeight = locationButtonHeight;
+	public static float personListX = locationButtonX;
+	public static float personListY = eventListY - personListHeight - Utilities.Converter(2);
+	
 	// list window
 	public static float listWindowWidth = Utilities.width / 12 + Utilities.Converter(10);
 	public static float listWindowHeight = Utilities.height * 2 /3 - Utilities.Converter(15);

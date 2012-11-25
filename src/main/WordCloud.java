@@ -34,7 +34,7 @@ public class WordCloud extends BasicControl{
 		canvas.setSize(500, 500);
 		
 		wordCram = new WordCram(parent)
-			.fromTextFile("data/"+fileName)
+			.fromTextFile("bin/data/"+fileName)
 			//.withFont(parent.createFont("../../"+Utilities.font, 1))
 	      
 			// scale according to the scale factor.--------------------------------------
