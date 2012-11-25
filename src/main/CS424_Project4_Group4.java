@@ -441,12 +441,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<result.length;i++) {
 			result[i] = str.get(i);
 		}
-<<<<<<< HEAD
+
 		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
-=======
+
 		System.out.println("start to write!");
 		saveStrings(dataPath("KeywordsBefore.txt"), result);
->>>>>>> 2d95203fceb48f951ef6ec324975bab6cfe056a8
+
 		System.out.println("done!");
 	}
 	
