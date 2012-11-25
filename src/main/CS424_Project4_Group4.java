@@ -75,7 +75,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	// data
 	ArrayList<DataPos> dataDay; //all data for current day
-	ArrayList<DataPos> dataPos; //all data for current time and current keyword
+	ArrayList<DataPos> dataPos; //all data for current time and current keyword of current day
 	ArrayList<DataLocation> dataLocation; // locations
 	DataCountPair[] dataCount; //all counts for every halfhour (keyword not implemented)
 	ArrayList<AbstractMarker> markers; // markers, contain all information
