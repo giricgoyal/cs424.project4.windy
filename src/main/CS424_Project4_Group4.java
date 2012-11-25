@@ -447,15 +447,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<result.length;i++) {
 			result[i] = str.get(i);
 		}
-<<<<<<< HEAD
-=======
 
 		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
 
-		System.out.println("start to write!");
->>>>>>> origin/master
-		saveStrings(dataPath("KeywordsBefore.txt"), result);
-		
+		System.out.println("start to write!");		
 		System.out.println("done!");
 	}
 	
