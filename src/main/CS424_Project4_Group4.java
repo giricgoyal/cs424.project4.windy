@@ -63,7 +63,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomOutBtn;
 	
 	Button trackButton;
-	
+	Button add2Graph;
 	Button locationButton;
 	ListArea listArea;
 	
@@ -184,6 +184,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		locationButton.setShowClick();
 		controls.add(locationButton);
 		
+		
+		add2Graph = new Button(this, Positions.add2GraphX, Positions.add2GraphY, Positions.add2GraphWidth, Positions.add2GraphHeight);
+		add2Graph.setShowClick();
+		add2Graph.setName("OFF");
+		controls.add(add2Graph);
+		
 		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight);
 		
 		
@@ -303,6 +309,18 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("current keyword: "+U.currentWord,Utilities.width*4/6,Utilities.height/3);
 		text("current Time: "+U.bHalf+" - "+U.eHalf,Utilities.width*4/6,Utilities.height/3+Utilities.Converter(20));
 		popStyle();
+		
+		textSize(Utilities.Converter(5));
+		if (add2Graph.isSelected()){
+			fill(Colors.LIGHT_BLUE);
+			textAlign(PConstants.RIGHT, PConstants.CENTER);
+			text("Add to graph ", Positions.add2GraphX - Utilities.Converter(1), Positions.add2GraphY + Positions.add2GraphHeight/2);
+		}
+		else {
+			textAlign(PConstants.RIGHT, PConstants.CENTER);
+			fill(Colors.WHITE);
+			text("Add to graph ", Positions.add2GraphX - Utilities.Converter(1), Positions.add2GraphY + Positions.add2GraphHeight/2);
+		}
 		
 		
 		// PROCESS OMICRON
@@ -694,7 +712,19 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 			}
 		}
-
+		
+		if (!locationButton.isSelected()) {
+			if (add2Graph.isInRectangle(mx, my)){
+				System.out.println("Toggle add to graph");
+				add2Graph.setSelected(!add2Graph.isSelected());
+				if (!add2Graph.isSelected()) {
+					add2Graph.setName("OFF");
+				}
+				else
+					add2Graph.setName("ON");
+			}
+		}
+		
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
 			float mW =  map.x2 - map.x1 + 1;
