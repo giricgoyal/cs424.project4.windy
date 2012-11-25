@@ -66,10 +66,13 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button addEvent2List;
 	Button addPerson2List;
 	Button trackPerson;
-	
 	Button trackButton;
 	Button add2Graph;
 	Button locationButton;
+	Button KeywordList;
+	Button PersonList;
+	Button EventList;
+	
 	ListArea listArea;
 	
 	Keyboard keyboard;
@@ -196,6 +199,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		trackPerson.setName("Track Person");
 		trackPerson.setShowClick();
 		controls.add(trackPerson);
+		
+		KeywordList = new Button(this, Pos.keywordListX, Pos.keywordListY, Pos.keywordListWidth, Pos.keywordListHeight);
+		KeywordList.setName("Keyword List");
+		KeywordList.setShowClick();
+		controls.add(KeywordList);
+		
+		
 		
 		
 		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight);
