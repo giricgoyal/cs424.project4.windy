@@ -134,6 +134,12 @@ public class Positions {
 	public static float listWindowHeight = Utilities.height * 2 /3 - Utilities.Converter(15);
 	public static float listWindowX = Utilities.width * 4 / 6 + Positions.listWindowWidth - Utilities.Converter(30);
 	public static float listWindowY = Utilities.height / 3 + Utilities.Converter(2);
+	
+	// keyboard toggle button
+	public static float add2GraphWidth = Utilities.Converter(16);
+	public static float add2GraphHeight = Utilities.Converter(9);
+	public static float add2GraphX = Utilities.width / 6*5 - Positions.add2GraphWidth - Utilities.Converter(2);
+	public static float add2GraphY = Utilities.height - Positions.add2GraphHeight - Utilities.Converter(3);
 
 }
 

@@ -224,6 +224,12 @@ public class SuggestionBox extends BasicControl {
 		for (count = 0; count < dataWordCountPair.size(); count++) {
 			if (dataWordCountPair.get(count).getWord().equals(clickedString)) {
 				System.out.println(dataWordCountPair.get(count).getWord());
+				if (program.add2Graph.isSelected()) {
+					System.out.println("Add to graph : " + clickedString);
+				}
+				else{
+					System.out.println("Update map : " + clickedString);
+				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
 				//program.gm.computeGridValues();
