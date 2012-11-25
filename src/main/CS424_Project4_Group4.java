@@ -88,7 +88,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	DataCountPair[] dataCount; //all counts for every halfhour (keyword not implemented)
 	ArrayList<AbstractMarker> markers; // markers, contain all information
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
-	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
+	//ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -102,7 +102,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
-		dataWordCountPair = new ArrayList<WordCountPair>();
+		//dataWordCountPair = new ArrayList<WordCountPair>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
@@ -112,10 +112,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
 		
-		dataWords = setCurrentWords();
+		//dataWords = setCurrentWords();
 		
-		dataWordCountPair = getWordCountPair(dataWords);
-		Utilities.dataWordCountPair = dataWordCountPair;
+		//dataWordCountPair = getWordCountPair(dataWords);
+		//Utilities.dataWordCountPair = dataWordCountPair;
 			
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
@@ -393,7 +393,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 	}
 	
-	/* old version -- to get keywords directly from the Tweets
+	/*/ old version -- to get keywords directly from the Tweets
 	private String[] setCurrentWords(int bHalf, int eHalf) {
 		String str = "";
 		System.out.println("setting current words");
@@ -407,15 +407,43 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		System.out.println("done!");
 		return temp;
-	}*/
+	}/*/
 	
 	// new version == to get keywords from keywords
 	private String[] setCurrentWords() {
 		String str = "";
 		System.out.println("setting current words");
-		for (DataPos data : dataPos) {
-			str = str + data.getKeywords()+ " ";
-		}
+		
+			// all location
+			if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
+				for (DataPos data : dataPos) {
+					str = str + data.getKeywords()+ " ";
+				}
+			}
+			// all locations except interstates and river
+			else if (U.selectedLocationId == 98) {
+				for (DataPos data : dataPos) {
+					if (data.getLocation() < 36 && data.getLocation() > 0) {
+						str = str + data.getKeywords()+ " ";
+					}
+				}
+			}
+			// all interstates
+			else if (U.selectedLocationId == 97) {
+				for (DataPos data : dataPos) {
+					if (data.getLocation() >= 37 && data.getLocation() <=47) {
+						str = str + data.getKeywords()+ " ";
+					}
+				}
+			}
+			else {
+				for (DataPos data : dataPos) {
+					if (data.getLocation() == U.selectedLocationId) {
+						str = str + data.getKeywords()+ " ";
+					}
+				}
+			}
+			
 		String[] result = split(str, ' '); // temp contains all words
 		for (int i=0;i<result.length;i++) {
 				result[i] = result[i].toLowerCase();
@@ -424,22 +452,42 @@ public class CS424_Project4_Group4 extends PApplet{
 		//saveStrings(dataPath("KeywordsAfter.txt"), result);
 		System.out.println("done!");
 		return result;
-	}
+	}//
 	
 	private void setTodayWordsToFile() {
-		ArrayList<String> str = new ArrayList<String>();
-		System.out.println("setting today words");
-		for (DataPos data : dataPos) {
-			str.add(data.getKeywords());
-		}
-		//String[] result = split(str, ' '); // temp contains all words
-		//for (int i=0;i<result.length;i++) {
-		//		result[i] = result[i].toLowerCase();
-		//}
-		String[] result = new String[str.size()];
-		for (int i=0;i<result.length;i++) {
-			result[i] = str.get(i);
-		}
+		String str = "";
+		System.out.println("setting current words");
+					// all location
+					if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
+						for (DataPos data : dataPos) {
+							str = str + data.getKeywords()+ " ";
+						}
+					}
+					// all locations except interstates and river
+					else if (U.selectedLocationId == 98) {
+						for (DataPos data : dataPos) {
+							if (data.getLocation() < 36 && data.getLocation() > 0) {
+								str = str + data.getKeywords()+ " ";
+							}
+						}
+					}
+					// all interstates
+					else if (U.selectedLocationId == 97) {
+						for (DataPos data : dataPos) {
+							if (data.getLocation() >= 37 && data.getLocation() <=47) {
+								str = str + data.getKeywords()+ " ";
+							}
+						}
+					}
+					else {
+						for (DataPos data : dataPos) {
+							if (data.getLocation() == U.selectedLocationId) {
+								str = str + data.getKeywords()+ " ";
+							}
+						}
+					}
+		String[] result = new String[1];
+		result[0] = str;
 		System.out.println("start to write!");	
 		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
 		System.out.println("done!");
@@ -662,8 +710,9 @@ public class CS424_Project4_Group4 extends PApplet{
 			U.bHalf = U.bHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			dataWords = setCurrentWords();
-			dataWordCountPair = getWordCountPair(dataWords);
+			//dataWords = setCurrentWords();
+			//dataWordCountPair = getWordCountPair(dataWords);
+			setTodayWordsToFile();
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
@@ -671,8 +720,9 @@ public class CS424_Project4_Group4 extends PApplet{
 			U.eHalf = U.eHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			dataWords = setCurrentWords();
-			dataWordCountPair = getWordCountPair(dataWords);
+			//dataWords = setCurrentWords();
+			//dataWordCountPair = getWordCountPair(dataWords);
+			setTodayWordsToFile();
 			return;
 		}
 		
@@ -686,8 +736,8 @@ public class CS424_Project4_Group4 extends PApplet{
 				dataDay = qManager.getDataPos_By_Date(U.currentDay);
 				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				dataWords = setCurrentWords();
-				dataWordCountPair = getWordCountPair(dataWords);
+				//dataWords = setCurrentWords();
+				//dataWordCountPair = getWordCountPair(dataWords);
 				setTodayWordsToFile();
 				Utilities.currentTweet = "";
 				tw.setTweet();
