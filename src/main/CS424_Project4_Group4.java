@@ -440,7 +440,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	private void setTodayWordsToFile() {
 		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting today words");
-		for (DataPos data : dataDay) {
+		for (DataPos data : dataPos) {
 			str.add(data.getKeywords());
 		}
 		//String[] result = split(str, ' '); // temp contains all words
@@ -451,15 +451,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<result.length;i++) {
 			result[i] = str.get(i);
 		}
-<<<<<<< HEAD
-=======
-
-		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
-
-		System.out.println("start to write!");
->>>>>>> origin/master
-		saveStrings(dataPath("KeywordsBefore.txt"), result);
-		
+		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);		
 		System.out.println("done!");
 	}
 	
