@@ -142,7 +142,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		Utilities.font = this.loadFont("Helvetica-Bold-100.vlw");
 		
 		beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
-		afterWordCloud = new WordCloud(this, Positions.wordCloudAfterX, Positions.wordCloudAfterY, Positions.wordCloudAfterWidth, Positions.wordCloudAfterHeight, "KeywordsAfter.txt");
+		//afterWordCloud = new WordCloud(this, Positions.wordCloudAfterX, Positions.wordCloudAfterY, Positions.wordCloudAfterWidth, Positions.wordCloudAfterHeight, "KeywordsAfter.txt");
 	}
 
 	public void initControls() {
@@ -305,7 +305,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw word cloud
 		beforeWordCloud.draw();
-		afterWordCloud.draw();
+		//afterWordCloud.draw();
 		
 		if (U.drawGridLine) {
 			pushStyle();
@@ -437,7 +437,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<result.length;i++) {
 				result[i] = result[i].toLowerCase();
 		}
-		saveStrings(dataPath("KeywordsBefore.txt"), result);
+		saveStrings(dataPath(sketchPath + "/data/KeywordsBefore.txt"), result);
 		System.out.println("done!");
 	}
 	

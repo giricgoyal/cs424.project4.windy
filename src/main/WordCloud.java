@@ -34,7 +34,8 @@ public class WordCloud extends BasicControl{
 		canvas.setSize(500, 500);
 		
 		wordCram = new WordCram(parent)
-			.fromTextFile("data/"+fileName)
+			//.fromTextString(string)
+			.fromTextFile(parent.sketchPath + "/data/"+fileName)
 			//.withFont(parent.createFont("../../"+Utilities.font, 1))
 	      
 			// scale according to the scale factor.--------------------------------------
@@ -45,12 +46,11 @@ public class WordCloud extends BasicControl{
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
 	        .withPlacer(customPlacer())
-	        .maxNumberOfWordsToDraw(20)
+	        .maxNumberOfWordsToDraw(100)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())
 	        //.withPlacer(Placers.wave())
-
             // For this one, try setting the sketch size to 1000x1000.
             //.withPlacer(Placers.swirl())
             //.sizedByWeight(8, 30)
@@ -151,8 +151,8 @@ public class WordCloud extends BasicControl{
 		parent.beginShape();
 			parent.vertex(Utilities.width *4/6, 0);
 			parent.vertex(Utilities.width *4/6, Utilities.height / 3);
-			parent.vertex(Utilities.width *5/6, Utilities.height / 3);
-			parent.vertex(Utilities.width *5/6, 0);
+			parent.vertex(Utilities.width , Utilities.height / 3);
+			parent.vertex(Utilities.width , 0);
 		parent.endShape(PConstants.CLOSE);
 	}
 }
