@@ -140,6 +140,29 @@ public class Positions {
 	public static float add2GraphHeight = Utilities.Converter(9);
 	public static float add2GraphX = Utilities.width / 6*5 - Positions.add2GraphWidth - Utilities.Converter(2);
 	public static float add2GraphY = Utilities.height - Positions.add2GraphHeight - Utilities.Converter(3);
-
+	
+	// button addKeyword2list
+	public static float addKeyword2ListWidth = Utilities.width / 6 / 2 - Utilities.Converter(2);
+	public static float addKeyword2ListHeight = Utilities.height / 3 / 3 - Utilities.Converter(2);
+	public static float addKeyword2ListX = Utilities.width * 4 / 6 + Utilities.Converter(1);
+	public static float addKeyword2ListY = Utilities.height * 2 / 3 + Utilities.Converter(1);
+	
+	// button addPerson2List
+	public static float addPerson2ListWidth = addKeyword2ListWidth;
+	public static float addPerson2ListHeight = addKeyword2ListHeight;
+	public static float addPerson2ListX = addKeyword2ListX + addKeyword2ListWidth + Utilities.Converter(2);
+	public static float addPErson2LsitY = addKeyword2ListY;
+	
+	// button addEvent2List
+	public static float addEvent2ListWidth = addKeyword2ListWidth;
+	public static float addEvent2ListHeight = addKeyword2ListHeight;
+	public static float addEvent2ListX = addKeyword2ListX;
+	public static float addEvent2listY = addKeyword2ListY + addKeyword2ListHeight + Utilities.Converter(2);
+	
+	// button track Person
+	public static float trackPersonWidth = addKeyword2ListWidth;
+	public static float trackPersonHeight = addKeyword2ListHeight;
+	public static float trackPersonX = addPerson2ListX;
+	public static float trackPersonY = addEvent2listY;
 }
 

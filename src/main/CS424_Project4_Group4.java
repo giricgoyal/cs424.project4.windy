@@ -62,6 +62,11 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomInBtn;
 	Button zoomOutBtn;
 	
+	Button addKeyword2List;
+	Button addEvent2List;
+	Button addPerson2List;
+	Button trackPerson;
+	
 	Button trackButton;
 	Button add2Graph;
 	Button locationButton;
@@ -173,6 +178,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		add2Graph.setShowClick();
 		add2Graph.setName("OFF");
 		controls.add(add2Graph);
+		
+		addKeyword2List = new Button(this, Positions.addKeyword2ListX, Positions.addKeyword2ListY, Positions.addKeyword2ListWidth, Positions.addKeyword2ListHeight);
+		addKeyword2List.setName("Add Keyword\nto List");
+		controls.add(addKeyword2List);
+		
+		addPerson2List = new Button(this, Positions.addPerson2ListX, Positions.addPErson2LsitY, Positions.addPerson2ListWidth, Positions.addPerson2ListHeight);
+		addPerson2List.setName("Add Person\nto List");
+		controls.add(addPerson2List);
+		
+		addEvent2List = new Button(this, Positions.addEvent2ListX, Positions.addEvent2listY, Positions.addEvent2ListWidth, Positions.addEvent2ListHeight);
+		addEvent2List.setName("Add Event\nto List");
+		controls.add(addEvent2List);
+		
+		trackPerson = new Button(this, Positions.trackPersonX, Positions.trackPersonY, Positions.trackPersonWidth, Positions.trackPersonHeight);
+		trackPerson.setName("Track Person");
+		trackPerson.setShowClick();
+		controls.add(trackPerson);
+		
 		
 		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight);
 		
@@ -685,6 +708,30 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 				else
 					add2Graph.setName("ON");
+			}
+			
+			if (trackPerson.isInRectangle(mx, my)){
+				System.out.println("toggle Track Person");
+				trackPerson.setSelected(!trackPerson.isSelected());
+				
+				
+			}
+			
+			if (addPerson2List.isInRectangle(mx, my)) {
+				System.out.println("click on add Person 2 List");
+				
+
+			}
+			
+			if (addEvent2List.isInRectangle(mx, my)){
+				System.out.println("click on add Event 2 List");
+				
+			}
+			
+			if (addKeyword2List.isInRectangle(mx, my)) {
+				System.out.println("Click on add Keyword to list");
+				
+				
 			}
 		}
 		

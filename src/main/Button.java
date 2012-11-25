@@ -47,7 +47,7 @@ public class Button extends BasicControl {
 		parent.fill(Colors.black);
 		//if(elps) parent.textSize(Utilities.Converter(20));
 		//else 
-		parent.textSize(Utilities.Converter(7));
+		parent.textSize(Utilities.Converter(5));
 		parent.text(name, (myWidth)/2+myX, (myHeight)/2+myY);
 		parent.popStyle();
 	}
