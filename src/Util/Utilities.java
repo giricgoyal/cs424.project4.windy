@@ -116,5 +116,11 @@ public class Utilities {
 	
 	public static final float markerHalfWidth = U.Converter(5);
 	public static final float markerHalfHeight = U.Converter(5);
+	
+	
+	public static ArrayList<String> keywordList = new ArrayList<String>();
+	public static ArrayList<String> eventList = new ArrayList<String>();
+	public static ArrayList<Integer> personList = new ArrayList<Integer>();
+	public static ArrayList<String> keywordGraph = new ArrayList<String>();
 }
 	

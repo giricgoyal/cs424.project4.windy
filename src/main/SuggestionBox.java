@@ -104,15 +104,17 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
-			while (count < dataWordsLength) {
-				if (dataWords[count].toLowerCase().contains(textBoxText)) {
-					parent.text(dataWords[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
-					matchCount++;
+			if (dataWordsLength != 0) {
+				while (count < dataWordsLength) {
+					if (dataWords[count].toLowerCase().contains(textBoxText)) {
+						parent.text(dataWords[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
+						matchCount++;
+					}
+					if (matchCount == 5) {
+						break;
+					}
+					count++;
 				}
-				if (matchCount == 5) {
-					break;
-				}
-				count++;
 			}
 			/*
 			while(count<states.size()) {
@@ -179,6 +181,7 @@ public class SuggestionBox extends BasicControl {
 			}
 		}
 		dataWords = new String[500];
+		dataWordsLength = 0;
 		for (int count = 0, count2 = 0; count < KeyWords.words.length; count++) {
 			if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
 				dataWords[count2] = KeyWords.words[count];

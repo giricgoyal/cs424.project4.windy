@@ -5,8 +5,11 @@ package main;
 
 import java.util.ArrayList;
 
+import markers.MarkerType;
+
 import Util.Colors;
 import Util.Positions;
+import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -33,17 +36,20 @@ public class ListArea extends BasicControl {
 	
 	boolean selected;
 	
+	CS424_Project4_Group4 program;
+	
 	//int level;
 	
 	float v1x, v2x, v3x, v4x, v5x, v6x;
 	float v1y, v2y, v3y, v4y, v5y, v6y;
 
 	public ListArea(PApplet parent, float x, float y, float width,
-			float height) {
+			float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
 		// TODO Auto-generated constructor stub
 		
 		this.parent = parent;
+		this.program = program;
 		//this.level = 0;
 		this.cid = 0;
 		this.parentId = "null";
@@ -130,16 +136,105 @@ public class ListArea extends BasicControl {
 			}
 		}
 	}
+	
+	void drawKeywordItems() {
+		if (this.selected) {
+			parent.noStroke();
+			parent.fill(Colors.buttonSelectedColor);
+			parent.beginShape();
+				parent.vertex(v1x, v1y);
+				parent.vertex(v2x, v2y);
+				parent.vertex(v3x, v3y);
+				parent.vertex(v4x, v4y);
+				parent.vertex(v5x, v5y);
+				parent.vertex(v6x, v6y);
+			parent.endShape(PConstants.CLOSE);
+			
+			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
+			
+			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+			parent.textSize(Utilities.Converter(5));
+			parent.fill(Colors.black);
+			
+			int count = 0;
+			while (count < Utilities.keywordList.size()) {
+				parent.text(Utilities.keywordList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				count++;
+			}
+			
+		}
+	}
+	
+	void drawEventItems() {
+		if (this.selected) {
+			parent.noStroke();
+			parent.fill(Colors.buttonSelectedColor);
+			parent.beginShape();
+				parent.vertex(v1x, v1y);
+				parent.vertex(v2x, v2y);
+				parent.vertex(v3x, v3y);
+				parent.vertex(v4x, v4y);
+				parent.vertex(v5x, v5y);
+				parent.vertex(v6x, v6y);
+			parent.endShape(PConstants.CLOSE);
+			
+			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
+			
+			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+			parent.textSize(Utilities.Converter(5));
+			parent.fill(Colors.black);
+			
+			int count = 0;
+			while (count < Utilities.eventList.size()) {
+				parent.text(Utilities.eventList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				count++;
+			}
+			
+		}
+	}
+	
+	void drawPersonItems() {
+		if (this.selected) {
+			parent.noStroke();
+			parent.fill(Colors.buttonSelectedColor);
+			parent.beginShape();
+				parent.vertex(v1x, v1y);
+				parent.vertex(v2x, v2y);
+				parent.vertex(v3x, v3y);
+				parent.vertex(v4x, v4y);
+				parent.vertex(v5x, v5y);
+				parent.vertex(v6x, v6y);
+			parent.endShape(PConstants.CLOSE);
+			
+			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
+			
+			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+			parent.textSize(Utilities.Converter(5));
+			parent.fill(Colors.black);
+			
+			int count = 0;
+			while (count < Utilities.personList.size()) {
+				parent.text(Utilities.personList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				count++;
+			}
+			
+		}
+	}
 
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
 		if (this.buttonName.compareTo("location") == 0)
 			this.drawLocationItems();
-		
+		else if (this.buttonName.compareTo("keyword") == 0) 
+			this.drawKeywordItems();
+		else if (this.buttonName.compareTo("event") == 0)
+			this.drawEventItems();
+		else if (this.buttonName.compareTo("person") == 0)
+			this.drawPersonItems();
 	}
 	
-	public void click(float  mx, float my){
+	void clickLocation(float mx, float my) {
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			
 			if (this.parentId.compareTo("null") == 0) {
@@ -247,7 +342,100 @@ public class ListArea extends BasicControl {
 				}
 			}
 		}
-		//return 0;
+
+	}
+	
+	void clickKeyword(float mx, float my) {
+		int count = 0;
+		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
+			this.selected = false;
+		}
+		else {
+			while(count < Utilities.keywordList.size()){
+				if (mx > myX && mx < myX + myWidth) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.currentWord = Utilities.keywordList.get(count);
+						this.selected = false;
+						
+						program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+						
+						System.out.println(Utilities.keywordList.get(count));
+					}
+				}
+				
+				count++;
+			}
+		}		
+	}
+	
+	void clickEvent(float mx, float my) {
+		int count = 0;
+		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
+			this.selected = false;
+		}
+		else {
+			while(count < Utilities.eventList.size()){
+				if (mx > myX && mx < myX + myWidth) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.currentWord = Utilities.eventList.get(count);
+						this.selected = false;
+						
+						program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+						
+						System.out.println(Utilities.eventList.get(count));
+					}
+				}
+				
+				count++;
+			}
+		}		
+	}
+	
+	void clickPerson(float mx, float my) {
+		int count = 0;
+		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
+			this.selected = false;
+		}
+		else {
+			while(count < Utilities.personList.size()){
+				if (mx > myX && mx < myX + myWidth) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.tweetPid = Utilities.personList.get(count);
+						this.selected = false;
+						
+						//program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						//program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+						
+						System.out.println(Utilities.eventList.get(count));
+					}
+				}
+				
+				count++;
+			}
+		}		
+	}
+	
+	public void click(float  mx, float my){
+		if (this.buttonName.compareTo("location") == 0) 
+			this.clickLocation(mx, my);
+		else if (this.buttonName.compareTo("keyword") == 0)
+			this.clickKeyword(mx, my);
+		else if (this.buttonName.compareTo("event") == 0)
+			this.clickEvent(mx, my);
+		else if (this.buttonName.compareTo("person") == 0)
+			this.clickPerson(mx, my);
+		
+		/*
+		program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+		program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+		
+		program.KeywordList.setSelected(false);
+		program.locationButton.setSelected(false);
+		program.EventList.setSelected(false);
+		program.PersonList.setSelected(false);
+		*/
 	}
 
 	public void setButtonSelected(String button, float buttonX, float buttonY, float buttonHeight) {
