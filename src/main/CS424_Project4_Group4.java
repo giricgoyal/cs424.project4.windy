@@ -428,15 +428,20 @@ public class CS424_Project4_Group4 extends PApplet{
 	}
 	
 	private void setTodayWordsToFile() {
-		String str = "";
+		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting today words");
 		for (DataPos data : dataDay) {
-			str = str + data.getKeywords()+ " ";
+			str.add(data.getKeywords());
 		}
-		String[] result = split(str, ' '); // temp contains all words
+		//String[] result = split(str, ' '); // temp contains all words
+		//for (int i=0;i<result.length;i++) {
+		//		result[i] = result[i].toLowerCase();
+		//}
+		String[] result = new String[str.size()];
 		for (int i=0;i<result.length;i++) {
-				result[i] = result[i].toLowerCase();
+			result[i] = str.get(i);
 		}
+		System.out.println("start to write!");
 		saveStrings(dataPath("KeywordsBefore.txt"), result);
 		System.out.println("done!");
 	}
