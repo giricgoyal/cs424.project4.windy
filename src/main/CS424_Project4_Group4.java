@@ -179,20 +179,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		
 		add2Graph = new Button(this, Positions.add2GraphX, Positions.add2GraphY, Positions.add2GraphWidth, Positions.add2GraphHeight);
-		add2Graph.setName("Add Keyword\nto Graph");
+		add2Graph.setName("Add to Graph");
 		controls.add(add2Graph);
 		
 		addKeyword2List = new Button(this, Positions.addKeyword2ListX, Positions.addKeyword2ListY, Positions.addKeyword2ListWidth, Positions.addKeyword2ListHeight);
-		addKeyword2List.setName("Add Keyword\nto List");
+		addKeyword2List.setName("Add to List");
+		addKeyword2List.setShowClick();
 		controls.add(addKeyword2List);
-		
-		addPerson2List = new Button(this, Positions.addPerson2ListX, Positions.addPerson2ListY, Positions.addPerson2ListWidth, Positions.addPerson2ListHeight);
-		addPerson2List.setName("Add Person\nto List");
-		controls.add(addPerson2List);
-		
-		addEvent2List = new Button(this, Positions.addEvent2ListX, Positions.addEvent2ListY, Positions.addEvent2ListWidth, Positions.addEvent2ListHeight);
-		addEvent2List.setName("Add Event\nto List");
-		controls.add(addEvent2List);
 		
 		trackPerson = new Button(this, Positions.trackPersonX, Positions.trackPersonY, Positions.trackPersonWidth, Positions.trackPersonHeight);
 		trackPerson.setName("Track Person");
@@ -740,44 +733,87 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (KeywordList.isInRectangle(mx, my)) {
-				System.out.println("Keyword List Selected");
-				KeywordList.setSelected(!KeywordList.isSelected());
-				listArea.setSelected(KeywordList.isSelected());
-				if (KeywordList.isSelected()) {
-					listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
-					locationButton.setSelected(false);
-					PersonList.setSelected(false);
-					EventList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
+				if (!addKeyword2List.isSelected()) {
+					System.out.println("Keyword List Selected");
+					KeywordList.setSelected(!KeywordList.isSelected());
+					listArea.setSelected(KeywordList.isSelected());
+					if (KeywordList.isSelected()) {
+						listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
+						locationButton.setSelected(false);
+						PersonList.setSelected(false);
+						EventList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+				}
+				else {
+					for (int count = 0; count < Utilities.keywordList.size(); count++) {
+						if (Utilities.keywordList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
+							addKeyword2List.setSelected(!addKeyword2List.isSelected());
+							return;
+						}
+					}
+					Utilities.keywordList.add(Utilities.currentWord);
+					System.out.println("Size : "  + Utilities.keywordList.size());
+					addKeyword2List.setSelected(!addKeyword2List.isSelected());
 				}
 			}
 			
 			if (PersonList.isInRectangle(mx, my)) {
-				System.out.println("Person List Selected");
-				PersonList.setSelected(!PersonList.isSelected());
-				listArea.setSelected(PersonList.isSelected());
-				if (PersonList.isSelected()) {
-					listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
-					locationButton.setSelected(false);
-					KeywordList.setSelected(false);
-					EventList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
+				if (!addKeyword2List.isSelected()) {
+					System.out.println("Person List Selected");
+					PersonList.setSelected(!PersonList.isSelected());
+					listArea.setSelected(PersonList.isSelected());
+					if (PersonList.isSelected()) {
+						listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
+						locationButton.setSelected(false);
+						KeywordList.setSelected(false);
+						EventList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+				}
+				else {
+					if (Utilities.tweetPid != -1) {
+						System.out.println("click on add Person 2 List");
+						for (int count = 0; count < Utilities.personList.size(); count++) {
+							if (Utilities.personList.get(count) == Utilities.tweetPid) {
+								addKeyword2List.setSelected(!addKeyword2List.isSelected());
+								return;
+							}
+						}
+						Utilities.personList.add(Utilities.tweetPid);
+						System.out.println("Size : "  + Utilities.personList.size());
+						addKeyword2List.setSelected(!addKeyword2List.isSelected());
+					}
 				}
 			}
 			
 			if (EventList.isInRectangle(mx, my)) {
-				System.out.println("Event List Selected");
-				EventList.setSelected(!EventList.isSelected());
-				listArea.setSelected(EventList.isSelected());
-				if (EventList.isSelected()) {
-					listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
-					locationButton.setSelected(false);
-					PersonList.setSelected(false);
-					KeywordList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
+				if (!addKeyword2List.isSelected()) {
+					System.out.println("Event List Selected");
+					EventList.setSelected(!EventList.isSelected());
+					listArea.setSelected(EventList.isSelected());
+					if (EventList.isSelected()) {
+						listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
+						locationButton.setSelected(false);
+						PersonList.setSelected(false);
+						KeywordList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+				}
+				else {
+					System.out.println("click on add Event 2 List");
+					for (int count = 0; count < Utilities.eventList.size(); count++) {
+						if (Utilities.eventList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
+							addKeyword2List.setSelected(!addKeyword2List.isSelected());
+							return;
+						}
+					}
+					Utilities.eventList.add(Utilities.currentWord);
+					System.out.println("Size : "  + Utilities.eventList.size());
+					addKeyword2List.setSelected(!addKeyword2List.isSelected());
 				}
 			}
 			
@@ -790,6 +826,7 @@ public class CS424_Project4_Group4 extends PApplet{
 						EventList.setSelected(false);
 						PersonList.setSelected(false);
 					}
+					return;
 				}
 			}
 		}
@@ -811,42 +848,10 @@ public class CS424_Project4_Group4 extends PApplet{
 				trackPerson.setSelected(!trackPerson.isSelected());
 				
 			}
-			
-			if (addPerson2List.isInRectangle(mx, my)) {
-				if (Utilities.tweetPid != -1) {
-					System.out.println("click on add Person 2 List");
-					for (int count = 0; count < Utilities.personList.size(); count++) {
-						if (Utilities.personList.get(count) == Utilities.tweetPid) {
-							return;
-						}
-					}
-					Utilities.personList.add(Utilities.tweetPid);
-					System.out.println("Size : "  + Utilities.personList.size());
-				}
-			}
-			
-			if (addEvent2List.isInRectangle(mx, my)){
-				System.out.println("click on add Event 2 List");
-				for (int count = 0; count < Utilities.eventList.size(); count++) {
-					if (Utilities.eventList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
-						return;
-					}
-				}
-				Utilities.eventList.add(Utilities.currentWord);
-				System.out.println("Size : "  + Utilities.eventList.size());
-			}
-			
+						
 			if (addKeyword2List.isInRectangle(mx, my)) {
 				System.out.println("Click on add Keyword to list");
-				for (int count = 0; count < Utilities.keywordList.size(); count++) {
-					if (Utilities.keywordList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
-						return;
-					}
-				}
-				Utilities.keywordList.add(Utilities.currentWord);
-				System.out.println("Size : "  + Utilities.keywordList.size());
-				
-				
+				addKeyword2List.setSelected(!addKeyword2List.isSelected());
 			}
 		}
 		
