@@ -10,11 +10,13 @@
 package main;
 
 
+import java.awt.RenderingHints.Key;
 import java.util.ArrayList;
 
 import markers.MarkerType;
 
 import Util.Colors;
+import Util.KeyWords;
 import Util.Positions;
 import Util.U;
 import Util.Utilities;
@@ -99,9 +101,9 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
-			while (count < dataWordCountPair.size()) {
-				if (dataWordCountPair.get(count).getWord().toLowerCase().contains(textBoxText)) {
-					parent.text(dataWordCountPair.get(count).getWord(), Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
+			while (count < KeyWords.words.length) {
+				if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
+					parent.text(KeyWords.words[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
 					matchCount++;
 				}
 				if (matchCount == 5) {
@@ -188,11 +190,11 @@ public class SuggestionBox extends BasicControl {
 		int matchCount = 0;
 		String clickedString = "";
 		if (!textBoxText.isEmpty()) {
-			while(count < dataWordCountPair.size()) {
-				if (dataWordCountPair.get(count).getWord().toLowerCase().contains(textBoxText)) {
+			while(count < KeyWords.words.length) {
+				if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) - Utilities.Converter(1) && y < Positions.suggestionBoxY + myHeight*(5-matchCount) - Utilities.Converter(1)) {
-							clickedString = dataWordCountPair.get(count).getWord();
+							clickedString = KeyWords.words[count];
 							textBoxText = "";
 							Utilities.suggestionBox = false;
 						}
@@ -224,9 +226,9 @@ public class SuggestionBox extends BasicControl {
 		 * Whatever needs to be updated, call that here
 		 * 
 		 */
-		for (count = 0; count < dataWordCountPair.size(); count++) {
-			if (dataWordCountPair.get(count).getWord().equals(clickedString)) {
-				System.out.println(dataWordCountPair.get(count).getWord());
+		for (count = 0; count < KeyWords.words.length; count++) {
+			if (KeyWords.words[count].equals(clickedString)) {
+				System.out.println(KeyWords.words[count]);
 				if (program.add2Graph.isSelected()) {
 					System.out.println("Add to graph : " + clickedString);
 				}
