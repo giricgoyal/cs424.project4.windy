@@ -44,6 +44,7 @@ public class SuggestionBox extends BasicControl {
 	CS424_Project4_Group4 program;
 	
 	String[] dataWords;
+	int dataWordsLength;
 	
 	/**
 	 * temp test string
@@ -70,6 +71,8 @@ public class SuggestionBox extends BasicControl {
 		
 		dataWordCountPair = new ArrayList<WordCountPair>();
 		db = new DatabaseManager(parent);
+		
+		dataWords = new String[500];
 	}
 
 	//text box for searches
@@ -101,9 +104,9 @@ public class SuggestionBox extends BasicControl {
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
 			parent.fill(Colors.black);
-			while (count < KeyWords.words.length) {
-				if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
-					parent.text(KeyWords.words[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
+			while (count < dataWordsLength) {
+				if (dataWords[count].toLowerCase().contains(textBoxText)) {
+					parent.text(dataWords[count], Positions.suggestionBoxX + Utilities.Converter(2), Positions.suggestionBoxY + myHeight*(5-matchCount) - myHeight/2 - Utilities.Converter(1));
 					matchCount++;
 				}
 				if (matchCount == 5) {
@@ -175,6 +178,14 @@ public class SuggestionBox extends BasicControl {
 				this.dataWordCountPair.add(new WordCountPair(wcp.getWord()));
 			}
 		}
+		dataWords = new String[500];
+		for (int count = 0, count2 = 0; count < KeyWords.words.length; count++) {
+			if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
+				dataWords[count2] = KeyWords.words[count];
+				count2++;
+				dataWordsLength = count2;
+			}
+		}	
 		System.out.println(textBoxText);
 	}
 	
@@ -190,11 +201,11 @@ public class SuggestionBox extends BasicControl {
 		int matchCount = 0;
 		String clickedString = "";
 		if (!textBoxText.isEmpty()) {
-			while(count < KeyWords.words.length) {
-				if (KeyWords.words[count].toLowerCase().contains(textBoxText)) {
+			while(count < dataWordsLength) {
+				if (dataWords[count].toLowerCase().contains(textBoxText)) {
 					if(x > Positions.suggestionBoxX && x < Positions.suggestionBoxX + Positions.suggestionBoxWidth) {
 						if(y > Positions.suggestionBoxY - myHeight*(4-matchCount) - Utilities.Converter(1) && y < Positions.suggestionBoxY + myHeight*(5-matchCount) - Utilities.Converter(1)) {
-							clickedString = KeyWords.words[count];
+							clickedString = dataWords[count];
 							textBoxText = "";
 							Utilities.suggestionBox = false;
 						}
@@ -226,9 +237,9 @@ public class SuggestionBox extends BasicControl {
 		 * Whatever needs to be updated, call that here
 		 * 
 		 */
-		for (count = 0; count < KeyWords.words.length; count++) {
-			if (KeyWords.words[count].equals(clickedString)) {
-				System.out.println(KeyWords.words[count]);
+		for (count = 0; count < dataWordsLength; count++) {
+			if (dataWords[count].equals(clickedString)) {
+				System.out.println(dataWords[count]);
 				if (program.add2Graph.isSelected()) {
 					System.out.println("Add to graph : " + clickedString);
 				}
