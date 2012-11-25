@@ -12,8 +12,11 @@ package main;
 
 import java.util.ArrayList;
 
+import markers.MarkerType;
+
 import Util.Colors;
 import Util.Positions;
+import Util.U;
 import Util.Utilities;
 
 //import com.modestmaps.InteractiveMap;
@@ -228,7 +231,9 @@ public class SuggestionBox extends BasicControl {
 					System.out.println("Add to graph : " + clickedString);
 				}
 				else{
-					System.out.println("Update map : " + clickedString);
+					Utilities.currentWord = clickedString;
+					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();

@@ -320,24 +320,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 	}
 	
-	// first version - get all data from database when launching
-	private void setCurrentData(ArrayList<DataPos> current, ArrayList<DataPos> all, int day, int bHalf, int eHalf, String keyword) {
-		current.clear();
-		System.out.println("start update current data");
-		for (DataPos data : all) {
-			if (data.getDay() == day) {
-				int half = data.getHour()*2 + data.getMin()/30;
-				if (bHalf <= half && half < eHalf) {
-					//TODO: get keyword of a tweet
-					current.add(data);
-				}
-			}
-		}
-		System.out.println("done!");
-	}
-	
 	// second version - get all data from database when launching
-	private void setCurrentData(ArrayList<DataPos> current, ArrayList<DataPos> day, int bHalf, int eHalf, String keyword) {
+	public void setCurrentData(ArrayList<DataPos> current, ArrayList<DataPos> day, int bHalf, int eHalf, String keyword) {
 		current.clear();
 		System.out.println("start updating current data");
 		for (DataPos data : day) {
@@ -355,7 +339,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		System.out.println("done!");
 	}
 	
-	private void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers, MarkerType type) {
+	public void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers, MarkerType type) {
 		markers.clear();
 		for (DataPos pos : dataPos) {
 			float _x = pos.getLongitude();
