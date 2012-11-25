@@ -687,6 +687,8 @@ public class CS424_Project4_Group4 extends PApplet{
 				setTodayWordsToFile();
 				Utilities.currentTweet = "";
 				tw.setTweet();
+				beforeWordCloud.clearArea();
+				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				return;
 			}
 		}

@@ -34,7 +34,7 @@ public class WordCloud extends BasicControl{
 		canvas.setSize(500, 500);
 		
 		wordCram = new WordCram(parent)
-			.fromTextFile("../bin/data/"+fileName)
+			.fromTextFile("data/"+fileName)
 			//.withFont(parent.createFont("../../"+Utilities.font, 1))
 	      
 			// scale according to the scale factor.--------------------------------------
@@ -45,7 +45,7 @@ public class WordCloud extends BasicControl{
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
 	        .withPlacer(customPlacer())
-	        //.maxNumberOfWordsToDraw(20)
+	        .maxNumberOfWordsToDraw(20)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())
@@ -144,5 +144,15 @@ public class WordCloud extends BasicControl{
 		    }
 		  }
 		
+	}
+	
+	public void clearArea() {
+		parent.fill(Colors.DARK_GRAY);
+		parent.beginShape();
+			parent.vertex(Utilities.width *4/6, 0);
+			parent.vertex(Utilities.width *4/6, Utilities.height / 3);
+			parent.vertex(Utilities.width *5/6, Utilities.height / 3);
+			parent.vertex(Utilities.width *5/6, 0);
+		parent.endShape(PConstants.CLOSE);
 	}
 }
