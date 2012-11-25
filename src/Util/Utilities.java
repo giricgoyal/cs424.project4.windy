@@ -26,10 +26,10 @@ public class Utilities {
 	public static int dayButtonLowerBound = 0;
 	
 	// variables
-	public static int currentDay = 17;
+	public static int currentDay = 0;
 	public static String currentWord = "accident";
-	public static int bHalf = 20; // include
-	public static int eHalf = 28; // exclude
+	public static int bHalf = 12; // include
+	public static int eHalf = 40; // exclude
 	public static int bHalf_temp;
 	public static int eHalf_temp;
 	public static String currentTweet = "";
