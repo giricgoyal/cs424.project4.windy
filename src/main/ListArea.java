@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import markers.MarkerType;
 
 import Util.Colors;
+import Util.Pos;
 import Util.Positions;
 import Util.U;
 import Util.Utilities;
@@ -374,6 +375,7 @@ public class ListArea extends BasicControl {
 				if (mx > myX && mx < myX + myWidth) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						
+						// same update as in Suggestion Box
 						Utilities.currentWord = Utilities.keywordList.get(count);
 						this.selected = false;
 						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
@@ -382,8 +384,6 @@ public class ListArea extends BasicControl {
 						program.updateDayButton();
 						program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
 						program.timeSlider.update(program.dataCount);
-						
-						System.out.println(Utilities.keywordList.get(count));
 						break;
 					}
 				}
@@ -392,27 +392,36 @@ public class ListArea extends BasicControl {
 	}
 	
 	private void clickEvent(float mx, float my) {
-		int count = 0;
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			this.selected = false;
 		}
 		else {
-			while(count < Utilities.eventList.size()){
+			for (int count = 0; count < Utilities.eventList.size(); count++) {
 				if (mx > myX && mx < myX + myWidth) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
-						Utilities.currentWord = Utilities.eventList.get(count).text;
+						
+						// same update as in myReleased
 						this.selected = false;
-						
-						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						U.bHalf = Utilities.eventList.get(count).bHalf;
+						U.eHalf = Utilities.eventList.get(count).eHalf;
+						// different day
+						if (Utilities.eventList.get(count).day !=  Utilities.currentDay) {
+							program.dayButtons.get(U.currentDay).setSelected(false);
+							U.currentDay = U.eventList.get(count).day;
+							program.dayButtons.get(U.currentDay).setSelected(true);
+							program.dataDay = program.qManager.getDataPos_By_Date(U.currentDay);
+						}
+						program.timeSlider.updateLeft(PApplet.map(U.bHalf,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), U.bHalf);
+						program.timeSlider.updateRight(PApplet.map(U.eHalf,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), U.eHalf);
+						program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-						
-						System.out.println(Utilities.eventList.get(count).text);
+						program.beforeWordCloud.clearArea();
+						program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+						break;
 					}
 				}
-				
-				count++;
 			}
-		}		
+		}
 	}
 	
 	private void clickPerson(float mx, float my) {
