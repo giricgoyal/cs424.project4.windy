@@ -24,7 +24,7 @@ public class Utilities {
 	public static final boolean isWall = false;
 	public static final boolean drawGridLine = false;
 	public static final int dayButtonLowerBound = 0;
-	public static final int graphNumber = 4; // how many keywords are in the graph
+	public static final int graphNumber = 7; // how many keywords are in the graph
 	
 	// variables
 	public static int currentDay = 0;
@@ -121,5 +121,7 @@ public class Utilities {
 	public static ArrayList<String> eventList = new ArrayList<String>();
 	public static ArrayList<Integer> personList = new ArrayList<Integer>();
 	public static ArrayList<String> keywordGraph = new ArrayList<String>();
+	
+	
 }
 	

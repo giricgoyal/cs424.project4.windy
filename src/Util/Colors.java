@@ -67,4 +67,5 @@ public class Colors {
 	public static int GRAPH_COLOR_2 = 0x8fadb0b0;
 	public static int GRAPH_COLOR_3 = 0xfff16451;
 	public static int GRAPH_COLOR_4 = 0xff4fc1bb;
+	public static int[] GRAPH_COLORS = {0x88ED1F1F, 0x881F97ED, 0x882BD937, 0x88FCFC14, 0x88FFFFFF, 0x88D500ED, 0x88FFA024};
 }
