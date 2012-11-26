@@ -47,6 +47,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	// map
 	Map map;
 	PVector moveDis;
+	boolean moved = false; 
 	
 	// weather panel
 	WeatherPanel weatherPanel;
@@ -629,7 +630,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void myDragged(int id, float mx, float my) {
 		if (isTouchingMap) {
-			boolean moved = map.move(mx,my,currentMX,currentMY);
+			moved = map.move(mx,my,currentMX,currentMY);
 			if (moved) {
 				moveMarkers(markers, mx-currentMX, my-currentMY);
 			}
@@ -659,6 +660,27 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (isTouchingMap) {
 			isTouchingMap = false;
 		}
+		if (!moved) {
+			for (AbstractMarker m : markers) {
+				if (map.checkIn(m.getX(),m.getY())) {
+					if (m.checkIn(mx, my)) {
+						U.currentTweet = m.getTweet();
+						U.tweetTime = (m.getHour() > 9)? 
+								((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+								: 
+								( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+						U.tweetPid = m.getPid();
+						System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+						tw.setTweet();
+						return;
+					}
+				}
+			}
+		}
+		else {
+			moved = false;
+		}
+		
 		
 		if (whichLock == U.LEFT) {
 			whichLock = U.NEITHER;
@@ -918,22 +940,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				//updateMarkerPos(markers);
 			}
 			return;
-		}
-		
-		for (AbstractMarker m : markers) {
-			if (map.checkIn(m.getX(),m.getY())) {
-				if (m.checkIn(mx, my)) {
-					U.currentTweet = m.getTweet();
-					U.tweetTime = (m.getHour() > 9)? 
-							((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
-							: 
-							( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
-					U.tweetPid = m.getPid();
-					System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-					tw.setTweet();
-					return;
-				}
-			}
 		}
 	}
 	
