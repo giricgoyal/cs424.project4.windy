@@ -112,6 +112,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
 		dataKeywordCount = new DataCountPair[U.graphNumber];
+		for (int i=0;i<U.graphNumber;i++) {
+			dataKeywordCount[i] = new DataCountPair("",new int[21]);
+		}
 		
 		//dataWords = setCurrentWords();
 		
