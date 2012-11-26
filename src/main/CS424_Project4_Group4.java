@@ -98,7 +98,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void initApp() {
 		Utilities.CS424_Project4_Group4 = this;
-		U.currentWord = "accident";
+		U.currentWord = "flu";
 		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
@@ -648,6 +648,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = setCurrentWords();
 			//dataWordCountPair = getWordCountPair(dataWords);
+			beforeWordCloud.clearArea();
+			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
@@ -657,6 +659,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			//dataWords = setCurrentWords();
 			//dataWordCountPair = getWordCountPair(dataWords);
+			beforeWordCloud.clearArea();
+			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			return;
 		}
 		
@@ -672,8 +676,8 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				//dataWords = setCurrentWords();
 				//dataWordCountPair = getWordCountPair(dataWords);
-				Utilities.currentTweet = "";
-				tw.setTweet();
+				//Utilities.currentTweet = "";
+				//tw.setTweet();
 				beforeWordCloud.clearArea();
 				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				return;
