@@ -76,7 +76,7 @@ public class ListArea extends BasicControl {
 		
 	}
 	
-	void drawLocationItems() {
+	private void drawLocationItems() {
 		if (this.selected) {
 			parent.noStroke();
 			parent.fill(Colors.buttonSelectedColor);
@@ -137,7 +137,7 @@ public class ListArea extends BasicControl {
 		}
 	}
 	
-	void drawKeywordItems() {
+	private void drawKeywordItems() {
 		if (this.selected) {
 			parent.noStroke();
 			parent.fill(Colors.buttonSelectedColor);
@@ -165,7 +165,7 @@ public class ListArea extends BasicControl {
 		}
 	}
 	
-	void drawEventItems() {
+	private void drawEventItems() {
 		if (this.selected) {
 			parent.noStroke();
 			parent.fill(Colors.buttonSelectedColor);
@@ -193,7 +193,7 @@ public class ListArea extends BasicControl {
 		}
 	}
 	
-	void drawPersonItems() {
+	private void drawPersonItems() {
 		if (this.selected) {
 			parent.noStroke();
 			parent.fill(Colors.buttonSelectedColor);
@@ -214,7 +214,7 @@ public class ListArea extends BasicControl {
 			
 			int count = 0;
 			while (count < Utilities.personList.size()) {
-				parent.text(Utilities.personList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.text("pid: "+Utilities.personList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
 			
@@ -223,7 +223,6 @@ public class ListArea extends BasicControl {
 
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub
 		if (this.buttonName.compareTo("location") == 0)
 			this.drawLocationItems();
 		else if (this.buttonName.compareTo("keyword") == 0) 
@@ -234,7 +233,7 @@ public class ListArea extends BasicControl {
 			this.drawPersonItems();
 	}
 	
-	void clickLocation(float mx, float my) {
+	private void clickLocation(float mx, float my) {
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			
 			if (this.parentId.compareTo("null") == 0) {
@@ -366,31 +365,33 @@ public class ListArea extends BasicControl {
 
 	}
 	
-	void clickKeyword(float mx, float my) {
-		int count = 0;
+	private void clickKeyword(float mx, float my) {
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			this.selected = false;
 		}
 		else {
-			while(count < Utilities.keywordList.size()){
+			for (int count = 0; count < Utilities.keywordList.size(); count++) {
 				if (mx > myX && mx < myX + myWidth) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						
 						Utilities.currentWord = Utilities.keywordList.get(count);
 						this.selected = false;
-						
 						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+						program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+						program.updateDayButton();
+						program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+						program.timeSlider.update(program.dataCount);
 						
 						System.out.println(Utilities.keywordList.get(count));
+						break;
 					}
 				}
-				
-				count++;
 			}
 		}		
 	}
 	
-	void clickEvent(float mx, float my) {
+	private void clickEvent(float mx, float my) {
 		int count = 0;
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			this.selected = false;
@@ -414,7 +415,7 @@ public class ListArea extends BasicControl {
 		}		
 	}
 	
-	void clickPerson(float mx, float my) {
+	private void clickPerson(float mx, float my) {
 		int count = 0;
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			this.selected = false;
@@ -438,7 +439,7 @@ public class ListArea extends BasicControl {
 		}		
 	}
 	
-	public void click(float  mx, float my){
+	public void click(float mx, float my){
 		if (this.buttonName.compareTo("location") == 0) 
 			this.clickLocation(mx, my);
 		else if (this.buttonName.compareTo("keyword") == 0)
@@ -447,16 +448,6 @@ public class ListArea extends BasicControl {
 			this.clickEvent(mx, my);
 		else if (this.buttonName.compareTo("person") == 0)
 			this.clickPerson(mx, my);
-		
-		/*
-		program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
-		program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-		
-		program.KeywordList.setSelected(false);
-		program.locationButton.setSelected(false);
-		program.EventList.setSelected(false);
-		program.PersonList.setSelected(false);
-		*/
 	}
 
 	public void setButtonSelected(String button, float buttonX, float buttonY, float buttonHeight) {

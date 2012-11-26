@@ -244,14 +244,14 @@ public class SuggestionBox extends BasicControl {
 		 */
 		for (count = 0; count < dataWordsLength; count++) {
 			if (dataWords[count].equals(clickedString)) {
-					Utilities.currentWord = clickedString;
-					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
-					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
-					program.updateDayButton();
-					program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
-					program.timeSlider.update(program.dataCount);
-					break;
+				Utilities.currentWord = clickedString;
+				program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+				program.updateDayButton();
+				program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+				program.timeSlider.update(program.dataCount);
+				break;
 			}
 		}
 		
