@@ -863,6 +863,10 @@ public class CS424_Project4_Group4 extends PApplet{
 					return;
 				}
 			}
+			
+			if (!listArea.isSelected()) {
+				graph.click(mx, my);
+			}
 		}
 		
 		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
@@ -873,7 +877,7 @@ public class CS424_Project4_Group4 extends PApplet{
 						return;
 					}
 				}
-				if (Utilities.keywordGraph.size() <= Utilities.graphNumber) {
+				if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
 					Utilities.keywordGraph.add(Utilities.currentWord);
 					graph.addData();
 				}

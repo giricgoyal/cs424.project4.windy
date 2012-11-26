@@ -3,23 +3,13 @@
  */
 package main;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-
-import javax.swing.text.Position;
-
 import Util.Colors;
 import Util.Positions;
-import Util.U;
 import Util.Utilities;
 
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import types.DataPair;
-import types.DataYearPair;
-
 /**
  * @author giric
  *
@@ -36,35 +26,12 @@ public class Graph extends BasicControl {
 	
 	String[] dates = {"4/30" , "5/01", "5/02", "5/03" ,"5/04", "5/05", "5/06", "5/07", "5/08", 
 						"5/09", "5/10", "5/11", "5/12", "5/13", "5/14", "5/15", "5/16", "5/17", "5/18", "5/19", "5/20"};
-	/**
-	 * sample string to plot an example. 
-	 * add an argument in the constructor to draw histograms for different information as per the need
-	 */
-	//public String[][] sampleData = {{"2001","2002","2003","2004","2005","2006","2007","2008","2009","2010"},
-	//		{"20","40","160","10","90","100","45","40","0","70"}};
-	
-	//private ArrayList<DataYearPair> sampleData;
-	//private ArrayList<DataCrashInstance> sampleData;
-	
-	private int fieldCount;
-	/*
-	Hashtable allYearCrashes;
-	Hashtable activeYearCrashes;
-	Hashtable hashTemp;
-	
-	Enumeration enumerationAll;
-	Enumeration enumerationActive;
-	Enumeration enumTemp;
-	
-	*/
 	
 	CS424_Project4_Group4 program;
 	
 	
 	public Graph(PApplet parent, float x, float y, float width,float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
-		//sampleData = new ArrayList<DataYearPair>();
-		//sampleData = new ArrayList<DataCrashInstance>();
 		this.program = program;
 		// TODO Auto-generated constructor stub
 	}
@@ -202,7 +169,20 @@ public class Graph extends BasicControl {
 		parent.text("Day" , myX + myWidth/2, myY + myHeight + Utilities.Converter(6));
 		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
 		parent.text("Tweet\nCount", Positions.graphWindowX + Utilities.Converter(10), myY + myHeight/2);
+		
+		//
 			
+	}
+	
+	private void drawLegend() {
+		int count = 0;
+		while(count < Utilities.keywordGraph.size()) {
+			parent.textSize(Utilities.Converter(5));
+			parent.fill(Colors.GRAPH_COLORS[count]);
+			parent.textAlign(PConstants.RIGHT, PConstants.BOTTOM);
+			parent.text(Utilities.keywordGraph.get(count), myX + myWidth - Utilities.Converter(1), myY - count * Utilities.Converter(5) - Utilities.Converter(3));
+			count++;
+		}
 	}
 	
 	public void setBounds(){
@@ -243,8 +223,21 @@ public class Graph extends BasicControl {
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		//drawDataBars();
 		drawDataLines();
+		drawLegend();
+	}
+	
+	public void click(float mx, float my) {
+		int count = 0;
+		while(count < Utilities.keywordGraph.size()) {
+			if (mx > myX + myWidth - Utilities.Converter(5) * Utilities.keywordGraph.get(count).length() && mx < myX + myWidth) {
+				if (my < myY - count * Utilities.Converter(5) - Utilities.Converter(3) && my > myY - (count+1) * Utilities.Converter(5) - Utilities.Converter(3)) {
+					System.out.println(Utilities.keywordGraph.get(count));
+				}
+			}
+			count++;
+		}
+
 	}
 
 }
