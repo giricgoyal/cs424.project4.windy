@@ -689,6 +689,29 @@ public class CS424_Project4_Group4 extends PApplet{
 			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			return;
 		}
+		else if (timeSlider.checkIn(mx,my)) {
+			
+			int half = round(map(mx, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth, 0, 48));	
+			float disLeft = abs(mx-timeSlider.getLeftLockX());
+			float disRight = abs(mx-timeSlider.getRightLockX());
+			if (disLeft<disRight) {
+				timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+				U.bHalf = half;
+				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				beforeWordCloud.clearArea();
+				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			}
+			else if (disRight<disLeft) {
+				timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+				U.eHalf = half;
+				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				beforeWordCloud.clearArea();
+				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			}
+			return;
+		}
 		
 		// then check interfaces
 		for (int i=0;i<=20;i++) {
