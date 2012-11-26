@@ -248,10 +248,8 @@ public class SuggestionBox extends BasicControl {
 				}
 				else{
 					Utilities.currentWord = clickedString;
-					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-					program.beforeWordCloud.clearArea();
-					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
