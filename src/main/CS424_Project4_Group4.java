@@ -875,7 +875,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					return;
 				}
 			}
-			
 			// add to graph
 			if (add2Graph.isInRectangle(mx, my)){
 				System.out.println("Click on add to graph");
@@ -884,7 +883,7 @@ public class CS424_Project4_Group4 extends PApplet{
 						return;
 					}
 				}
-				if (Utilities.keywordGraph.size() <= Utilities.graphNumber) {
+				if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
 					Utilities.keywordGraph.add(Utilities.currentWord);
 					graph.addData();
 					System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
@@ -910,9 +909,14 @@ public class CS424_Project4_Group4 extends PApplet{
 						}
 					}
 					if (Utilities.personList.size() <= Utilities.listSize) {
-						Utilities.personList.add(Utilities.tweetPid);
-						System.out.println("Person List Size : " + Utilities.personList.size());
-						return;
+						if (U.tweetPid != -1) {
+							Utilities.personList.add(Utilities.tweetPid);
+							System.out.println("Person List Size : " + Utilities.personList.size());
+							return;
+						}
+						else {
+							System.out.println("No Person selected");
+						}
 					}
 				}
 				else if (EventList.isSelected()) {
