@@ -9,6 +9,7 @@ public class AbstractMarker {
 	int pid;
 	int hour;
 	int min;
+	int halfhour;
 	String text;
 	String keywords;
 	public int loc;
@@ -24,6 +25,8 @@ public class AbstractMarker {
 		this.text = text;
 		this.keywords = keywords;
 		this.loc = loc;
+		
+		halfhour = this.hour*2 + this.min/30;
 	}
 	
 	public void draw() {
