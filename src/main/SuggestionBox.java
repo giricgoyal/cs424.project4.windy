@@ -176,9 +176,9 @@ public class SuggestionBox extends BasicControl {
 		}
 		/*
 		this.dataWordCountPair = new ArrayList<WordCountPair>();
-		for (WordCountPair wcp : Utilities.dataWordCountPair) {
-			if (wcp.getWord().contains(textBoxText)) {
-				this.dataWordCountPair.add(new WordCountPair(wcp.getWord()));
+		for (String word : KeyWords.words) {
+			if (word.contains(textBoxText)) {
+				this.dataWordCountPair.add(new WordCountPair(word));
 			}
 		}
 		*/
@@ -252,6 +252,8 @@ public class SuggestionBox extends BasicControl {
 					Utilities.currentWord = clickedString;
 					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.beforeWordCloud.clearArea();
+					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();
