@@ -157,22 +157,22 @@ public class DatabaseManager {
 		return array;
 	}
 	
-	public DataCountPair[] getKeywordsCount() {
-		DataCountPair[] array = new DataCountPair[KeyWords.words.length];
-		for (int word=0;word<KeyWords.words.length;word++) {
-			int[] cnt = new int[21];
-			for (int day=0;day<21;day++) {
+	public DataCountPair getKeywordCount(String keyword, String filters) {
+		
+				int[] cnt = new int[21];
+			
 				String query;
 				if (msql.connect()) {
-					query = "select count from keywordcount where day = "+day+" and keyword = 'Keywords.words[word]'";
+					query = "select day, count from keywordcount where "+filters;
 					System.out.println(query);
 					msql.query(query);
-					cnt[day]=msql.getInt("count");
+					while (msql.next()) {
+						cnt[msql.getInt("day")]=msql.getInt("count");
+					}
 					msql.close();
 				}
-			}
-			array[word] = new DataCountPair(KeyWords.words[word], cnt);
-		}
-		return array;
+
+			return (new DataCountPair(keyword, cnt));
+	
 	}
 }

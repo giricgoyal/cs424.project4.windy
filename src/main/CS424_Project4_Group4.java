@@ -89,7 +89,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	ArrayList<AbstractMarker> markers; // markers, contain all information
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
 	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
-	DataCountPair[] dataKeywordsCount;
+	DataCountPair[] dataKeywordCount;
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -111,7 +111,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		setCurrentData(dataPos, dataDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
-		dataKeywordsCount = qManager.getKeywordsCount();
+		dataKeywordCount = new DataCountPair[U.graphNumber];
 		
 		//dataWords = setCurrentWords();
 		
@@ -318,7 +318,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		// draw word cloud
 		beforeWordCloud.draw();
 		//afterWordCloud.draw();
-		/*
+
 		if (U.drawGridLine) {
 			pushStyle();
 			strokeWeight(U.Converter(0.5));
@@ -331,7 +331,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			line(U.width/6*4,0,U.width/6*4,U.height);
 			line(U.width/6*5,0,U.width/6*5,U.height);
 		}
-		*/
+		
 		pushStyle();
 		textAlign(PConstants.LEFT,PConstants.TOP);
 		textSize(Utilities.Converter(7));

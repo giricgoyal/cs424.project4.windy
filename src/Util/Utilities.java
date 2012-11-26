@@ -22,7 +22,7 @@ public class Utilities {
 	
 	// configuration
 	public static boolean isWall = false;
-	public static boolean drawGridLine = true;
+	public static boolean drawGridLine = false;
 	public static int dayButtonLowerBound = 0;
 	
 	// variables
@@ -35,6 +35,7 @@ public class Utilities {
 	public static String currentTweet = "";
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
+	public static int graphNumber = 4; // how many keywords are in the graph
 	
 	// constants
 	public static final int NEITHER = -1;
