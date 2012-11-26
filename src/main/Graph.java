@@ -83,68 +83,6 @@ public class Graph extends BasicControl {
 		setBounds();
 	}
 	
-	/*
-	public void setData(ArrayList<DataYearPair> sampleData){
-		this.sampleData = sampleData;
-	}
-	*/
-	/*
-	public void setData(ArrayList<DataCrashInstance> sampleData) {
-		this.sampleData = sampleData;
-		this.focusAttribute = Utilities.focusAttribute;
-		this.defaultFocusAttribute = Utilities.defaultFocusAttribute;
-		allYearCrashes = new Hashtable();
-		activeYearCrashes = new Hashtable();
-		
-		int index = FilterValues.attributesHasMap.get(this.defaultFocusAttribute);
-		
-		if (Utilities.histOptions != null){
-			index = FilterValues.attributesHasMap.get(this.focusAttribute);
-		}
-		//System.out.println("Index : " + index);
-		DataCrash[] temp = FilterValues.filtersValue[index];
-		Utilities.histOptions = new String[temp.length];
-		for (int i=0; i<Utilities.histOptions.length;i++) {
-			Utilities.histOptions[i] = temp[i].getToShowVaue();
-		}
-		//System.out.println("Check");
-		float[] arrayAllYears = new float[Utilities.histOptions.length];
-		float[] arrayActiveYear = new float[Utilities.histOptions.length];
-		Arrays.fill(arrayAllYears, 0);
-		Arrays.fill(arrayActiveYear, 0);
-		//System.out.println(Utilities.activeYear);
-		for (int count = 0; count < sampleData.size(); count++) {
-			int optionCount = 0;
-			while(optionCount < Utilities.histOptions.length) {
-				if (sampleData.get(count).getLatitude() > Utilities.minActiveLatitude && sampleData.get(count).getLatitude() < Utilities.maxActiveLatitude && sampleData.get(count).getLongitude() > Utilities.minActiveLongitude && sampleData.get(count).getLongitude() < Utilities.maxActiveLongitude){
-					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0){
-						arrayAllYears[optionCount] += 1/Utilities.perStatePopulation[sampleData.get(count).getStateFIPS()-1];
-					}
-					if (Utilities.histOptions[optionCount].compareToIgnoreCase(sampleData.get(count).getByIndex(index)) == 0 && Utilities.activeYear == sampleData.get(count).getYear()){
-						arrayActiveYear[optionCount] += 1/Utilities.perStatePopulation[sampleData.get(count).getStateFIPS()-1];
-					}
-				}	
-				optionCount++;
-			}
-			
-			
-		}
-		for (int count=0; count < Utilities.histOptions.length; count++) {
-		
-			allYearCrashes.put(Utilities.histOptions[count], new DataPair(Utilities.histOptions[count], arrayAllYears[count]));
-			activeYearCrashes.put(Utilities.histOptions[count], new DataPair(Utilities.histOptions[count], arrayActiveYear[count]));
-			
-		}
-		
-		setBounds();
-		
-		Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length - Utilities.Converter(2));
-		if (Utilities.histOptions.length == 2) {
-			Utilities.barWidth = (int)((int)Positions.histographWidth/Utilities.histOptions.length - Utilities.Converter(8));
-		}
-	}
-	*/
-	
 	private float getMax() {
 		float max = PConstants.MIN_FLOAT;
 		int count = 0;
@@ -178,57 +116,7 @@ public class Graph extends BasicControl {
 		System.out.println("min : " + min);
 		return min;
 	}
-	/*
-	private float getMin() {
-		float min = PConstants.MAX_FLOAT;
-		enumerationAll = allYearCrashes.keys();
-		enumerationActive = activeYearCrashes.keys();
-		if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
-			enumTemp = enumerationAll;
-			hashTemp = allYearCrashes;
-		}
-		else if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
-			enumTemp = enumerationActive;
-			hashTemp = activeYearCrashes;
-		}
-		while(enumTemp.hasMoreElements()){
-			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
-			if (min > dataPair.getValue()) {
-				min = dataPair.getValue();
-			}
-		}
-		//System.out.println("min : " + min);
-		return min;
-	}
-	*/
 	
-	
-	/*
-	private float getMax() {
-		float max = PConstants.MIN_FLOAT;
-		enumerationAll = allYearCrashes.keys();
-		enumerationActive = activeYearCrashes.keys();
-		if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
-			enumTemp = enumerationAll;
-			hashTemp = allYearCrashes;
-		}
-		else if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
-			enumTemp = enumerationActive;
-			hashTemp = activeYearCrashes;
-		}
-	
-		while(enumTemp.hasMoreElements()){
-			DataPair dataPair = (DataPair)hashTemp.get(enumTemp.nextElement());
-			if (max <  dataPair.getValue()) {
-				max =  dataPair.getValue();
-			}
-		}
-		
-		//System.out.println("max : " + max);
-		return max;
-		
-	}
-	*/
 	
 	/*
 	@SuppressWarnings("static-access")
@@ -359,8 +247,30 @@ public class Graph extends BasicControl {
 		parent.strokeWeight(Utilities.Converter(1));
 		parent.rect(myX, myY, myWidth, myHeight);
 		
-		// Draw Data lines
 		
+		// Y-axis units
+		parent.fill(Colors.WHITE);
+		parent.textSize(Utilities.Converter(3.5));
+		parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
+		if (Utilities.keywordGraph.size() > 0)
+			for (int value = (int)this.lowerBound; value <= this.upperBound; value += (this.upperBound)/5) {
+				parent.fill(Colors.WHITE);
+				float y = parent.map(value, this.lowerBound, this.upperBound,myY + myHeight - Utilities.Converter(1), myY + Utilities.Converter(5));
+				parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
+				parent.text(value, myX - Utilities.Converter(2), y);
+				parent.strokeWeight(Utilities.Converter(0.5));
+				parent.stroke(Colors.DARK_GRAY);
+				parent.line(myX + Utilities.Converter(1), y, myX + myWidth - Utilities.Converter(1), y);
+			}
+		parent.noStroke();
+		parent.fill(Colors.WHITE);
+		parent.text((int)this.upperBound, myX - Utilities.Converter(2), parent.map(this.upperBound, this.lowerBound, this.upperBound,myY + myHeight - Utilities.Converter(1), myY + Utilities.Converter(5)));
+		parent.stroke(Colors.DARK_GRAY);
+		parent.strokeWeight(Utilities.Converter(0.5));
+		parent.line(myX + Utilities.Converter(1), parent.map(this.upperBound, this.lowerBound, this.upperBound,myY + myHeight - Utilities.Converter(1), myY + Utilities.Converter(5)), myX + myWidth - Utilities.Converter(1), parent.map(this.upperBound, this.lowerBound, this.upperBound,myY + myHeight - Utilities.Converter(1), myY + Utilities.Converter(5)));
+
+		
+		// Draw Data lines
 		int count = 0;
 		String tempKeyword;
 		int[] tempCountArray;
@@ -381,12 +291,19 @@ public class Graph extends BasicControl {
 				parent.strokeWeight(Utilities.Converter(1));
 				parent.vertex(x, y);
 				
+				// draw X-axis lines
+				parent.stroke(Colors.DARK_GRAY);
+				parent.strokeWeight(Utilities.Converter(0.5));
+				parent.noFill();
+				parent.line(x, myY + Utilities.Converter(1), x, myY + myHeight - Utilities.Converter(1));
+				parent.stroke(Colors.GRAPH_COLORS[count]);
+				parent.strokeWeight(Utilities.Converter(1));
+	
 			}
 			//parent.curveVertex(myX + myWidth, myY + myHeight - Utilities.Converter(1));
 			parent.endShape();
 			count++;
 		}
-		
 		// X-axis units
 		for (int i=0; i<21; i++) {
 			float x = parent.map(i, 0, 20, myX + Utilities.Converter(1), myX + myWidth - Utilities.Converter(1));
@@ -396,11 +313,14 @@ public class Graph extends BasicControl {
 			parent.text(dates[i], x, myY + myHeight + Utilities.Converter(2));
 		}
 		
-		// X-axis label
+		// X-axis and Y-axis label
 		parent.fill(Colors.WHITE);
-		parent.textSize(Utilities.Converter(6));
+		parent.textSize(Utilities.Converter(5));
 		parent.textAlign(PConstants.CENTER, PConstants.TOP);
 		parent.text("Day" , myX + myWidth/2, myY + myHeight + Utilities.Converter(6));
+		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
+		parent.text("Tweet\nCount", Positions.graphWindowX + Utilities.Converter(10), myY + myHeight/2);
+			
 	}
 	
 	public void setBounds(){
