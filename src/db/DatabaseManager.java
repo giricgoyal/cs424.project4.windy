@@ -3,6 +3,8 @@ package db;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Util.KeyWords;
+
 import processing.core.PApplet;
 import types.*;
 import de.bezier.data.sql.MySQL;
@@ -135,7 +137,7 @@ public class DatabaseManager {
 	}
 	
 	
-	public DataCountPair[] getCount(String key, String filters) {
+	public DataCountPair[] getTotalCount(String key, String filters) {
 		DataCountPair[] array = new DataCountPair[21];
 		for (int day=0;day<21;day++) {
 			int[] cnt = new int[48];
@@ -151,6 +153,25 @@ public class DatabaseManager {
 				msql.close();
 				System.out.println("done!");
 			}
+		}
+		return array;
+	}
+	
+	public DataCountPair[] getKeywordsCount() {
+		DataCountPair[] array = new DataCountPair[KeyWords.words.length];
+		for (int word=0;word<KeyWords.words.length;word++) {
+			int[] cnt = new int[21];
+			for (int day=0;day<21;day++) {
+				String query;
+				if (msql.connect()) {
+					query = "select count from keywordcount where day = "+day+" and keyword = 'Keywords.words[word]'";
+					System.out.println(query);
+					msql.query(query);
+					cnt[day]=msql.getInt("count");
+					msql.close();
+				}
+			}
+			array[word] = new DataCountPair(KeyWords.words[word], cnt);
 		}
 		return array;
 	}

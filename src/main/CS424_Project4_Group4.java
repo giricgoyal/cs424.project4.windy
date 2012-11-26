@@ -89,6 +89,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	ArrayList<AbstractMarker> markers; // markers, contain all information
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
 	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
+	DataCountPair[] dataKeywordsCount;
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -110,6 +111,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		setCurrentData(dataPos, dataDay, U.bHalf, U.eHalf, U.currentWord);
 		dataCount = qManager.getAllCount_By_Keyword("cs424");
 		dataLocation = qManager.getDataLocationAll();
+		dataKeywordsCount = qManager.getKeywordsCount();
 		
 		//dataWords = setCurrentWords();
 		

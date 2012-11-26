@@ -68,7 +68,11 @@ public class QueryManager {
 	
 	public DataCountPair[] getAllCount_By_Keyword(String keyword) {
 		String filters = "keyword = '"+keyword+"'";
-		return db.getCount(keyword, filters);
+		return db.getTotalCount(keyword, filters);
+	}
+	
+	public DataCountPair[] getKeywordsCount() {
+		return db.getKeywordsCount();
 	}
 
 	//get Filters
