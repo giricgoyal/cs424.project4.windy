@@ -31,7 +31,7 @@ public class WordCloud extends BasicControl{
 		
 		this.parent = parent;
 		canvas = new PGraphicsJava2D();
-		canvas.setSize(500, 500);
+		canvas.setSize((int)Utilities.width, (int)Utilities.height);
 		
 		wordCram = new WordCram(parent)
 			//.fromTextString(string)
@@ -41,7 +41,7 @@ public class WordCloud extends BasicControl{
 			// scale according to the scale factor.--------------------------------------
 			// change the values here ---------------------------------------------------
 			.sizedByWeight((int)Utilities.Converter(3), (int)Utilities.Converter(12))             
-			//.maxAttemptsToPlaceWord(50)
+			.maxAttemptsToPlaceWord(50)
 	        .angledAt(0)
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
@@ -69,8 +69,8 @@ public class WordCloud extends BasicControl{
             public PVector place(Word word, int wordIndex, int wordsCount,
                     int wordImageWidth, int wordImageHeight, int fieldWidth,
                     int fieldHeight) {
-                float x = parent.map((1 - word.weight) * fieldWidth * r.nextFloat(), 0, Utilities.width, myX + Utilities.Converter(10), myX+myWidth); // big=left, small=right
-                float y = parent.map(((float) fieldHeight) * 0.5f, 0, Utilities.height, myY, myY + myHeight);
+                float x = parent.map((1 - word.weight) * fieldWidth * r.nextFloat(), 0, Utilities.width, myX + Utilities.Converter(10), myX + myWidth); // big=left, small=right
+                float y = parent.map(((float) fieldHeight) * 0.5f, 0, Utilities.height, myY + Utilities.Converter(5), myY + myHeight);
                 return new PVector(x, y);
             }
         };
