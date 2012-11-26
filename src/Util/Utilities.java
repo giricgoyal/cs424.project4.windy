@@ -68,9 +68,6 @@ public class Utilities {
 	
 	public static CS424_Project4_Group4 CS424_Project4_Group4;
 	
-	public static ArrayList<WordCountPair> dataWordCountPair;
-	public static String[] dataWords;
-	
 	public static PFont font;
 	
 	public static boolean sampleText = false;
@@ -112,6 +109,7 @@ public class Utilities {
 		45556, 44964, 48975, 46534, 61871, 71279, 69870
 	};
 	public static final int maxTweets = 71279; // day 19 (second last day)
+	public static int currentMaxTweets = maxTweets;
 	
 	public static final float markerHalfWidth = U.Converter(5);
 	public static final float markerHalfHeight = U.Converter(5);

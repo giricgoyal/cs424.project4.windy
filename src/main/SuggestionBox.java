@@ -252,6 +252,8 @@ public class SuggestionBox extends BasicControl {
 					Utilities.currentWord = clickedString;
 					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+					program.updateDayButton();
 				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();

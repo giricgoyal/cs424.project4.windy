@@ -79,7 +79,7 @@ public class Graph extends BasicControl {
 	}
 	
 	public void addData() {
-		program.dataKeywordCount[Utilities.keywordGraph.size()-1] = program.qManager.getKeywordCount(U.currentWord);
+		program.dataKeywordCount[Utilities.keywordGraph.size()-1] = program.currentKeywordCount;
 		setBounds();
 	}
 	

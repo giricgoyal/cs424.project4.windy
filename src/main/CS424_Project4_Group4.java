@@ -90,8 +90,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	DataCountPair[] dataCount; //all counts for every halfhour (keyword not implemented)
 	ArrayList<AbstractMarker> markers; // markers, contain all information
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
-	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
 	DataCountPair[] dataKeywordCount;
+	DataCountPair currentKeywordCount; // words count pair for all days for current keyword
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -105,7 +105,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
-		dataWordCountPair = new ArrayList<WordCountPair>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
@@ -117,11 +116,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<U.graphNumber;i++) {
 			dataKeywordCount[i] = new DataCountPair("",new int[21]);
 		}
-		
-		//dataWords = setCurrentWords();
-		
-		//dataWordCountPair = getWordCountPair(dataWords);
-		//Utilities.dataWordCountPair = dataWordCountPair;
+		currentKeywordCount = qManager.getKeywordCount(U.currentWord);
+		/*
+		U.currentMaxTweets=0;
+		for (int i=0;i<21;i++) {
+			if (currentKeywordCount.getCnt()[i]>U.currentMaxTweets) 
+				U.currentMaxTweets = currentKeywordCount.getCnt()[i];
+		}*/
 			
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
@@ -157,8 +158,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		dayButtons = new ArrayList<DayButton>();
 		
-		for (int i=0;i<=20;i++) {
+		for (int i=0;i<21;i++) {
 			DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, U.totalTweets[i], i);
+			//DayButton dayButton = new DayButton(this, Positions.dayButtonX+i*Pos.dayButtonW, Positions.dayButtonY, Positions.dayButtonW, Positions.dayButtonH, currentKeywordCount.getCnt()[i], i);
 			dayButton.setName("D"+i);
 			if (i == U.currentDay) {
 				dayButton.setSelected(true);
@@ -539,16 +541,22 @@ public class CS424_Project4_Group4 extends PApplet{
 		return StopWords.check(str);
 	}
 	
-	//FIXME: not using updateMarkerPos
-	private void updateMarkerPos(ArrayList<AbstractMarker> markers, float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
-		for(AbstractMarker m : markers) {
-			m.updatePos(x1, x2, x3, x4, y1, y2, y3, y4);
-		}
-	}
-	
 	private void moveMarkers(ArrayList<AbstractMarker> markers, float x, float y) {
 		for (AbstractMarker m : markers) {
 			m.movePos(x,y);
+		}
+	}
+	
+	public void updateDayButton() {
+		int max = 0;
+		for (int i=0;i<dayButtons.size();i++) {
+			if (currentKeywordCount.getCnt()[i] > max) {
+				max = currentKeywordCount.getCnt()[i];
+			}
+		}
+		U.currentMaxTweets = max;
+		for (int i=0;i<dayButtons.size();i++) {
+			dayButtons.get(i).updateCount(currentKeywordCount.getCnt()[i]);
 		}
 	}
 	
@@ -668,8 +676,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			U.bHalf = U.bHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//dataWords = setCurrentWords();
-			//dataWordCountPair = getWordCountPair(dataWords);
 			beforeWordCloud.clearArea();
 			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			return;
@@ -679,8 +685,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			U.eHalf = U.eHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			//dataWords = setCurrentWords();
-			//dataWordCountPair = getWordCountPair(dataWords);
 			beforeWordCloud.clearArea();
 			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			return;
@@ -696,8 +700,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				dataDay = qManager.getDataPos_By_Date(U.currentDay);
 				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//dataWords = setCurrentWords();
-				//dataWordCountPair = getWordCountPair(dataWords);
 				//Utilities.currentTweet = "";
 				//tw.setTweet();
 				beforeWordCloud.clearArea();

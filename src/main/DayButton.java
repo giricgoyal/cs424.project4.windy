@@ -43,7 +43,7 @@ public class DayButton extends Button {
 			p.fill(Colors.GRAPH_COLOR_3);
 		}
 		p.rectMode(PConstants.CORNERS);
-		float Y = PApplet.map(count, U.dayButtonLowerBound, U.maxTweets * (float)1.05, myY+myHeight, myY);
+		float Y = PApplet.map(count, U.dayButtonLowerBound, U.currentMaxTweets * (float)1.05, myY+myHeight, myY);
 		p.rect(myX, Y, myX+myWidth, myY+myHeight);
 		p.strokeWeight(U.Converter(0.5));
 		p.stroke(Colors.WHITE);
