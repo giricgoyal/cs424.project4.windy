@@ -844,13 +844,13 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (add2Graph.isInRectangle(mx, my)){
 				System.out.println("Click on add to graph");
 				for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-					if (Utilities.keywordGraph.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
+					if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
 						return;
 					}
 				}
 				if (Utilities.keywordGraph.size() <= Utilities.graphNumber) {
 					Utilities.keywordGraph.add(Utilities.currentWord);
-					graph.setData();
+					graph.addData();
 				}
 				System.out.println("Size : "  + Utilities.keywordGraph.size());
 			}

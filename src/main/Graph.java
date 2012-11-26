@@ -11,6 +11,7 @@ import javax.swing.text.Position;
 
 import Util.Colors;
 import Util.Positions;
+import Util.U;
 import Util.Utilities;
 
 
@@ -74,6 +75,11 @@ public class Graph extends BasicControl {
 			program.dataKeywordCount[count] = program.qManager.getKeywordCount(Utilities.keywordGraph.get(count));
 			count++;
 		}
+		setBounds();
+	}
+	
+	public void addData() {
+		program.dataKeywordCount[Utilities.keywordGraph.size()-1] = program.qManager.getKeywordCount(U.currentWord);
 		setBounds();
 	}
 	
