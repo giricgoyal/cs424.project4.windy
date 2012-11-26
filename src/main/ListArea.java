@@ -255,8 +255,11 @@ public class ListArea extends BasicControl {
 				if (this.cid == 0) {
 					if (mx > myX && my > myY && mx < myX + myWidth && my < myY + Utilities.Converter(10)){
 						Utilities.selectedLocationId = 99;
+						program.setTodayWordsToFile(program.dataPos);
 						System.out.println("All locations Selected" + " : " + Utilities.selectedLocationId);
 						this.selected = false;
+						program.beforeWordCloud.clearArea();
+						program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 					}
 					if (mx > myX && my > myY + Utilities.Converter(10) && mx < myX + myWidth && my < myY + Utilities.Converter(20))
 						this.cid = 1;
@@ -264,8 +267,11 @@ public class ListArea extends BasicControl {
 						this.cid = 6;
 					if (mx > myX && my > myY + Utilities.Converter(30) && mx < myX + myWidth && my < myY + Utilities.Converter(40)) {
 						Utilities.selectedLocationId = 36;
+						program.setTodayWordsToFile(program.dataPos);
 						System.out.println("VAst LAke selected" + " : " + Utilities.selectedLocationId);
 						this.selected = false;
+						program.beforeWordCloud.clearArea();
+						program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 					}
 				}
 				else if (this.cid == 6) {
@@ -274,8 +280,11 @@ public class ListArea extends BasicControl {
 					if (mx >  myX && mx < myX + myWidth) {
 						if (my > myY && my < myY + Utilities.Converter(8)){
 							Utilities.selectedLocationId = 97;
+							program.setTodayWordsToFile(program.dataPos);
 							System.out.println("All interstates selected" + " : " + Utilities.selectedLocationId);
 							this.selected = false;
+							program.beforeWordCloud.clearArea();
+							program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 						}
 					}
 					while(count< this.array.size()){
@@ -283,8 +292,11 @@ public class ListArea extends BasicControl {
 							if (mx > myX && mx < myX + myWidth) {
 								if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
 									Utilities.selectedLocationId = this.array.get(count).getId();
-									this.selected = false;
+									program.setTodayWordsToFile(program.dataPos);
 									System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+									this.selected = false;
+									program.beforeWordCloud.clearArea();
+									program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 								}
 							}
 							matchCount++;
@@ -298,8 +310,11 @@ public class ListArea extends BasicControl {
 					if (mx >  myX && mx < myX + myWidth) {
 						if (my > myY && my < myY + Utilities.Converter(8)){
 							Utilities.selectedLocationId = 98;
+							program.setTodayWordsToFile(program.dataPos);
 							System.out.println("All areas except interstates and the vast river selected" + " : " + Utilities.selectedLocationId);
 							this.selected = false;
+							program.beforeWordCloud.clearArea();
+							program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 						}
 					}
 					while(count< this.array.size()){
@@ -323,8 +338,11 @@ public class ListArea extends BasicControl {
 						if (mx > myX && mx < myX + myWidth) {
 							if (my > myY && my < myY + Utilities.Converter(8)){
 								Utilities.selectedLocationId = this.array.get(count).getId();
-								this.selected = false;
+								program.setTodayWordsToFile(program.dataPos);
 								System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+								this.selected = false;
+								program.beforeWordCloud.clearArea();
+								program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 							}
 						}
 					}
@@ -332,8 +350,11 @@ public class ListArea extends BasicControl {
 						if (mx > myX && mx < myX + myWidth) {
 							if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
 								Utilities.selectedLocationId = this.array.get(count).getId();
-								this.selected = false;
+								program.setTodayWordsToFile(program.dataPos);
 								System.out.println(this.array.get(count).getName() + " : " + Utilities.selectedLocationId);
+								this.selected = false;
+								program.beforeWordCloud.clearArea();
+								program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 							}
 						}
 						matchCount++;
@@ -357,7 +378,7 @@ public class ListArea extends BasicControl {
 						Utilities.currentWord = Utilities.keywordList.get(count);
 						this.selected = false;
 						
-						program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
 						System.out.println(Utilities.keywordList.get(count));
@@ -381,7 +402,7 @@ public class ListArea extends BasicControl {
 						Utilities.currentWord = Utilities.eventList.get(count);
 						this.selected = false;
 						
-						program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
 						System.out.println(Utilities.eventList.get(count));
@@ -405,7 +426,7 @@ public class ListArea extends BasicControl {
 						Utilities.tweetPid = Utilities.personList.get(count);
 						this.selected = false;
 						
-						//program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						//program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						//program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
 						System.out.println(Utilities.eventList.get(count));

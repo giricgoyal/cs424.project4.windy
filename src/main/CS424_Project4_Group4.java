@@ -387,6 +387,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		System.out.println("done!");
 	}
 	
+	public void setCurrentData_forKeywords(ArrayList<DataPos> current, ArrayList<DataPos> day, int bHalf, int eHalf, String keyword) {
+		current.clear();
+		System.out.println("start updating current data");
+		for (DataPos data : day) {
+			int half = data.getHour()*2 + data.getMin()/30;
+			if (bHalf <= half && half < eHalf) {
+				String[] words = split(data.getKeywords(),(' '));
+				for (int ii = 0; ii<words.length; ii++) {
+					if (keyword.equals(words[ii])) {
+						current.add(data);
+						break;
+					}
+				}
+			}
+		}
+		System.out.println("done!");
+	}
+	
 	public void setMarkerPos(ArrayList<DataPos> dataPos, ArrayList<AbstractMarker> markers, MarkerType type) {
 		markers.clear();
 		for (DataPos pos : dataPos) {
@@ -424,13 +442,12 @@ public class CS424_Project4_Group4 extends PApplet{
 		return temp;
 	}/*/
 	
-	private void setTodayWordsToFile(ArrayList<DataPos> dataPos) {
+	public void setTodayWordsToFile(ArrayList<DataPos> dataPos) {
 		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting current words");
 					// all location
 					if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
 						for (DataPos data : dataPos) {
-							//str = str + data.getKeywords()+ " ";
 							str.add(data.keywords);
 						}
 					}
@@ -438,7 +455,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					else if (U.selectedLocationId == 98) {
 						for (DataPos data : dataPos) {
 							if (data.lid < 36 && data.lid > 0) {
-								//str = str + data.getKeywords()+ " ";
 								str.add(data.keywords);
 							}
 						}
@@ -447,7 +463,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					else if (U.selectedLocationId == 97) {
 						for (DataPos data : dataPos) {
 							if (data.lid >= 37 && data.lid <=47) {
-								//str = str + data.getKeywords()+ " ";
 								str.add(data.keywords);
 							}
 						}
@@ -455,7 +470,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					else {
 						for (DataPos data : dataPos) {
 							if (data.lid == U.selectedLocationId) {
-								//str = str + data.getKeywords()+ " ";
 								str.add(data.keywords);
 							}
 						}
