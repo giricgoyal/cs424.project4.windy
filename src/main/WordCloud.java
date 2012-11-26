@@ -45,7 +45,8 @@ public class WordCloud extends BasicControl{
 	        .angledAt(0)
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
-	        .withPlacer(customPlacer())
+	        //.withPlacer(customPlacer())
+	        .withPlacer(horizBandAnchoredLeftCustom())
 	        .maxNumberOfWordsToDraw(100)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
@@ -61,6 +62,19 @@ public class WordCloud extends BasicControl{
           ;
 
 	}
+	
+	WordPlacer horizBandAnchoredLeftCustom() {
+        final Random r = new Random();
+        return new WordPlacer() {
+            public PVector place(Word word, int wordIndex, int wordsCount,
+                    int wordImageWidth, int wordImageHeight, int fieldWidth,
+                    int fieldHeight) {
+                float x = parent.map((1 - word.weight) * fieldWidth * r.nextFloat(), 0, Utilities.width, myX + Utilities.Converter(10), myX+myWidth); // big=left, small=right
+                float y = parent.map(((float) fieldHeight) * 0.5f, 0, Utilities.height, myY, myY + myHeight);
+                return new PVector(x, y);
+            }
+        };
+    }
 	
 	WordPlacer customPlacer() {
 	        final Random r = new Random();

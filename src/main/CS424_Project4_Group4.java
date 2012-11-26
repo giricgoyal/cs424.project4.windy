@@ -317,7 +317,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		// draw word cloud
 		beforeWordCloud.draw();
 		//afterWordCloud.draw();
-		
+		/*
 		if (U.drawGridLine) {
 			pushStyle();
 			strokeWeight(U.Converter(0.5));
@@ -330,7 +330,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			line(U.width/6*4,0,U.width/6*4,U.height);
 			line(U.width/6*5,0,U.width/6*5,U.height);
 		}
-		
+		*/
 		pushStyle();
 		textAlign(PConstants.LEFT,PConstants.TOP);
 		textSize(Utilities.Converter(7));
