@@ -254,6 +254,8 @@ public class SuggestionBox extends BasicControl {
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
 					program.updateDayButton();
+					program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+					program.timeSlider.update(program.dataCount);
 				}
 				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
 				//program.updateMarkerList();

@@ -139,21 +139,23 @@ public class DatabaseManager {
 	
 	public DataCountPair[] getTotalCount(String key, String filters) {
 		DataCountPair[] array = new DataCountPair[21];
-		for (int day=0;day<21;day++) {
-			int[] cnt = new int[48];
+		//for (int day=0;day<21;day++) {
+			int[][] cnt = new int[21][48];
 			String query;
 			if (msql.connect()) {
-				query = "select halfhour, totalcount from microblogcount where day = "+day+" and "+filters;
+				query = "select day, halfhour, totalcount from microblogcount where "+filters;
 				System.out.println(query);
 				msql.query(query);
 				while (msql.next()) {
-					cnt[msql.getInt("halfhour")]=msql.getInt("totalcount");
+					cnt[msql.getInt("day")][msql.getInt("halfhour")]=msql.getInt("totalcount");
 				}
-				array[day] = new DataCountPair(key, cnt);
+				for (int day=0;day<21;day++) {
+					array[day] = new DataCountPair(key, cnt[day]);
+				}
 				msql.close();
 				System.out.println("done!");
 			}
-		}
+		//}
 		return array;
 	}
 	

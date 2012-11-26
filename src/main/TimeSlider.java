@@ -49,6 +49,20 @@ public class TimeSlider {
 			}
 		}
 	}
+	
+	// update is called when and only when current keyword is changed
+	public void update(DataCountPair[] pair) {
+		this.data = pair;
+		
+		for (int i=0;i<21;i++) {
+			maxCnt[i] = 0;
+			for (int j=0;j<48;j++) {
+				if (maxCnt[i]<data[i].getCnt()[j]) {
+					maxCnt[i]=data[i].getCnt()[j];
+				}
+			}
+		}
+	}//
 
 	public void draw() {
 		p.pushStyle();
