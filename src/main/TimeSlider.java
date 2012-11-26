@@ -124,4 +124,9 @@ public class TimeSlider {
 
 	public void resume() {
 	}
+	
+	public boolean checkIn(float _x, float _y) {
+		if (_x>x && _x<x+w && _y>y && _y<y+h) return true;
+		return false;
+	}
 }
