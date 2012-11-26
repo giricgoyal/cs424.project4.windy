@@ -117,124 +117,6 @@ public class Graph extends BasicControl {
 		return min;
 	}
 	
-	
-	/*
-	@SuppressWarnings("static-access")
-	private void drawDataBars() {
-		String newMainLabel = "";
-		
-		// draw the rectangle outline window
-		 
-		
-		parent.rectMode(PConstants.CENTER);
-		parent.noFill();
-		parent.stroke(Colors.light);
-		parent.strokeWeight(Utilities.Converter(1));
-		//parent.rect(Positions.histogramAreaX, Positions.histogramAreaY, Positions.histogramAreaWidth, Positions.histogramAreaHeight);
-		parent.fill(Colors.dark);
-		parent.stroke(Colors.light);
-		parent.strokeWeight(Utilities.Converter(1));
-		parent.rect(myX, myY, myWidth, myHeight);
-		
-		
-		// Draw the data bars
-		 
-		
-		enumerationAll = allYearCrashes.keys();
-		enumerationActive = activeYearCrashes.keys();
-		fieldCount = 0;
-		if (mainLabel.compareToIgnoreCase(Utilities.hist1String) == 0) {
-			enumTemp = enumerationAll;
-			hashTemp = allYearCrashes;
-			newMainLabel = mainLabel;
-		}
-		else if (mainLabel.compareToIgnoreCase(Utilities.hist2String)==0) {
-			enumTemp = enumerationActive;
-			hashTemp = activeYearCrashes;
-			newMainLabel = mainLabel + " " + Utilities.activeYear;
-		}
-		
-		int w=0;
-		//while (enumTemp.hasMoreElements()){
-		while(fieldCount<Utilities.histOptions.length){
-			DataPair dataPair = (DataPair)hashTemp.get(Utilities.histOptions[fieldCount]);
-			
-			float value = dataPair.getValue();
-			String field = dataPair.getField();
-			
-			float x = parent.map(fieldCount, 0, hashTemp.size(), myX - myWidth/2 + Utilities.Converter(15), myX + myWidth/2 - Utilities.Converter(15));
-			float y = parent.map(value, 0, this.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
-			//System.out.println(value);	
-			
-			// Bars
-			 
-			parent.noStroke();
-			parent.fill(Utilities.colorCodes[fieldCount%Utilities.colorCodes.length]);
-			parent.rectMode(PConstants.CORNERS);
-			parent.rect(x, y, x + Utilities.barWidth - Utilities.Converter(10), myY + myHeight/2);
-			
-			
-			//  X-axis units
-			 
-			parent.fill(Colors.white);
-			parent.textAlign(PConstants.CENTER, PConstants.TOP);
-			parent.textSize(Utilities.Converter(7));
-			
-			field = field.trim();
-			if (this.focusAttribute.compareToIgnoreCase("Light Condition") == 0) {
-				field = field.replaceAll("-", "");
-			}
-			String tempField = "";
-			while(field.contains(" ")) {
-				tempField = tempField.concat(field.substring(0,field.indexOf(" ")));
-				tempField = tempField.concat("\n");
-				System.out.println(field.substring(0,field.indexOf(" ")));
-				field = field.substring(field.indexOf(" "));
-				field = field.trim();
-			}
-			
-			tempField = tempField.concat(field);
-			
-			//System.out.println("field: " + tempField);
-			if (this.focusAttribute.compareToIgnoreCase("Month")==0 || this.focusAttribute.compareToIgnoreCase("day of week")==0) {
-				tempField = tempField.substring(0,3);
-			}
-			parent.text(tempField, x + Utilities.barWidth/2, myY + myHeight/2 + Utilities.Converter(5));
-			fieldCount++;
-		}
-		
-		
-		
-		// Y-axis units: No. of Crashes or fatalities
-		 
-		
-		for (int value = 0; value <= this.upperBound; value += (this.upperBound)/5) {
-			float y = parent.map(value, 0, this.upperBound, myY + myHeight/2, myY - myHeight/2 + Utilities.Converter(10));
-			parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
-			parent.text(value, myX - myWidth/2 - Utilities.Converter(10), y);
-		
-		}
-		
-		
-		// X-axis label
-		 
-		parent.textAlign(PConstants.CENTER, PConstants.TOP);
-		parent.textSize(Utilities.Converter(9));
-		if (Utilities.histOptions != null)
-			parent.text(this.focusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
-		else
-			parent.text(this.defaultFocusAttribute, myX, myY + myHeight/2 + Utilities.Converter(25));
-		
-		
-		 // Main label: "Crashes/Fatalities"
-		 
-		parent.textAlign(PConstants.CENTER, PConstants.TOP);
-		parent.textSize(Utilities.Converter(10));
-		parent.text(newMainLabel, myX, Positions.histogramAreaY - Positions.histogramAreaHeight/2 + Utilities.Converter(10));
-	
-	}
-	*/
-	
 	@SuppressWarnings("static-access")
 	private void drawDataLines() {
 		parent.rectMode(PConstants.CORNER);
@@ -330,12 +212,32 @@ public class Graph extends BasicControl {
 		
 		this.lowerBound = min;
 		this.upperBound = max;
-			
-	}
-	
-	public void setString(String mainLabel) {
-		this.mainLabel = mainLabel;
-		//this.xLabel = xLabel;
+		
+		if (max > 0) {
+			this.lowerBound = (int)(min - min % 0);
+			this.upperBound = (int)(max + 0 - max % 0);
+		}
+		if (max>10){
+			this.lowerBound = (int)(min - min % 10);
+			this.upperBound = (int)(max + 10 - max % 10);
+		}
+		if (max > 100) {
+			this.lowerBound = (int)(min - min % 100);
+			this.upperBound = (int)(max + 100 - max % 100);
+		}
+		if (max > 1000) {
+			this.lowerBound = (int)(min - min % 1000);
+			this.upperBound = (int)(max + 1000 - max % 1000);
+		}
+		if (max > 10000) {
+			this.lowerBound = (int)(min - min % 10000);
+			this.upperBound = (int)(max + 10000 - max % 10000);
+		}
+		if (max > 100000) {
+			this.lowerBound = (int)(min - min % 100000);
+			this.upperBound = (int)(max + 100000 - max % 100000);
+		}
+		
 	}
 	
 	@Override
