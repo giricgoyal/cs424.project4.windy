@@ -88,7 +88,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	DataCountPair[] dataCount; //all counts for every halfhour (keyword not implemented)
 	ArrayList<AbstractMarker> markers; // markers, contain all information
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
-	//ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
+	ArrayList<WordCountPair> dataWordCountPair; // words count pair for current time of current day (not all words, just those appear in current time)
 	
 	private boolean isTouchingMap = false; // mouse pressing
 	
@@ -102,7 +102,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
-		//dataWordCountPair = new ArrayList<WordCountPair>();
+		dataWordCountPair = new ArrayList<WordCountPair>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
