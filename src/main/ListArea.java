@@ -186,7 +186,7 @@ public class ListArea extends BasicControl {
 			
 			int count = 0;
 			while (count < Utilities.eventList.size()) {
-				parent.text(Utilities.eventList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.text(Utilities.eventList.get(count).text, Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
 			
@@ -399,13 +399,13 @@ public class ListArea extends BasicControl {
 			while(count < Utilities.eventList.size()){
 				if (mx > myX && mx < myX + myWidth) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
-						Utilities.currentWord = Utilities.eventList.get(count);
+						Utilities.currentWord = Utilities.eventList.get(count).text;
 						this.selected = false;
 						
 						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
-						System.out.println(Utilities.eventList.get(count));
+						System.out.println(Utilities.eventList.get(count).text);
 					}
 				}
 				
