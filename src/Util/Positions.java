@@ -185,5 +185,17 @@ public class Positions {
 	public static float trackPersonHeight = addKeyword2ListHeight;
 	public static float trackPersonX = addKeyword2ListX;
 	public static float trackPersonY = addKeyword2ListY + addKeyword2ListHeight + Utilities.Converter(2);
+	
+	// graph window
+	public static float graphWindowWidth = Utilities.width * 2 / 6 - Utilities.Converter(2);
+	public static float graphWindowHeight = Utilities.height * 2 / 3 - Utilities.Converter(5);
+	public static float graphWindowX = Utilities.width * 3 / 6 + Utilities.Converter(1);
+	public static float graphWindowY = Utilities.height / 3 + Utilities.Converter(1);
+	
+	// Graph
+	public static float graphWidth = graphWindowWidth - Utilities.Converter(32);
+	public static float graphHeight = graphWindowHeight / 2;
+	public static float graphX = graphWindowX + Utilities.Converter(28);
+	public static float graphY = graphWindowY + graphWindowHeight - graphHeight - Utilities.Converter(15);
 }
 

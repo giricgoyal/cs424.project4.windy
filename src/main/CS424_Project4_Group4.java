@@ -79,6 +79,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	SuggestionBox sb;
 	TweetWindow tw;
 	
+	Graph graph;
 	WordCloud beforeWordCloud, afterWordCloud;
 	
 	// data
@@ -212,7 +213,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls.add(PersonList);
 		
 		
-		
+		graph = new Graph(this, Positions.graphX, Positions.graphY, Positions.graphWidth, Positions.graphHeight, this);
+		controls.add(graph);
 		
 		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight, this);
 		
@@ -845,7 +847,10 @@ public class CS424_Project4_Group4 extends PApplet{
 						return;
 					}
 				}
-				Utilities.keywordGraph.add(Utilities.currentWord);
+				if (Utilities.keywordGraph.size() <= Utilities.graphNumber) {
+					Utilities.keywordGraph.add(Utilities.currentWord);
+					graph.setData();
+				}
 				System.out.println("Size : "  + Utilities.keywordGraph.size());
 			}
 			

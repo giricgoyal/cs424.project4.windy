@@ -15,6 +15,10 @@ public class DataCountPair {
 		keyword = k;
 		count = cnt;
 	}
+	
+	public String getKeyword() {
+		return keyword;
+	}
 
 	public int[] getCnt() {
 		return count;
