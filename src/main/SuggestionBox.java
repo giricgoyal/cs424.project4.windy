@@ -174,12 +174,14 @@ public class SuggestionBox extends BasicControl {
 			//String a = String.valueOf(textBoxText.charAt(0));
 			//textBoxText = a.toUpperCase() + textBoxText.substring(1);
 		}
+		/*
 		this.dataWordCountPair = new ArrayList<WordCountPair>();
 		for (String word : KeyWords.words) {
 			if (word.contains(textBoxText)) {
 				this.dataWordCountPair.add(new WordCountPair(word));
 			}
 		}
+		*/
 		dataWords = new String[500];
 		dataWordsLength = 0;
 		for (int count = 0, count2 = 0; count < KeyWords.words.length; count++) {
