@@ -20,10 +20,11 @@ import processing.core.PShape;
  */
 public class Utilities {
 	
-	// configuration
-	public static boolean isWall = false;
-	public static boolean drawGridLine = false;
-	public static int dayButtonLowerBound = 0;
+	// configuration (all final values)
+	public static final boolean isWall = false;
+	public static final boolean drawGridLine = false;
+	public static final int dayButtonLowerBound = 0;
+	public static final int graphNumber = 4; // how many keywords are in the graph
 	
 	// variables
 	public static int currentDay = 0;
@@ -93,9 +94,6 @@ public class Utilities {
 	public static PImage WNW;
 	
 	public static boolean suggestionBox = false;
-	
-	public static int graphNumber = 4; // how many keywords are in the graph
-	
 	
 	public static AbstractMarker getMarkerType(AbstractMarker marker, MarkerType markerType) {
 
