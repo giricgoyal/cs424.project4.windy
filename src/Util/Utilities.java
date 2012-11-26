@@ -35,7 +35,13 @@ public class Utilities {
 	public static String currentTweet = "";
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
-	public static int graphNumber = 4; // how many keywords are in the graph
+	/**
+	 * this is equal to 
+	 * 99  : if all locations are selected
+	 * 97 : if all interstates selected
+	 * 98 : if all areas except interstates and vast river selected
+	 */
+	public static int selectedLocationId = -1;
 	
 	// constants
 	public static final int NEITHER = -1;
@@ -86,15 +92,9 @@ public class Utilities {
 	public static PImage NNW;
 	public static PImage WNW;
 	
-	/**
-	 * this is equal to 
-	 * 99  : if all locations are selected
-	 * 97 : if all interstates selected
-	 * 98 : if all areas except interstates and vast river selected
-	 */
-	public static int selectedLocationId = -1; 
-	
 	public static boolean suggestionBox = false;
+	
+	public static int graphNumber = 4; // how many keywords are in the graph
 	
 	
 	public static AbstractMarker getMarkerType(AbstractMarker marker, MarkerType markerType) {
