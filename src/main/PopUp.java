@@ -4,8 +4,10 @@
  */
 package main;
 
+import markers.MarkerType;
 import Util.Colors;
 import Util.Positions;
+import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -52,10 +54,12 @@ public class PopUp extends BasicControl{
 	
 	String keyword;
 	
+	CS424_Project4_Group4 program;
 	
-	public PopUp(PApplet parent, float x, float y, float w, float h, int color) {
+	public PopUp(PApplet parent, float x, float y, float w, float h, int color, CS424_Project4_Group4 program) {
 		super(parent, x, y, w, h);
 		this.parent = parent;
+		this.program = program;
 		// TODO Auto-generated constructor stub	
 	}
 	public void setPopUp(float x, float y, int color, String keyword) {
@@ -187,10 +191,21 @@ public class PopUp extends BasicControl{
 				if (my > selectY && my < selectY + buttonHeight) {
 					System.out.println("click on popup select");
 					Utilities.currentWord = keyword;
+					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+					program.updateDayButton();
+					program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+					program.timeSlider.update(program.dataCount);
+					check = false;
+					return;
 				}
 				
 				if (my > deleteY && my < deleteY + buttonHeight) {
 					System.out.println("click on popup delete");
+					Utilities.keywordGraph.remove(keyword);
+					program.graph.setData();
+					check = false;
 				}
 				
 				if (my > cancelY && my < cancelY + buttonHeight) {

@@ -224,7 +224,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		graph = new Graph(this, Positions.graphX, Positions.graphY, Positions.graphWidth, Positions.graphHeight, this);
 		controls.add(graph);
 		
-		popUp = new PopUp(this, 0, 0, 0, 0, 0);
+		popUp = new PopUp(this, 0, 0, 0, 0, 0, this);
 		controls.add(popUp);
 		
 		
@@ -944,13 +944,15 @@ public class CS424_Project4_Group4 extends PApplet{
 				if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
 					System.out.println("click on popup");
 					popUp.click(mx, my);
+					
 				}
 			}
+		}
 		
 		
-			
+		else {	
 			// add to list
-			else if (add2List.isInRectangle(mx, my)) {
+			if (add2List.isInRectangle(mx, my)) {
 				if (PersonList.isSelected()) {
 					System.out.println("Click on add Person to list");
 					for (int count = 0; count < Utilities.personList.size(); count++) {
