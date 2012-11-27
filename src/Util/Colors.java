@@ -26,11 +26,11 @@ public class Colors {
 	
 	public static int tweetColor = 0xFFE3F8FF;
 	public static int tweetColor2 = 0xFFD2E7EE;
-	public static int buttonColor = 0xff65B6F3;
-	public static int buttonSelectedColor = 0xffEBBD61;
+	public static int buttonColor = 0xff9d9d9c; //0xff65B6F3;
+	public static int buttonSelectedColor = 0xffededec; //0xffbd9d6c; //0xffEBBD61;
 	
-	public static int buttonBorder = 0xff3B6DC2;
-	public static int buttonSelectedBorder = 0xffCD6519;
+	public static int buttonBorder = 0xff1d1d1c;
+	public static int buttonSelectedBorder = 0xff1d1d1c;
 	
 	public static int weatherPanel = 0x80111111;
 	

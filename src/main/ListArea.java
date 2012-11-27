@@ -84,7 +84,8 @@ public class ListArea extends BasicControl {
 	
 	private void drawLocationItems() {
 		if (this.selected) {
-			parent.noStroke();
+			parent.stroke(Colors.buttonBorder);
+			parent.strokeWeight(Utilities.Converter(1));
 			parent.fill(Colors.buttonSelectedColor);
 			parent.beginShape();
 				parent.vertex(v1x, v1y);
@@ -146,7 +147,8 @@ public class ListArea extends BasicControl {
 	
 	private void drawKeywordItems() {
 		if (this.selected) {
-			parent.noStroke();
+			parent.stroke(Colors.buttonBorder);
+			parent.strokeWeight(Utilities.Converter(1));
 			parent.fill(Colors.buttonSelectedColor);
 			parent.beginShape();
 				parent.vertex(v1x, v1y);
@@ -178,7 +180,8 @@ public class ListArea extends BasicControl {
 	
 	private void drawEventItems() {
 		if (this.selected) {
-			parent.noStroke();
+			parent.stroke(Colors.buttonBorder);
+			parent.strokeWeight(Utilities.Converter(1));
 			parent.fill(Colors.buttonSelectedColor);
 			parent.beginShape();
 				parent.vertex(v1x, v1y);
@@ -210,7 +213,8 @@ public class ListArea extends BasicControl {
 	
 	private void drawPersonItems() {
 		if (this.selected) {
-			parent.noStroke();
+			parent.stroke(Colors.buttonBorder);
+			parent.strokeWeight(Utilities.Converter(1));
 			parent.fill(Colors.buttonSelectedColor);
 			parent.beginShape();
 				parent.vertex(v1x, v1y);
@@ -405,7 +409,7 @@ public class ListArea extends BasicControl {
 						break;
 					}
 				}
-				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.keywordList.remove(count);
 						
@@ -421,7 +425,7 @@ public class ListArea extends BasicControl {
 		}
 		else {
 			for (int count = 0; count < Utilities.eventList.size(); count++) {
-				if (mx > myX && mx < myX + myWidth) {
+				if (mx > myX && mx < myX + myWidth  - Utilities.Converter(7)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						
 						// same update as in myReleased
@@ -444,7 +448,7 @@ public class ListArea extends BasicControl {
 						break;
 					}
 				}
-				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.eventList.remove(count);
 						
@@ -455,13 +459,14 @@ public class ListArea extends BasicControl {
 	}
 	
 	private void clickPerson(float mx, float my) {
-		int count = 0;
+		
 		if (mx > backButtonX && mx < backButtonX + backButtonWidth && my > backButtonY && my < backButtonY + backButtonHeight){
 			this.selected = false;
 		}
 		else {
+			int count = 0;
 			while(count < Utilities.personList.size()){
-				if (mx > myX && mx < myX + myWidth) {
+				if (mx > myX && mx < myX + myWidth - Utilities.Converter(7)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.tweetPid = Utilities.personList.get(count);
 						this.selected = false;
@@ -469,10 +474,10 @@ public class ListArea extends BasicControl {
 						//program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 						//program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
-						System.out.println(Utilities.eventList.get(count));
+						System.out.println(Utilities.personList.get(count));
 					}
 				}
-				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.personList.remove(count);
 						

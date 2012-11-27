@@ -103,7 +103,7 @@ public class Graph extends BasicControl {
 		parent.textSize(Utilities.Converter(3.5));
 		parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
 		if (Utilities.keywordGraph.size() > 0)
-			for (int value = (int)this.lowerBound; value <= this.upperBound; value += (this.upperBound)/5) {
+			for (int value = (int)this.lowerBound; value <= this.upperBound; value += (this.upperBound)/10) {
 				parent.fill(Colors.WHITE);
 				float y = parent.map(value, this.lowerBound, this.upperBound,myY + myHeight - Utilities.Converter(1), myY + Utilities.Converter(5));
 				parent.textAlign(PConstants.RIGHT, PConstants.CENTER);
