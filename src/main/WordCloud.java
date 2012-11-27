@@ -47,7 +47,7 @@ public class WordCloud extends BasicControl{
 	        .minShapeSize((int)Utilities.Converter(1))
 	        //.withPlacer(customPlacer())
 	        .withPlacer(horizBandAnchoredLeftCustom())
-	        .maxNumberOfWordsToDraw(100)
+	        .maxNumberOfWordsToDraw(150)
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())

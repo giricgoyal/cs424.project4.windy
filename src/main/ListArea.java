@@ -74,7 +74,7 @@ public class ListArea extends BasicControl {
 		backButtonHeight = backButton.height / Utilities.Converter(3);
 		backButtonWidth = backButton.width / Utilities.Converter(3);
 		backButtonX = Positions.listWindowX + Positions.listWindowWidth - backButtonWidth - Utilities.Converter(2);
-		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(2) - backButtonHeight;
+		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(1) - backButtonHeight;
 		
 		deleteImage = parent.loadImage("delete.png");
 		
@@ -401,7 +401,7 @@ public class ListArea extends BasicControl {
 		}
 		else {
 			for (int count = 0; count < Utilities.keywordList.size(); count++) {
-				if (mx > myX && mx < myX + myWidth - Utilities.Converter(7)) {
+				if (mx > myX && mx < myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						
 						// same update as in Suggestion Box
@@ -416,7 +416,7 @@ public class ListArea extends BasicControl {
 						break;
 					}
 				}
-				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.keywordList.remove(count);
 						
@@ -432,7 +432,7 @@ public class ListArea extends BasicControl {
 		}
 		else {
 			for (int count = 0; count < Utilities.eventList.size(); count++) {
-				if (mx > myX && mx < myX + myWidth  - Utilities.Converter(7)) {
+				if (mx > myX && mx < myX + myWidth  - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						
 						// same update as in myReleased
@@ -455,7 +455,7 @@ public class ListArea extends BasicControl {
 						break;
 					}
 				}
-				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.eventList.remove(count);
 						
@@ -473,7 +473,7 @@ public class ListArea extends BasicControl {
 		else {
 			int count = 0;
 			while(count < Utilities.personList.size()){
-				if (mx > myX && mx < myX + myWidth - Utilities.Converter(7)) {
+				if (mx > myX && mx < myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.tweetPid = Utilities.personList.get(count);
 						this.selected = false;
@@ -484,7 +484,7 @@ public class ListArea extends BasicControl {
 						System.out.println(Utilities.personList.get(count));
 					}
 				}
-				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(5)) {
+				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						Utilities.personList.remove(count);
 						

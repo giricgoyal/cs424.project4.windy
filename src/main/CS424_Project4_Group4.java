@@ -367,9 +367,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		pushStyle();
 		textAlign(PConstants.LEFT,PConstants.TOP);
-		textSize(Utilities.Converter(8));
+		textSize(Utilities.Converter(7));
 		fill(Colors.TEXT_GRAY);
-		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + U.selectedLocationId,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
+		String location = "";
+		if (Utilities.selectedLocationId == -1 || Utilities.selectedLocationId == 99)
+			location = "All locations";
+		else if (Utilities.selectedLocationId == 97)
+			location = "All Interstates";
+		else if (Utilities.selectedLocationId == 98)
+			location = "All areas";
+		else {
+			for (int count = 0; count < dataLocation.size(); count++) {
+				if (dataLocation.get(count).getId() == Utilities.selectedLocationId) {
+					location = dataLocation.get(count).getName();
+					break;
+				}
+			}
+		}
+		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + location,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
 		
@@ -806,7 +821,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				// toggle
 				locationButton.setSelected(!locationButton.isSelected());
 				listArea.setSelected(locationButton.isSelected());
-				
+				popUp.setCheck(false);
 				// Location List On
 				if (locationButton.isSelected()){
 					System.out.println("Location List On");
@@ -951,7 +966,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// track person
 			else if (trackPerson.isInRectangle(mx, my)) {
-				
+				popUp.setCheck(false);
 				trackPerson.setSelected(!trackPerson.isSelected());
 				if (trackPerson.isSelected()) {
 					System.out.println("Track Person On");
@@ -976,6 +991,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		else {
 			// add to list
 			if (add2List.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				if (PersonList.isSelected()) {
 					System.out.println("Click on add Person to list");
 					for (int count = 0; count < Utilities.personList.size(); count++) {
@@ -1028,6 +1044,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
+			tw.setCheck(false);
 			float mW =  map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
 			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
@@ -1047,6 +1064,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
+			tw.setCheck(false);
 			float mW = map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
 			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
