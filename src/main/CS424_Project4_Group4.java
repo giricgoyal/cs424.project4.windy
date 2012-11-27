@@ -65,7 +65,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button zoomInBtn;
 	Button zoomOutBtn;
 	
-	Button addKeyword2List;
+	Button add2List;
 	Button addEvent2List;
 	Button addPerson2List;
 	Button trackPerson;
@@ -192,12 +192,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		add2Graph = new Button(this, Positions.add2GraphX, Positions.add2GraphY, Positions.add2GraphWidth, Positions.add2GraphHeight);
 		add2Graph.setName("Add to Graph");
+		add2Graph.setShowClick();
 		controls.add(add2Graph);
 		
-		addKeyword2List = new Button(this, Positions.addKeyword2ListX, Positions.addKeyword2ListY, Positions.addKeyword2ListWidth, Positions.addKeyword2ListHeight);
-		addKeyword2List.setName("Add to List");
-		addKeyword2List.setShowClick();
-		controls.add(addKeyword2List);
+		add2List = new Button(this, Positions.add2ListX, Positions.add2ListY, Positions.add2ListWidth, Positions.add2ListHeight);
+		add2List.setName("Add to List");
+		add2List.setShowClick();
+		controls.add(add2List);
 		
 		trackPerson = new Button(this, Positions.trackPersonX, Positions.trackPersonY, Positions.trackPersonWidth, Positions.trackPersonHeight);
 		trackPerson.setName("Track Person");
@@ -744,6 +745,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 		
+		// if clicking keyboard
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
 			sb.updateTextBox(keyboard.Click(mx, my));
@@ -752,9 +754,11 @@ public class CS424_Project4_Group4 extends PApplet{
 			EventList.setSelected(false);
 			PersonList.setSelected(false);
 			locationButton.setSelected(false);
+			trackPerson.setSelected(false);
 			return;
 		}
 
+		// if sb is on
 		if (Utilities.suggestionBox){
 			if (isIn(mx, my, Positions.suggestionBoxX,
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
@@ -764,13 +768,26 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 		}
+<<<<<<< HEAD
 		if (!Utilities.suggestionBox){
 			if (locationButton.isInRectangle(mx, my)){
 				popUp.setCheck(false);
 				System.out.println("Location Clicked");
+=======
+		
+		// if sb is off
+		else if (!Utilities.suggestionBox) {
+			
+			// Location Button
+			if (locationButton.isInRectangle(mx, my)) {
+				// toggle
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				locationButton.setSelected(!locationButton.isSelected());
 				listArea.setSelected(locationButton.isSelected());
+				
+				// Location List On
 				if (locationButton.isSelected()){
+					System.out.println("Location List On");
 					listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
 					listArea.setLocationData(dataLocation, 0, "null");
 					KeywordList.setSelected(false);
@@ -779,10 +796,15 @@ public class CS424_Project4_Group4 extends PApplet{
 					trackPerson.setSelected(false);
 					return;
 				}
-				
+				else {
+					System.out.println("Location List Off");
+					return;
+				}
 			}
 			
+			// Keyword List
 			if (KeywordList.isInRectangle(mx, my)) {
+<<<<<<< HEAD
 				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Keyword List Selected");
@@ -796,21 +818,31 @@ public class CS424_Project4_Group4 extends PApplet{
 						trackPerson.setSelected(false);
 						return;
 					}
+=======
+				// toggle
+				KeywordList.setSelected(!KeywordList.isSelected());
+				listArea.setSelected(KeywordList.isSelected());
+				
+				// Keyword List On
+				if (KeywordList.isSelected()) {
+					System.out.println("Keyword List On");
+					listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
+					locationButton.setSelected(false);
+					PersonList.setSelected(false);
+					EventList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
+				// Keyword List Off
 				else {
-					for (int count = 0; count < Utilities.keywordList.size(); count++) {
-						if (Utilities.keywordList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
-							addKeyword2List.setSelected(!addKeyword2List.isSelected());
-							return;
-						}
-					}
-					Utilities.keywordList.add(Utilities.currentWord);
-					System.out.println("Size : "  + Utilities.keywordList.size());
-					addKeyword2List.setSelected(!addKeyword2List.isSelected());
+					System.out.println("Keyword List Off");
 				}
 			}
 			
+			// Person List
 			if (PersonList.isInRectangle(mx, my)) {
+<<<<<<< HEAD
 				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Person List Selected");
@@ -824,24 +856,46 @@ public class CS424_Project4_Group4 extends PApplet{
 						trackPerson.setSelected(false);
 						return;
 					}
+=======
+				// toggle
+				PersonList.setSelected(!PersonList.isSelected());
+				listArea.setSelected(PersonList.isSelected());
+				
+				// Person List On
+				if (PersonList.isSelected()) {
+					System.out.println("Person List On");
+					listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
+					locationButton.setSelected(false);
+					KeywordList.setSelected(false);
+					EventList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
+				// Person List Off
 				else {
+					System.out.println("Person List Off");
+				}
+					
+					
+					/*
 					if (Utilities.tweetPid != -1) {
 						System.out.println("click on add Person 2 List");
 						for (int count = 0; count < Utilities.personList.size(); count++) {
 							if (Utilities.personList.get(count) == Utilities.tweetPid) {
-								addKeyword2List.setSelected(!addKeyword2List.isSelected());
+								add2List.setSelected(!add2List.isSelected());
 								return;
 							}
 						}
 						Utilities.personList.add(Utilities.tweetPid);
 						System.out.println("Size : "  + Utilities.personList.size());
-						addKeyword2List.setSelected(!addKeyword2List.isSelected());
-					}
-				}
+						add2List.setSelected(!add2List.isSelected());
+					}*/
 			}
 			
+			// Event List
 			if (EventList.isInRectangle(mx, my)) {
+<<<<<<< HEAD
 				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Event List Selected");
@@ -855,18 +909,27 @@ public class CS424_Project4_Group4 extends PApplet{
 						trackPerson.setSelected(false);
 						return;
 					}
+=======
+					
+				// toggle
+				EventList.setSelected(!EventList.isSelected());
+				listArea.setSelected(EventList.isSelected());
+				
+				
+				// Event List On
+				if (EventList.isSelected()) {
+					System.out.println("Event List On");
+					listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
+					locationButton.setSelected(false);
+					PersonList.setSelected(false);
+					KeywordList.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
+				// Event List Off
 				else {
-					System.out.println("click on add Event 2 List");
-					for (int count = 0; count < Utilities.eventList.size(); count++) {
-						if (Utilities.eventList.get(count).compareToIgnoreCase(Utilities.currentWord) == 0) {
-							addKeyword2List.setSelected(!addKeyword2List.isSelected());
-							return;
-						}
-					}
-					Utilities.eventList.add(Utilities.currentWord);
-					System.out.println("Size : "  + Utilities.eventList.size());
-					addKeyword2List.setSelected(!addKeyword2List.isSelected());
+					System.out.println("Event List Off");
 				}
 			}
 			
@@ -883,6 +946,7 @@ public class CS424_Project4_Group4 extends PApplet{
 					return;
 				}
 			}
+<<<<<<< HEAD
 			
 			if (!listArea.isSelected()) {
 				//popUp.setCheck(false);
@@ -891,6 +955,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
+=======
+			// add to graph
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 			if (add2Graph.isInRectangle(mx, my)){
 				popUp.setCheck(false);
 				System.out.println("Click on add to graph");
@@ -902,16 +969,34 @@ public class CS424_Project4_Group4 extends PApplet{
 				if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
 					Utilities.keywordGraph.add(Utilities.currentWord);
 					graph.addData();
+					System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
+					return;
 				}
-				System.out.println("Size : "  + Utilities.keywordGraph.size());
+				return;
 			}
 			
+<<<<<<< HEAD
 			if (trackPerson.isInRectangle(mx, my)){
 				popUp.setCheck(false);
 				System.out.println("toggle Track Person");
 				trackPerson.setSelected(!trackPerson.isSelected());
+=======
+			// track person
+			else if (trackPerson.isInRectangle(mx, my)) {
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				
+				trackPerson.setSelected(!trackPerson.isSelected());
+				if (trackPerson.isSelected()) {
+					System.out.println("Track Person On");
+					U.isTrackingPerson = true;
+				}
+				else {
+					System.out.println("Track Person Off");
+					U.isTrackingPerson = false;
+				}
+				return;
 			}
+<<<<<<< HEAD
 						
 			if (addKeyword2List.isInRectangle(mx, my)) {
 				popUp.setCheck(false);
@@ -964,49 +1049,143 @@ public class CS424_Project4_Group4 extends PApplet{
 				float offsetY = 0;
 				if (map.x1<0) {
 					offsetX = 0-map.x1;
+=======
+			
+			// add to list
+			else if (add2List.isInRectangle(mx, my)) {
+				if (PersonList.isSelected()) {
+					System.out.println("Click on add Person to list");
+					for (int count = 0; count < Utilities.personList.size(); count++) {
+						if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+							return;
+						}
+					}
+					if (Utilities.personList.size() <= Utilities.listSize) {
+						if (U.tweetPid != -1) {
+							Utilities.personList.add(Utilities.tweetPid);
+							System.out.println("Person List Size : " + Utilities.personList.size());
+							return;
+						}
+						else {
+							System.out.println("No Person selected");
+						}
+					}
 				}
-				else if (map.x2 > U.mapMaxW) {
-					offsetX = U.mapMaxW - map.x2;
-				}
-				if (map.y1<0) {
-					offsetY = 0-map.y1;
-				}
-				else if (map.y2 > U.mapMaxH){
-					offsetY = U.mapMaxH-map.y2;
-				}
-				map.x1 += offsetX;
-				map.x2 += offsetX;
-				map.y1 += offsetY;
-				map.y2 += offsetY;
-				// end
-				
-				mW = mW*4;
-				mH = mH*4;
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//updateMarkerPos(markers);
-			}
-			return;
-		}
-		
-		if (!moved) {
-			for (AbstractMarker m : markers) {
-				if (map.checkIn(m.getX(),m.getY())) {
-					if (m.checkIn(mx, my)) {
-						U.currentTweet = m.getTweet();
-						U.tweetTime = (m.getHour() > 9)? 
-								((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
-								: 
-								( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
-						U.tweetPid = m.getPid();
-						System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-						tw.setTweet();
+				else if (EventList.isSelected()) {
+					System.out.println("Click on add Event to list");
+					for (int count = 0; count < Utilities.eventList.size(); count++) {
+						if (Utilities.eventList.get(count).equals(Utilities.bHalf)) {
+							return;
+						}
+					}
+					if (Utilities.eventList.size() <= Utilities.listSize) {
+						Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf));
+						System.out.println("Event List Size : " + Utilities.eventList.size());
 						return;
 					}
 				}
+				else if (KeywordList.isSelected()) {
+					System.out.println("Click on add Keyword to list");
+					for (int count = 0; count < Utilities.keywordList.size(); count++) {
+						if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
+							return;
+						}
+					}
+					if (Utilities.keywordList.size() <= Utilities.listSize) {
+						Utilities.keywordList.add(Utilities.currentWord);
+						System.out.println("Keyword List Size : " + Utilities.keywordList.size());
+						return;
+					}
+>>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
+				}
+				else {
+					System.out.println("No List selected");
+				}
+				return;
 			}
-		}
-		else {
-			moved = false;
+		
+			if (zoomInBtn.checkIn(mx,my)) {
+				System.out.println("Zoom in Clicked");
+				float mW =  map.x2 - map.x1 + 1;
+				float mH = map.y2 - map.y1 + 1;
+				if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
+					mW = mW/4;
+					mH = mH/4;
+					map.x1 += mW;
+					map.x2 -= mW;
+					map.y1 += mH;
+					map.y2 -= mH;
+					mW = mW*2;
+					mH = mH*2;
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					//updateMarkerPos(markers);
+				}
+				return;
+			}
+			
+			if (zoomOutBtn.checkIn(mx,my)) {
+				System.out.println("Zoom out Clicked");
+				float mW = map.x2 - map.x1 + 1;
+				float mH = map.y2 - map.y1 + 1;
+				if (mW < U.mapMaxW && mW < U.mapMaxH) { 
+					mW = mW/2;
+					mH = mH/2;
+					map.x1 -= mW;
+					map.x2 += mW;
+					map.y1 -= mH;
+					map.y2 += mH;
+					
+					// we don't want blank
+					float offsetX = 0;
+					float offsetY = 0;
+					if (map.x1<0) {
+						offsetX = 0-map.x1;
+					}
+					else if (map.x2 > U.mapMaxW) {
+						offsetX = U.mapMaxW - map.x2;
+					}
+					if (map.y1<0) {
+						offsetY = 0-map.y1;
+					}
+					else if (map.y2 > U.mapMaxH){
+						offsetY = U.mapMaxH-map.y2;
+					}
+					map.x1 += offsetX;
+					map.x2 += offsetX;
+					map.y1 += offsetY;
+					map.y2 += offsetY;
+					// end
+					
+					mW = mW*4;
+					mH = mH*4;
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					//updateMarkerPos(markers);
+				}
+				return;
+			}
+		
+			//FIXME: because we return in every function, maybe 'moved' won't be reset here
+			if (!moved) {
+				for (AbstractMarker m : markers) {
+					float disMin = Float.MAX_VALUE; 
+					if (map.checkIn(m.getX(),m.getY())) {
+						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
+							U.currentTweet = m.getTweet();
+							U.tweetTime = (m.getHour() > 9)? 
+									((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+									: 
+									( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+							U.tweetPid = m.getPid();
+						}
+					}
+				}
+				System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+				tw.setTweet();
+				return;
+			}
+			else {
+				moved = false;
+			}
 		}
 	}
 	

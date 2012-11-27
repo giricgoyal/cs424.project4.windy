@@ -244,22 +244,13 @@ public class SuggestionBox extends BasicControl {
 		 */
 		for (count = 0; count < dataWordsLength; count++) {
 			if (dataWords[count].equals(clickedString)) {
-				System.out.println(dataWords[count]);
-				if (program.add2Graph.isSelected()) {
-					System.out.println("Add to graph : " + clickedString);
-				}
-				else{
-					Utilities.currentWord = clickedString;
-					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
-					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
-					program.updateDayButton();
-					program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
-					program.timeSlider.update(program.dataCount);
-				}
-				//program.map.setCenterZoom(new Location(states.get(i).getLatitude(), states.get(i).getLongitude()),Utilities.zoomState);
-				//program.updateMarkerList();
-				//program.gm.computeGridValues();
+				Utilities.currentWord = clickedString;
+				program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+				program.updateDayButton();
+				program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+				program.timeSlider.update(program.dataCount);
 				break;
 			}
 		}

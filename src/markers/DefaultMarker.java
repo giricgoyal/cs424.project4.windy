@@ -8,6 +8,7 @@ import Util.Pos;
 import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import markers.AbstractMarker;
 
 /**
@@ -26,8 +27,14 @@ public class DefaultMarker extends AbstractMarker {
 		p.noStroke();
 		//float scale = PApplet.map(super.halfhour,U.bHalf,U.eHalf,2,1);
 		//p.fill(p.color(scale*p.red(Colors.LIGHT_BLUE),scale*p.green(Colors.LIGHT_BLUE),scale*p.blue(Colors.LIGHT_BLUE)));
-		p.fill(Colors.LIGHT_BLUE);
-		p.ellipse(x+Pos.mapX, y+Pos.mapY, Utilities.Converter(2), Utilities.Converter(2));
+		if (U.isTrackingPerson == true && pid == U.tweetPid) {
+			p.fill(Colors.LIGHT_ORANGE);
+		}
+		else {
+			p.fill(Colors.LIGHT_BLUE);
+		}
+		p.ellipseMode(PConstants.CENTER);
+		p.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
 		p.popStyle();
 	}
 }

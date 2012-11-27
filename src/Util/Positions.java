@@ -161,6 +161,7 @@ public class Positions {
 	public static float add2GraphY = personListY;
 	//public static float add2GraphY = Utilities.height * 2 / 3 + Utilities.Converter(1);
 	
+	/*
 	// button addKeyword2list
 	public static float addKeyword2ListWidth = add2GraphWidth;
 	public static float addKeyword2ListHeight = add2GraphHeight;
@@ -179,12 +180,19 @@ public class Positions {
 	public static float addPerson2ListHeight = addKeyword2ListHeight;
 	public static float addPerson2ListX = add2GraphX;
 	public static float addPerson2ListY = addEvent2ListY;
+	*/
+	
+	// button add2List
+	public static float add2ListWidth = add2GraphWidth;
+	public static float add2ListHeight = add2GraphHeight;
+	public static float add2ListX = add2GraphX;
+	public static float add2ListY = add2GraphY + add2GraphHeight + Utilities.Converter(2);
 	
 	// button track Person
-	public static float trackPersonWidth = addKeyword2ListWidth;
-	public static float trackPersonHeight = addKeyword2ListHeight;
-	public static float trackPersonX = addKeyword2ListX;
-	public static float trackPersonY = addKeyword2ListY + addKeyword2ListHeight + Utilities.Converter(2);
+	public static float trackPersonWidth = add2GraphWidth;
+	public static float trackPersonHeight = add2GraphHeight;
+	public static float trackPersonX = add2GraphX;
+	public static float trackPersonY = add2ListY + add2ListHeight + Utilities.Converter(2);
 	
 	// graph window
 	public static float graphWindowWidth = Utilities.width * 2 / 6 - Utilities.Converter(2);

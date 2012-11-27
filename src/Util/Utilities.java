@@ -6,6 +6,7 @@ package Util;
 import java.util.ArrayList;
 
 import main.CS424_Project4_Group4;
+import main.EventTime;
 import main.WordCountPair;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
@@ -25,6 +26,7 @@ public class Utilities {
 	public static final boolean drawGridLine = false;
 	public static final int dayButtonLowerBound = 0;
 	public static final int graphNumber = 7; // how many keywords are in the graph
+	public static final int listSize = 7; // how many keywords are in a list (person, event, keyword)
 	
 	// variables
 	public static int currentDay = 0;
@@ -36,6 +38,7 @@ public class Utilities {
 	public static String currentTweet = "";
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
+	public static boolean isTrackingPerson = false;
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
@@ -111,14 +114,14 @@ public class Utilities {
 	public static final int maxTweets = 71279; // day 19 (second last day)
 	public static int currentMaxTweets = maxTweets;
 	
-	public static final float markerHalfWidth = U.Converter(5);
-	public static final float markerHalfHeight = U.Converter(5);
+	public static final float markerHalfWidth = U.Converter(5)/2;
+	public static final float markerHalfHeight = U.Converter(5)/2;
 	
 	
 	public static ArrayList<String> keywordList = new ArrayList<String>();
-	public static ArrayList<String> eventList = new ArrayList<String>();
+	public static ArrayList<EventTime> eventList = new ArrayList<EventTime>();
 	public static ArrayList<Integer> personList = new ArrayList<Integer>();
-	public static ArrayList<String> keywordGraph = new ArrayList<String>();
+	public static ArrayList<String> keywordGraph = new ArrayList<String>();	
 	
 	
 	public static float popUpWidth;

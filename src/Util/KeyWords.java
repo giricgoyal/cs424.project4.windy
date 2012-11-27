@@ -224,7 +224,6 @@ public class KeyWords {
 		"pitch",
 		"plan",
 		"plane",
-		"Plane",
 		"please",
 		"plenty",
 		"pneumonia",
