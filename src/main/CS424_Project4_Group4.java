@@ -82,7 +82,9 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	Keyboard keyboard;
 	SuggestionBox sb;
+	
 	TweetWindow tw;
+	//PopUpTweet tw;
 	
 	Graph graph;
 	WordCloud beforeWordCloud, afterWordCloud;
@@ -180,6 +182,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls.add(zoomOutBtn);
 		
 		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+		//tw = new PopUpTweet(this, 0, 0, 0, 0);
 		controls.add(tw);
 		//tw.setText("1234 6789 234567891 3456 891234 678912345678912345678912 456 89");
 		
@@ -948,9 +951,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 			}
 		}
-		
-		
-		else {	
+		else {
 			// add to list
 			if (add2List.isInRectangle(mx, my)) {
 				if (PersonList.isSelected()) {
@@ -1002,90 +1003,90 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 				return;
 			}
+		}
+		if (zoomInBtn.checkIn(mx,my)) {
+			System.out.println("Zoom in Clicked");
+			float mW =  map.x2 - map.x1 + 1;
+			float mH = map.y2 - map.y1 + 1;
+			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
+				mW = mW/4;
+				mH = mH/4;
+				map.x1 += mW;
+				map.x2 -= mW;
+				map.y1 += mH;
+				map.y2 -= mH;
+				mW = mW*2;
+				mH = mH*2;
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				//updateMarkerPos(markers);
+			}
+			return;
+		}
 		
-			if (zoomInBtn.checkIn(mx,my)) {
-				System.out.println("Zoom in Clicked");
-				float mW =  map.x2 - map.x1 + 1;
-				float mH = map.y2 - map.y1 + 1;
-				if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
-					mW = mW/4;
-					mH = mH/4;
-					map.x1 += mW;
-					map.x2 -= mW;
-					map.y1 += mH;
-					map.y2 -= mH;
-					mW = mW*2;
-					mH = mH*2;
-					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-					//updateMarkerPos(markers);
+		if (zoomOutBtn.checkIn(mx,my)) {
+			System.out.println("Zoom out Clicked");
+			float mW = map.x2 - map.x1 + 1;
+			float mH = map.y2 - map.y1 + 1;
+			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
+				mW = mW/2;
+				mH = mH/2;
+				map.x1 -= mW;
+				map.x2 += mW;
+				map.y1 -= mH;
+				map.y2 += mH;
+				
+				// we don't want blank
+				float offsetX = 0;
+				float offsetY = 0;
+				if (map.x1<0) {
+					offsetX = 0-map.x1;
 				}
-				return;
-			}
-			
-			if (zoomOutBtn.checkIn(mx,my)) {
-				System.out.println("Zoom out Clicked");
-				float mW = map.x2 - map.x1 + 1;
-				float mH = map.y2 - map.y1 + 1;
-				if (mW < U.mapMaxW && mW < U.mapMaxH) { 
-					mW = mW/2;
-					mH = mH/2;
-					map.x1 -= mW;
-					map.x2 += mW;
-					map.y1 -= mH;
-					map.y2 += mH;
-					
-					// we don't want blank
-					float offsetX = 0;
-					float offsetY = 0;
-					if (map.x1<0) {
-						offsetX = 0-map.x1;
-					}
-					else if (map.x2 > U.mapMaxW) {
-						offsetX = U.mapMaxW - map.x2;
-					}
-					if (map.y1<0) {
-						offsetY = 0-map.y1;
-					}
-					else if (map.y2 > U.mapMaxH){
-						offsetY = U.mapMaxH-map.y2;
-					}
-					map.x1 += offsetX;
-					map.x2 += offsetX;
-					map.y1 += offsetY;
-					map.y2 += offsetY;
-					// end
-					
-					mW = mW*4;
-					mH = mH*4;
-					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-					//updateMarkerPos(markers);
+				else if (map.x2 > U.mapMaxW) {
+					offsetX = U.mapMaxW - map.x2;
 				}
-				return;
+				if (map.y1<0) {
+					offsetY = 0-map.y1;
+				}
+				else if (map.y2 > U.mapMaxH){
+					offsetY = U.mapMaxH-map.y2;
+				}
+				map.x1 += offsetX;
+				map.x2 += offsetX;
+				map.y1 += offsetY;
+				map.y2 += offsetY;
+				// end
+				
+				mW = mW*4;
+				mH = mH*4;
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				//updateMarkerPos(markers);
 			}
-		
-			//FIXME: because we return in every function, maybe 'moved' won't be reset here
-			if (!moved) {
-				for (AbstractMarker m : markers) {
-					float disMin = Float.MAX_VALUE; 
-					if (map.checkIn(m.getX(),m.getY())) {
-						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
-							U.currentTweet = m.getTweet();
-							U.tweetTime = (m.getHour() > 9)? 
-									((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
-									: 
-									( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
-							U.tweetPid = m.getPid();
-						}
+			return;
+		}
+	
+		//FIXME: because we return in every function, maybe 'moved' won't be reset here
+		if (!moved) {
+			for (AbstractMarker m : markers) {
+				float disMin = Float.MAX_VALUE; 
+				if (map.checkIn(m.getX(),m.getY())) {
+					if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
+						U.currentTweet = m.getTweet();
+						U.tweetTime = (m.getHour() > 9)? 
+								((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+								: 
+								( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+						U.tweetPid = m.getPid();
+						//tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
 					}
 				}
-				System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-				tw.setTweet();
-				return;
 			}
-			else {
-				moved = false;
-			}
-		} 
+			System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+			tw.setTweet();
+			return;
+		}
+		else {
+			moved = false;
+		}
 	}
 	
 	

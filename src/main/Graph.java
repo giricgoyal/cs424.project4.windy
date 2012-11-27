@@ -172,11 +172,12 @@ public class Graph extends BasicControl {
 		parent.text("Tweet\nCount", Positions.graphWindowX + Utilities.Converter(10), myY + myHeight/2);
 		
 		// if empty print something
-		parent.textSize(Utilities.Converter(15));
-		parent.textAlign(PConstants.CENTER, PConstants.CENTER);
-		parent.fill(Colors.DARK_GRAY);
-		parent.text("Add a keyword to begin", Positions.graphX + Positions.graphWidth/2, Positions.graphY + Positions.graphHeight/2);
-		
+		if (Utilities.keywordGraph.isEmpty()) {
+			parent.textSize(Utilities.Converter(15));
+			parent.textAlign(PConstants.CENTER, PConstants.CENTER);
+			parent.fill(Colors.DARK_GRAY);
+			parent.text("Add a keyword to begin", Positions.graphX + Positions.graphWidth/2, Positions.graphY + Positions.graphHeight/2);
+		}
 			
 	}
 	
