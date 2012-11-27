@@ -23,6 +23,7 @@ public class Graph extends BasicControl {
 	String mainLabel;
 	String focusAttribute;
 	String defaultFocusAttribute;
+
 	
 	String[] dates = {"4/30" , "5/01", "5/02", "5/03" ,"5/04", "5/05", "5/06", "5/07", "5/08", 
 						"5/09", "5/10", "5/11", "5/12", "5/13", "5/14", "5/15", "5/16", "5/17", "5/18", "5/19", "5/20"};
@@ -176,11 +177,13 @@ public class Graph extends BasicControl {
 	
 	private void drawLegend() {
 		int count = 0;
+		float x = myX;
 		while(count < Utilities.keywordGraph.size()) {
 			parent.textSize(Utilities.Converter(5));
 			parent.fill(Colors.GRAPH_COLORS[count]);
-			parent.textAlign(PConstants.RIGHT, PConstants.BOTTOM);
-			parent.text(Utilities.keywordGraph.get(count), myX + myWidth - Utilities.Converter(1), myY - count * Utilities.Converter(5) - Utilities.Converter(3));
+			parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+			parent.text(Utilities.keywordGraph.get(count), x, myY - Utilities.Converter(2));
+			x += Utilities.keywordGraph.get(count).length() * Utilities.Converter(2.5) + Utilities.Converter(4);
 			count++;
 		}
 	}
@@ -229,12 +232,17 @@ public class Graph extends BasicControl {
 	
 	public void click(float mx, float my) {
 		int count = 0;
+		float x1 = myX;
+		float x2 = myX;
 		while(count < Utilities.keywordGraph.size()) {
-			if (mx > myX + myWidth - Utilities.Converter(5) * Utilities.keywordGraph.get(count).length() && mx < myX + myWidth) {
-				if (my < myY - count * Utilities.Converter(5) - Utilities.Converter(3) && my > myY - (count+1) * Utilities.Converter(5) - Utilities.Converter(3)) {
+			x2 += Utilities.keywordGraph.get(count).length() * Utilities.Converter(2.5) + Utilities.Converter(4);
+			if (mx > x1  && mx < x2) {
+				if (my < myY && my > myY - Utilities.Converter(8)) {
 					System.out.println(Utilities.keywordGraph.get(count));
+					program.popUp.setPopUp(mx, my, Colors.GRAPH_COLORS[count], Utilities.keywordGraph.get(count));
 				}
-			}
+			}		
+			x1 = x2;
 			count++;
 		}
 

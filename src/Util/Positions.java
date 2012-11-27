@@ -194,7 +194,7 @@ public class Positions {
 	
 	// Graph
 	public static float graphWidth = graphWindowWidth - Utilities.Converter(34);
-	public static float graphHeight = graphWindowHeight / 2;
+	public static float graphHeight = graphWindowHeight / 2 + graphWindowHeight/4;
 	public static float graphX = graphWindowX + Utilities.Converter(30);
 	public static float graphY = graphWindowY + graphWindowHeight - graphHeight - Utilities.Converter(15);
 }

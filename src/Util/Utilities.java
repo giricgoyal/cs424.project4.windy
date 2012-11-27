@@ -121,5 +121,11 @@ public class Utilities {
 	public static ArrayList<String> keywordGraph = new ArrayList<String>();
 	
 	
+	public static float popUpWidth;
+	public static float popUpHeight;
+	public static float popUpX;
+	public static float popUpY;
+	
+	
 }
 	

@@ -10,6 +10,8 @@ import java.util.Hashtable;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import Util.Colors;
 import Util.Pos;
 import Util.Positions;
@@ -73,6 +75,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button KeywordList;
 	Button PersonList;
 	Button EventList;
+	
+	PopUp popUp;
 	
 	ListArea listArea;
 	
@@ -218,6 +222,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		graph = new Graph(this, Positions.graphX, Positions.graphY, Positions.graphWidth, Positions.graphHeight, this);
 		controls.add(graph);
+		
+		popUp = new PopUp(this, 0, 0, 0, 0, 0);
+		controls.add(popUp);
+		
+		
 		
 		listArea = new ListArea(this, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight, this);
 		
@@ -669,9 +678,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		// first reset every variable that indicates 'pressing' to original value
 		if (isTouchingMap) {
 			isTouchingMap = false;
+			popUp.setCheck(false);
 		}
 		
 		if (whichLock == U.LEFT) {
+			popUp.setCheck(false);
 			whichLock = U.NEITHER;
 			U.bHalf = U.bHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
@@ -681,6 +692,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
+			popUp.setCheck(false);
 			whichLock = U.NEITHER;
 			U.eHalf = U.eHalf_temp;
 			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
@@ -690,7 +702,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			return;
 		}
 		else if (timeSlider.checkIn(mx,my)) {
-			
+			popUp.setCheck(false);
 			int half = round(map(mx, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth, 0, 48));	
 			float disLeft = abs(mx-timeSlider.getLeftLockX());
 			float disRight = abs(mx-timeSlider.getRightLockX());
@@ -716,6 +728,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		// then check interfaces
 		for (int i=0;i<=20;i++) {
 			if ((dayButtons.get(i)).checkIn(mx,my)) {
+				popUp.setCheck(false);
 				System.out.println("Day "+i+" Clicked");
 				dayButtons.get(U.currentDay).setSelected(false);
 				U.currentDay = i;
@@ -734,6 +747,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
 			sb.updateTextBox(keyboard.Click(mx, my));
+			popUp.setCheck(false);
 			KeywordList.setSelected(false);
 			EventList.setSelected(false);
 			PersonList.setSelected(false);
@@ -745,12 +759,14 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (isIn(mx, my, Positions.suggestionBoxX,
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 					Positions.suggestionBoxHeight)) {
+				popUp.setCheck(false);
 				sb.Click(mx, my);
 				return;
 			}
 		}
 		if (!Utilities.suggestionBox){
 			if (locationButton.isInRectangle(mx, my)){
+				popUp.setCheck(false);
 				System.out.println("Location Clicked");
 				locationButton.setSelected(!locationButton.isSelected());
 				listArea.setSelected(locationButton.isSelected());
@@ -767,6 +783,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (KeywordList.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Keyword List Selected");
 					KeywordList.setSelected(!KeywordList.isSelected());
@@ -794,6 +811,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (PersonList.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Person List Selected");
 					PersonList.setSelected(!PersonList.isSelected());
@@ -824,6 +842,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (EventList.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				if (!addKeyword2List.isSelected()) {
 					System.out.println("Event List Selected");
 					EventList.setSelected(!EventList.isSelected());
@@ -853,6 +872,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			if (listArea.isSelected()){
 				if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
+					popUp.setCheck(false);
 					listArea.click(mx, my);
 					if (!listArea.isSelected()) {
 						locationButton.setSelected(false);
@@ -865,12 +885,14 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (!listArea.isSelected()) {
+				//popUp.setCheck(false);
 				graph.click(mx, my);
 			}
 		}
 		
 		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
 			if (add2Graph.isInRectangle(mx, my)){
+				popUp.setCheck(false);
 				System.out.println("Click on add to graph");
 				for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
 					if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
@@ -885,18 +907,28 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 			
 			if (trackPerson.isInRectangle(mx, my)){
+				popUp.setCheck(false);
 				System.out.println("toggle Track Person");
 				trackPerson.setSelected(!trackPerson.isSelected());
 				
 			}
 						
 			if (addKeyword2List.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				System.out.println("Click on add Keyword to list");
 				addKeyword2List.setSelected(!addKeyword2List.isSelected());
+			}
+			
+			if (popUp.getCheck()) {
+				if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
+					System.out.println("click on popup");
+					popUp.click(mx, my);
+				}
 			}
 		}
 		
 		if (zoomInBtn.checkIn(mx,my)) {
+			popUp.setCheck(false);
 			System.out.println("Zoom in Clicked");
 			float mW =  map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
@@ -915,6 +947,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			return;
 		}
 		if (zoomOutBtn.checkIn(mx,my)) {
+			popUp.setCheck(false);
 			System.out.println("Zoom out Clicked");
 			float mW = map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
