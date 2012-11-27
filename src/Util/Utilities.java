@@ -38,6 +38,7 @@ public class Utilities {
 	public static String currentTweet = "";
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
+	public static boolean isTrackingPerson = false;
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected

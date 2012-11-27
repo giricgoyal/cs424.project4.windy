@@ -894,8 +894,16 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// track person
 			else if (trackPerson.isInRectangle(mx, my)) {
-				System.out.println("toggle Track Person");
+				
 				trackPerson.setSelected(!trackPerson.isSelected());
+				if (trackPerson.isSelected()) {
+					System.out.println("Track Person On");
+					U.isTrackingPerson = true;
+				}
+				else {
+					System.out.println("Track Person Off");
+					U.isTrackingPerson = false;
+				}
 				return;
 			}
 			
