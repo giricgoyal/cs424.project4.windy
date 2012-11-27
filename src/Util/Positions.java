@@ -44,7 +44,7 @@ public class Positions {
 	// day buttons
 	public static float dayButtonX = mapX;
 	public static float dayButtonY = Utilities.height * 6 / 7;
-	public static float dayButtonW = mapWidth/21;
+	public static float dayButtonW = mapWidth*9/10/21;
 	public static float dayButtonH = Utilities.height - dayButtonY - Utilities.Converter(3);
 	
 	// weatherPanel
@@ -60,12 +60,18 @@ public class Positions {
 	public static float daySliderY = Utilities.height - Positions.daySliderHeight + Utilities.Converter(2);
 
 	// timeSlider
-	public static float timeSliderWidth = Positions.mapWidth;
+	public static float timeSliderWidth = dayButtonW*21;
 	public static float timeSliderHeight = Utilities.height / (3*2) - Utilities.Converter(3);
 	public static float timeSliderX = Positions.mapX;
 	public static float timeSliderY = Utilities.height * 2 / 3 + Utilities.Converter(3);
 	public static float lockHeight = timeSliderHeight;
 	public static float lockWidth = lockHeight*2/5;
+	
+	// playButton
+	public static float playX = timeSliderX + timeSliderWidth + Utilities.Converter(3);
+	public static float playY = timeSliderY;
+	public static float playW = mapWidth / 10 - Utilities.Converter(6);
+	public static float playH = playW;
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(15);

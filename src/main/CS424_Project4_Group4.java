@@ -87,7 +87,9 @@ public class CS424_Project4_Group4 extends PApplet{
 	PopUpTweet tw;
 	
 	Graph graph;
-	WordCloud beforeWordCloud, afterWordCloud;
+	WordCloud beforeWordCloud;
+	
+	PlayButton playButton;
 	
 	// data
 	ArrayList<DataPos> dataDay; //all data for current day
@@ -132,7 +134,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 		// begin of components initialization
 		map = new Map(this, "map.png", Pos.mapX, Pos.mapY, Pos.mapWidth, Pos.mapHeight);
-		map.setup(0, 0, U.mapMaxW, U.mapMaxH); // initial range of the map by pixel in original image
+		map.setup(0, U.mapMaxH/2 - U.mapMaxW/Pos.mapWidth*Pos.mapHeight/2, U.mapMaxW, U.mapMaxH/2 + U.mapMaxW/Pos.mapWidth*Pos.mapHeight/2); // initial range of the map by pixel in original image
 		
 		weatherPanel = new WeatherPanel(this,
 				Pos.weatherPanelX, Pos.weatherPanelY,
@@ -244,7 +246,8 @@ public class CS424_Project4_Group4 extends PApplet{
 				Positions.textBoxWidth, Positions.textBoxHeight,this);
 		controls.add(sb);
 
-		
+		playButton = new PlayButton(this, Pos.playX, Pos.playY, Pos.playW, Pos.playH);
+		controls.add(playButton);
 	}
 	
 	public void setup() {

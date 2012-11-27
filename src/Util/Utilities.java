@@ -38,6 +38,7 @@ public class Utilities {
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
 	public static boolean isTrackingPerson = false;
+	public static boolean isPlaying = false; // animation
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
