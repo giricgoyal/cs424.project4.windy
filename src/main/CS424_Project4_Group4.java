@@ -1022,20 +1022,21 @@ public class CS424_Project4_Group4 extends PApplet{
 			//FIXME: because we return in every function, maybe 'moved' won't be reset here
 			if (!moved) {
 				for (AbstractMarker m : markers) {
+					float disMin = Float.MAX_VALUE; 
 					if (map.checkIn(m.getX(),m.getY())) {
-						if (m.checkIn(mx, my)) {
+						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
 							U.currentTweet = m.getTweet();
 							U.tweetTime = (m.getHour() > 9)? 
 									((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
 									: 
 									( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
 							U.tweetPid = m.getPid();
-							System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-							tw.setTweet();
-							return;
 						}
 					}
 				}
+				System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+				tw.setTweet();
+				return;
 			}
 			else {
 				moved = false;

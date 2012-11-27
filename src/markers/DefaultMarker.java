@@ -8,6 +8,7 @@ import Util.Pos;
 import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import markers.AbstractMarker;
 
 /**
@@ -32,7 +33,8 @@ public class DefaultMarker extends AbstractMarker {
 		else {
 			p.fill(Colors.LIGHT_BLUE);
 		}
-		p.ellipse(x+Pos.mapX, y+Pos.mapY, Utilities.Converter(3.5), Utilities.Converter(3.5));
+		p.ellipseMode(PConstants.CENTER);
+		p.ellipse(x, y, Utilities.Converter(5), Utilities.Converter(5));
 		p.popStyle();
 	}
 }

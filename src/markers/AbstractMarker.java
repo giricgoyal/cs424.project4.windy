@@ -85,4 +85,8 @@ public class AbstractMarker {
 	public boolean checkIn(float _x, float _y) {
 		return (_x > x - U.markerHalfWidth && _x < x + U.markerHalfWidth && _y > y - U.markerHalfHeight && _y < y + U.markerHalfHeight);
 	}
+
+	public float dis(float _x, float _y) {
+		return (_x-x)*(_x-x)+(_y-y)*(_y-y);
+	}
 }
