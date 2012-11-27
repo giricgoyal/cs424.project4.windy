@@ -22,23 +22,8 @@ public class QueryManager {
 		return db.getAllLocation();
 	}
 	
-	public ArrayList<DataPos> getDataPos_By_Date_Word(int date, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterWord(word);
-		return db.getDataPos(filters);
-	}
-	
-	public ArrayList<DataPid> getDataPid_By_Date_Word(int date, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterWord(word);
-		return db.getDataPid(filters);
-	}
-	
 	public ArrayList<DataPos> getDataPos_By_Data_Pid(int date, int pid) {
 		String filters = getFilterDate(date) + getFilterPid(pid);
-		return db.getDataPos(filters);
-	}
-	
-	public ArrayList<DataPos> getDataPos_By_Date_TimeRange_Word(int date, int half1, int half2, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2)+" and "+getFilterWord(word);
 		return db.getDataPos(filters);
 	}
 	
@@ -50,11 +35,6 @@ public class QueryManager {
 	public ArrayList<DataPos> getDataPos_By_Date(int date) {
 		String filters = getFilterDate(date);
 		return db.getDataPos(filters);
-	}
-	
-	public String[] getAllText_By_Date_TimeRange_Word(int date, int half1, int half2, String word) {
-		String filters = getFilterDate(date) + " and "+getFilterTimeRange(half1,half2)+" and "+getFilterWord(word);
-		return db.getAllText(filters);
 	}
 	
 	public String[] getAllText_By_Date_TimeRange(int date, int half1, int half2) {
@@ -79,10 +59,6 @@ public class QueryManager {
 	//get Filters
 	private String getFilterDate(int date) {
 		return "day = "+date;
-	}
-	
-	private String getFilterWord(String word) {
-		return "text like '%"+word+"%'";
 	}
 	
 	private String getFilterPid(int pid) {
