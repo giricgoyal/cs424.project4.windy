@@ -8,6 +8,7 @@ import Util.Positions;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 import processing.core.PShape;
 
 /**
@@ -18,6 +19,8 @@ public class PopUpTweet  extends BasicControl {
 
 	PApplet parent;
 	PShape tweet;
+	PImage delete;
+	
 	String tweetText = "";
 	String tweetTime = "";
 	int tweetPid = -1;
@@ -55,13 +58,14 @@ public class PopUpTweet  extends BasicControl {
 		super(parent, x, y, width, height);
 		// TODO Auto-generated constructor stub
 		this.parent = parent;
+		this.upper = this.lower = this.left = this.right = false;
+		tweet = parent.loadShape("tweet.svg");
 	}
 	
 	public void setTweetPopUp(float x, float y, float width,
 			float height) {
 		this.coordX = x;
 		this.coordY = y;
-		
 		
 		this.width =  Positions.tweetWindowWidth;
 		this.height =  Positions.tweetWindowHeight;		
@@ -147,8 +151,8 @@ public class PopUpTweet  extends BasicControl {
 		
 	}
 	
-	public void invertCheck() {
-		check = !check;
+	public void setCheck(boolean check) {
+		this.check = check;
 	}
 	
 	
@@ -164,12 +168,15 @@ public class PopUpTweet  extends BasicControl {
 		return check;
 	}
 
+	public boolean checkIn(float mx, float my) {
+		return upper?(mx > upperLeftX && mx < upperRightX && my > lowerLeftY && my < upperLeftY):(mx > upperLeftX && mx < upperRightX && my > upperLeftY && my < lowerLeftY);
+	}
+	
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
 		if (this.check) {
-			parent.strokeWeight(Utilities.Converter(0.5));
-			parent.stroke(Colors.DARK_GRAY);
+			parent.noStroke();
 			parent.fill(Colors.tweetColor);
 			parent.beginShape();
 			parent.vertex(coordX, coordY);
@@ -182,18 +189,19 @@ public class PopUpTweet  extends BasicControl {
 			parent.endShape();		
 	
 			parent.fill(Colors.tweetColor2);
-			parent.beginShape();
+			
 			if (upper) {
-				parent.shapeMode(PConstants.CORNER);
-				parent.shape(tweet, upperRightX - Utilities.Converter(2) - Positions.tweetWidth, upperRightY - Utilities.Converter(2) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
+				parent.beginShape();
 				parent.vertex(upperLeftX, upperLeftY - Utilities.Converter(10));
 				parent.vertex(upperLeftX,upperLeftY);
 				parent.vertex(upperRightX, upperRightY);
 				parent.vertex(upperRightX, upperRightY  - Utilities.Converter(10));
+				parent.endShape();
+				parent.shapeMode(PConstants.CORNER);
+				parent.shape(tweet, upperRightX - Utilities.Converter(2) - Positions.tweetWidth, upperRightY - Utilities.Converter(12) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
 			}
 			else {
-				parent.shapeMode(PConstants.CORNER);
-				parent.shape(tweet, lowerRightX - Utilities.Converter(2) - Positions.tweetWidth, lowerRightY - Utilities.Converter(2) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
+				parent.beginShape();
 				parent.vertex(coordX, coordY);
 				parent.vertex(triangleLeftX, triangleLeftY);
 				parent.vertex(lowerLeftX, lowerLeftY);
@@ -201,10 +209,14 @@ public class PopUpTweet  extends BasicControl {
 				parent.vertex(lowerRightX, lowerRightY - Utilities.Converter(10));
 				parent.vertex(lowerRightX, lowerRightY);
 				parent.vertex(triangleRightX, triangleRightY);
+				parent.endShape();
+				parent.shapeMode(PConstants.CORNER);
+				parent.shape(tweet, lowerRightX - Utilities.Converter(2) - Positions.tweetWidth, lowerRightY - Utilities.Converter(12) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
 	
 			}
-			parent.endShape();
+			drawText();
 		}
+		
 	}
 	
 	public void setTweet() {
@@ -271,8 +283,8 @@ public class PopUpTweet  extends BasicControl {
 				parent.text(this.tweetText, upperLeftX + Utilities.Converter(3), upperLeftY + Utilities.Converter(4));
 				parent.textAlign(PConstants.RIGHT , PConstants.BOTTOM);
 				
-				if (Utilities.currentDay == 30) {
-					parent.text(this.tweetTime + ", April " + Utilities.currentDay, lowerRightX - Utilities.Converter(2), lowerRightY - Utilities.Converter(2));
+				if (Utilities.currentDay == 0) {
+					parent.text(this.tweetTime + ", April 30", lowerRightX - Utilities.Converter(2), lowerRightY - Utilities.Converter(2));
 					parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
 					parent.text("PID : " + this.tweetPid, lowerLeftX + Utilities.Converter(2), lowerLeftY - Utilities.Converter(2));
 				}

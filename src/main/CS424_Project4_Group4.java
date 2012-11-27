@@ -83,8 +83,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	Keyboard keyboard;
 	SuggestionBox sb;
 	
-	TweetWindow tw;
-	//PopUpTweet tw;
+	//TweetWindow tw;
+	PopUpTweet tw;
 	
 	Graph graph;
 	WordCloud beforeWordCloud, afterWordCloud;
@@ -181,8 +181,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		zoomOutBtn.setName("-");
 		controls.add(zoomOutBtn);
 		
-		tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
-		//tw = new PopUpTweet(this, 0, 0, 0, 0);
+		//tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+		tw = new PopUpTweet(this, 0, 0, 0, 0);
 		controls.add(tw);
 		//tw.setText("1234 6789 234567891 3456 891234 678912345678912345678912 456 89");
 		
@@ -370,9 +370,9 @@ public class CS424_Project4_Group4 extends PApplet{
 	void reDrawbackground() {
 		rectMode(PConstants.CORNER);
 		fill(Colors.BACKGROUND_COLOR);
-		rect(0,0, Utilities.width * 4 / 6, Utilities.height);
-		rect(Utilities.width * 4 / 6, Utilities.height / 3, Utilities.width, Utilities.height);
-		
+		rect(0,0, Utilities.width * 3 / 6, Utilities.height);
+		rect(Utilities.width * 3 / 6, Utilities.height / 3, Utilities.width, Utilities.height);
+		rect(Utilities.width * 5/6, 0, Utilities.width, Utilities.height);
 	}
 	
 	// second version - get all data from database when launching
@@ -656,6 +656,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			moved = map.move(mx,my,currentMX,currentMY);
 			if (moved) {
 				moveMarkers(markers, mx-currentMX, my-currentMY);
+				tw.setCheck(false);
 			}
 			currentMX = mx;
 			currentMY = my;
@@ -665,7 +666,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (half<0) half = 0;
 			if (half>=U.eHalf) half = U.eHalf - 1;
 			U.bHalf_temp = half;
-			timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);	
+			timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+			tw.setCheck(false);
 		}
 		else if (whichLock == U.RIGHT) {
 			int half = round(map(mx, timeSlider.getX(), timeSlider.getX()+timeSlider.getW(), 0, 48));
@@ -673,11 +675,19 @@ public class CS424_Project4_Group4 extends PApplet{
 			if (half>48) half = 48;
 			U.eHalf_temp = half;
 			timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+			tw.setCheck(false);
 		}
 	}
 	
 	public void myReleased(int id, float mx, float my) {
 		//touchList.remove(id);
+		
+		// touch tweet
+		if (tw.check) {
+			if (tw.checkIn(mx, my)){
+				tw.setCheck(false);
+			}
+		}
 		
 		// first reset every variable that indicates 'pressing' to original value
 		if (isTouchingMap) {
@@ -693,6 +703,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			beforeWordCloud.clearArea();
 			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			tw.setCheck(false);
 			return;
 		}
 		else if (whichLock == U.RIGHT) {
@@ -703,6 +714,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 			beforeWordCloud.clearArea();
 			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			tw.setCheck(false);
 			return;
 		}
 		else if (timeSlider.checkIn(mx,my)) {
@@ -717,6 +729,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				beforeWordCloud.clearArea();
 				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+				tw.setCheck(false);
 			}
 			else if (disRight<disLeft) {
 				timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
@@ -725,6 +738,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 				beforeWordCloud.clearArea();
 				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+				tw.setCheck(false);
 			}
 			return;
 		}
@@ -744,6 +758,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				//tw.setTweet();
 				beforeWordCloud.clearArea();
 				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+				tw.setCheck(false);
 				return;
 			}
 		}
@@ -1076,12 +1091,12 @@ public class CS424_Project4_Group4 extends PApplet{
 								: 
 								( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
 						U.tweetPid = m.getPid();
-						//tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+						tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+						tw.setTweet();
 					}
 				}
 			}
 			System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-			tw.setTweet();
 			return;
 		}
 		else {

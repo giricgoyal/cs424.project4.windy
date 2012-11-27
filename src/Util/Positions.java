@@ -68,7 +68,7 @@ public class Positions {
 	public static float lockWidth = lockHeight*2/5;
 	
 	// tweetWindow
-	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(3);
+	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(15);
 	public static float tweetWindowWidth = Utilities.width / 6 - Utilities.Converter(2);
 	public static float tweetWindowX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
 	public static float tweetWindowY = 0 + Utilities.Converter(2);
@@ -78,7 +78,7 @@ public class Positions {
 	// wordCloud
 	public static float wordCloudBeforeWidth = Utilities.width * 2 / 6 - Utilities.Converter(2);
 	public static float wordCloudBeforeHeight = Utilities.height / 3 - Utilities.Converter(3);
-	public static float wordCloudBeforeX = Positions.tweetWindowX + Positions.tweetWindowWidth + Utilities.Converter(2);
+	public static float wordCloudBeforeX = Positions.mapX + Positions.mapWidth + Utilities.Converter(2);
 	public static float wordCloudBeforeY = 0 + Utilities.Converter(2);
 	
 	// wordCloud

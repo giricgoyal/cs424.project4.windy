@@ -163,10 +163,10 @@ public class WordCloud extends BasicControl{
 	public void clearArea() {
 		parent.fill(Colors.DARK_GRAY);
 		parent.beginShape();
-			parent.vertex(Utilities.width *4/6, 0);
-			parent.vertex(Utilities.width *4/6, Utilities.height / 3);
-			parent.vertex(Utilities.width , Utilities.height / 3);
-			parent.vertex(Utilities.width , 0);
+			parent.vertex(Utilities.width *3/6, 0);
+			parent.vertex(Utilities.width *3/6, Utilities.height / 3);
+			parent.vertex(Utilities.width *5/6, Utilities.height / 3);
+			parent.vertex(Utilities.width *5/6, 0);
 		parent.endShape(PConstants.CLOSE);
 	}
 }
