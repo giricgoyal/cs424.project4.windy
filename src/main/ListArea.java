@@ -76,7 +76,7 @@ public class ListArea extends BasicControl {
 		backButtonX = Positions.listWindowX + Positions.listWindowWidth - backButtonWidth - Utilities.Converter(2);
 		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(2) - backButtonHeight;
 		
-		deleteImage = parent.loadImage(parent.sketchPath + "/bin/data/delete2.png");
+		deleteImage = parent.loadImage("delete.png");
 		
 		selected = false;
 		
