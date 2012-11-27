@@ -59,11 +59,13 @@ public class PopUpTweet  extends BasicControl {
 		// TODO Auto-generated constructor stub
 		this.parent = parent;
 		this.upper = this.lower = this.left = this.right = false;
-		tweet = parent.loadShape("tweet.svg");
+		
 	}
 	
 	public void setTweetPopUp(float x, float y, float width,
 			float height) {
+		tweet = parent.loadShape("tweet.svg");
+		
 		this.coordX = x;
 		this.coordY = y;
 		
@@ -191,12 +193,14 @@ public class PopUpTweet  extends BasicControl {
 			parent.fill(Colors.tweetColor2);
 			
 			if (upper) {
+				
 				parent.beginShape();
 				parent.vertex(upperLeftX, upperLeftY - Utilities.Converter(10));
 				parent.vertex(upperLeftX,upperLeftY);
 				parent.vertex(upperRightX, upperRightY);
 				parent.vertex(upperRightX, upperRightY  - Utilities.Converter(10));
 				parent.endShape();
+				
 				parent.shapeMode(PConstants.CORNER);
 				parent.shape(tweet, upperRightX - Utilities.Converter(2) - Positions.tweetWidth, upperRightY - Utilities.Converter(12) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
 			}

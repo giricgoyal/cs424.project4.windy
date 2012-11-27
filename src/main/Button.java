@@ -30,10 +30,10 @@ public class Button extends BasicControl {
 	public void draw() {
 		parent.pushStyle();
 		if(showClicked) parent.fill(selected?Colors.buttonSelectedColor:Colors.buttonColor);
-		else parent.fill(Colors.medium);
+		else parent.fill(Colors.buttonColor);
 		if(addStroke) {
-			parent.stroke(Colors.medium);
-			parent.strokeWeight(Utilities.Converter(2));
+			parent.stroke(Colors.buttonBorder);
+			parent.strokeWeight(Utilities.Converter(1));
 		}
 		else {
 			parent.noStroke();

@@ -176,9 +176,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		zoomInBtn = new Button(this, Positions.zoomInButtonX, Positions.zoomInButtonY, Positions.zoomInButtonW, Positions.zoomInButtonH);
 		zoomInBtn.setName("+");
+		zoomInBtn.setStroke();
 		controls.add(zoomInBtn);
 		zoomOutBtn = new Button(this, Positions.zoomOutButtonX, Positions.zoomOutButtonY, Positions.zoomOutButtonW, Positions.zoomOutButtonH);
 		zoomOutBtn.setName("-");
+		zoomOutBtn.setStroke();
 		controls.add(zoomOutBtn);
 		
 		//tw = new TweetWindow(this, Positions.tweetWindowX, Positions.tweetWindowY, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
@@ -190,37 +192,44 @@ public class CS424_Project4_Group4 extends PApplet{
 		locationButton = new Button(this, Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonWidth, Positions.locationButtonHeight);
 		locationButton.setName("Location");
 		locationButton.setShowClick();
+		locationButton.setStroke();
 		controls.add(locationButton);
 		
 		
 		add2Graph = new Button(this, Positions.add2GraphX, Positions.add2GraphY, Positions.add2GraphWidth, Positions.add2GraphHeight);
 		add2Graph.setName("Add to Graph");
 		add2Graph.setShowClick();
+		add2Graph.setStroke();
 		controls.add(add2Graph);
 		
 		add2List = new Button(this, Positions.add2ListX, Positions.add2ListY, Positions.add2ListWidth, Positions.add2ListHeight);
 		add2List.setName("Add to List");
 		add2List.setShowClick();
+		add2List.setStroke();
 		controls.add(add2List);
 		
 		trackPerson = new Button(this, Positions.trackPersonX, Positions.trackPersonY, Positions.trackPersonWidth, Positions.trackPersonHeight);
 		trackPerson.setName("Track Person");
 		trackPerson.setShowClick();
+		trackPerson.setStroke();
 		controls.add(trackPerson);
 		
 		KeywordList = new Button(this, Pos.keywordListX, Pos.keywordListY, Pos.keywordListWidth, Pos.keywordListHeight);
 		KeywordList.setName("Keyword List");
 		KeywordList.setShowClick();
+		KeywordList.setStroke();
 		controls.add(KeywordList);
 		
 		EventList = new Button(this, Positions.eventListX, Positions.eventListY, Positions.eventListWidth, Positions.eventListHeight);
 		EventList.setName("Event List");
 		EventList.setShowClick();
+		EventList.setStroke();
 		controls.add(EventList);
 		
 		PersonList = new Button(this, Positions.personListX, Positions.personListY, Positions.personListWidth, Positions.personListHeight);
 		PersonList.setName("Person List");
 		PersonList.setShowClick();
+		PersonList.setStroke();
 		controls.add(PersonList);
 		
 		
@@ -355,9 +364,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		pushStyle();
 		textAlign(PConstants.LEFT,PConstants.TOP);
-		textSize(Utilities.Converter(7));
+		textSize(Utilities.Converter(8));
 		fill(Colors.TEXT_GRAY);
-		text("current keyword: "+U.currentWord,Utilities.width*4/6,Utilities.height/3);
+		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + U.selectedLocationId,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
 		
