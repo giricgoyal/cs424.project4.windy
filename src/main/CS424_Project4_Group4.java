@@ -1028,6 +1028,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
+			tw.setCheck(false);
 			float mW =  map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
 			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
@@ -1047,6 +1048,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		if (zoomOutBtn.checkIn(mx,my)) {
 			System.out.println("Zoom out Clicked");
+			tw.setCheck(false);
 			float mW = map.x2 - map.x1 + 1;
 			float mH = map.y2 - map.y1 + 1;
 			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
