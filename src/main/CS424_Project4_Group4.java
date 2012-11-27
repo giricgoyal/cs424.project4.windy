@@ -821,7 +821,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				// toggle
 				locationButton.setSelected(!locationButton.isSelected());
 				listArea.setSelected(locationButton.isSelected());
-				
+				popUp.setCheck(false);
 				// Location List On
 				if (locationButton.isSelected()){
 					System.out.println("Location List On");
@@ -966,7 +966,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// track person
 			else if (trackPerson.isInRectangle(mx, my)) {
-				
+				popUp.setCheck(false);
 				trackPerson.setSelected(!trackPerson.isSelected());
 				if (trackPerson.isSelected()) {
 					System.out.println("Track Person On");
@@ -991,6 +991,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		else {
 			// add to list
 			if (add2List.isInRectangle(mx, my)) {
+				popUp.setCheck(false);
 				if (PersonList.isSelected()) {
 					System.out.println("Click on add Person to list");
 					for (int count = 0; count < Utilities.personList.size(); count++) {
