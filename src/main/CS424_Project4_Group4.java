@@ -937,11 +937,6 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 			
-			if (trackPerson.isInRectangle(mx, my)){
-				popUp.setCheck(false);
-				System.out.println("toggle Track Person");
-				trackPerson.setSelected(!trackPerson.isSelected());
-			}
 			// track person
 			else if (trackPerson.isInRectangle(mx, my)) {
 				
