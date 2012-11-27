@@ -367,9 +367,24 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		pushStyle();
 		textAlign(PConstants.LEFT,PConstants.TOP);
-		textSize(Utilities.Converter(8));
+		textSize(Utilities.Converter(7));
 		fill(Colors.TEXT_GRAY);
-		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + U.selectedLocationId,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
+		String location = "";
+		if (Utilities.selectedLocationId == -1 || Utilities.selectedLocationId == 99)
+			location = "All locations";
+		else if (Utilities.selectedLocationId == 97)
+			location = "All Interstates";
+		else if (Utilities.selectedLocationId == 98)
+			location = "All areas";
+		else {
+			for (int count = 0; count < dataLocation.size(); count++) {
+				if (dataLocation.get(count).getId() == Utilities.selectedLocationId) {
+					location = dataLocation.get(count).getName();
+					break;
+				}
+			}
+		}
+		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + location,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
 		
