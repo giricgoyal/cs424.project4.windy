@@ -16,6 +16,35 @@ public class TweetWindow extends BasicControl{
 	String tweetTime = "";
 	int tweetPid = -1;
 	
+	
+	float upperLeftX;
+	float upperLeftY;
+	float upperRightX;
+	float upperRightY;
+	float lowerRightX;
+	float lowerRightY;
+	float lowerLeftX;
+	float lowerLeftY;
+	float height;
+	float width;
+	float triangleLeftX;
+	float triangleLeftY;
+	float triangleRightX;
+	float triangleRightY;
+	
+	float totalHeight;
+	float totalWidth;
+	
+	boolean check;
+	boolean upper;
+	boolean lower;
+	boolean left;
+	boolean right;
+	
+	
+	
+	
+	
 	float v1x, v1y, v2x, v2y, v3x, v3y, v4x, v4y, v5x, v5y, v6x, v6y, v7x, v7y, v8x, v8y;
 	
 

@@ -149,7 +149,7 @@ public class Positions {
 	
 	// list window
 	public static float listWindowWidth = Utilities.width / 12 + Utilities.Converter(10);
-	public static float listWindowHeight = Utilities.height * 2 /3 - Utilities.Converter(15);
+	public static float listWindowHeight = Utilities.height * 2 /3 - Utilities.Converter(4);
 	public static float listWindowX = Utilities.width * 4 / 6 + Positions.listWindowWidth - Utilities.Converter(30);
 	public static float listWindowY = Utilities.height / 3 + Utilities.Converter(2);
 	

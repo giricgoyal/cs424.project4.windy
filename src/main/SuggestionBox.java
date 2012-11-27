@@ -29,6 +29,7 @@ import db.DatabaseManager;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import types.DataState;
+import types.WordCountPair;
 
 public class SuggestionBox extends BasicControl {
 	

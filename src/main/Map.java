@@ -6,6 +6,7 @@ package main;
 import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
 
@@ -43,6 +44,7 @@ public class Map {
 	}
 	
 	public void draw() {
+		parent.imageMode(PConstants.CORNER);
 		parent.image(pic, x0, y0, w, h, PApplet.round(x1), PApplet.round(y1), PApplet.round(x2), PApplet.round(y2));
 	}
 

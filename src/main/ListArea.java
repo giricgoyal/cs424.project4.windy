@@ -14,6 +14,7 @@ import Util.U;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 import processing.core.PShape;
 import types.DataLocation;
 
@@ -39,10 +40,12 @@ public class ListArea extends BasicControl {
 	
 	CS424_Project4_Group4 program;
 	
+	PImage deleteImage;
+	
 	//int level;
 	
-	float v1x, v2x, v3x, v4x, v5x, v6x;
-	float v1y, v2y, v3y, v4y, v5y, v6y;
+	float v1x, v2x, v3x, v4x, v5x, v6x, v7x;
+	float v1y, v2y, v3y, v4y, v5y, v6y, v7y;
 
 	public ListArea(PApplet parent, float x, float y, float width,
 			float height, CS424_Project4_Group4 program) {
@@ -64,14 +67,16 @@ public class ListArea extends BasicControl {
 		v3x = v1x + myWidth;
 		v3y = v2y;
 		
-		v6x = v3x;
-		v6y = v1y;
+		v7x = v3x;
+		v7y = v1y;
 		
 		backButton = parent.loadShape("backButton.svg");
 		backButtonHeight = backButton.height / Utilities.Converter(3);
 		backButtonWidth = backButton.width / Utilities.Converter(3);
 		backButtonX = Positions.listWindowX + Positions.listWindowWidth - backButtonWidth - Utilities.Converter(2);
 		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(2) - backButtonHeight;
+		
+		deleteImage = parent.loadImage(parent.sketchPath + "/bin/data/delete2.png");
 		
 		selected = false;
 		
@@ -88,6 +93,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v4x, v4y);
 				parent.vertex(v5x, v5y);
 				parent.vertex(v6x, v6y);
+				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
 			
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
@@ -149,6 +155,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v4x, v4y);
 				parent.vertex(v5x, v5y);
 				parent.vertex(v6x, v6y);
+				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
 			
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
@@ -160,6 +167,9 @@ public class ListArea extends BasicControl {
 			int count = 0;
 			while (count < Utilities.keywordList.size()) {
 				parent.text(Utilities.keywordList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.imageMode(PConstants.CENTER);
+				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
+				//parent.text("x", Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
 			
@@ -177,6 +187,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v4x, v4y);
 				parent.vertex(v5x, v5y);
 				parent.vertex(v6x, v6y);
+				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
 			
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
@@ -188,6 +199,9 @@ public class ListArea extends BasicControl {
 			int count = 0;
 			while (count < Utilities.eventList.size()) {
 				parent.text(Utilities.eventList.get(count).text, Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.imageMode(PConstants.CENTER);
+				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
+				//parent.text("x", Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
 			
@@ -205,6 +219,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v4x, v4y);
 				parent.vertex(v5x, v5y);
 				parent.vertex(v6x, v6y);
+				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
 			
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
@@ -216,6 +231,9 @@ public class ListArea extends BasicControl {
 			int count = 0;
 			while (count < Utilities.personList.size()) {
 				parent.text("pid: "+Utilities.personList.get(count), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.imageMode(PConstants.CENTER);
+				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
+				//parent.text("x", Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
 			
@@ -372,7 +390,7 @@ public class ListArea extends BasicControl {
 		}
 		else {
 			for (int count = 0; count < Utilities.keywordList.size(); count++) {
-				if (mx > myX && mx < myX + myWidth) {
+				if (mx > myX && mx < myX + myWidth - Utilities.Converter(7)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
 						
 						// same update as in Suggestion Box
@@ -385,6 +403,12 @@ public class ListArea extends BasicControl {
 						program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
 						program.timeSlider.update(program.dataCount);
 						break;
+					}
+				}
+				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.keywordList.remove(count);
+						
 					}
 				}
 			}
@@ -420,6 +444,12 @@ public class ListArea extends BasicControl {
 						break;
 					}
 				}
+				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.eventList.remove(count);
+						
+					}
+				}
 			}
 		}
 	}
@@ -440,6 +470,12 @@ public class ListArea extends BasicControl {
 						//program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 						
 						System.out.println(Utilities.eventList.get(count));
+					}
+				}
+				if (mx < myX + myWidth && mx > myY + myWidth - Utilities.Converter(5)) {
+					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+						Utilities.personList.remove(count);
+						
 					}
 				}
 				
@@ -465,9 +501,11 @@ public class ListArea extends BasicControl {
 		v5x = buttonX;
 		v5y = buttonY;
 		
-		v4x = buttonX;
-		v4y = buttonY + buttonHeight;
+		v4x = v3x;
+		v4y = v5y + Utilities.Converter(13);
 		
+		v6x = v3x;
+		v6y = v5y + Utilities.Converter(3);
 	}
 	
 	public boolean isSelected() {
