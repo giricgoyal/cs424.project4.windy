@@ -477,7 +477,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		return temp;
 	}/*/
 	
-	public void setTodayWordsToFile(ArrayList<DataPos> dataPos) {
+	private void setTodayWordsToFile(ArrayList<DataPos> dataPos) {
 		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting current words");
 					// all location
