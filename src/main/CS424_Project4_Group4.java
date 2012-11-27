@@ -768,20 +768,12 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 		}
-<<<<<<< HEAD
-		if (!Utilities.suggestionBox){
-			if (locationButton.isInRectangle(mx, my)){
-				popUp.setCheck(false);
-				System.out.println("Location Clicked");
-=======
-		
 		// if sb is off
 		else if (!Utilities.suggestionBox) {
 			
 			// Location Button
 			if (locationButton.isInRectangle(mx, my)) {
 				// toggle
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				locationButton.setSelected(!locationButton.isSelected());
 				listArea.setSelected(locationButton.isSelected());
 				
@@ -804,21 +796,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// Keyword List
 			if (KeywordList.isInRectangle(mx, my)) {
-<<<<<<< HEAD
 				popUp.setCheck(false);
-				if (!addKeyword2List.isSelected()) {
-					System.out.println("Keyword List Selected");
-					KeywordList.setSelected(!KeywordList.isSelected());
-					listArea.setSelected(KeywordList.isSelected());
-					if (KeywordList.isSelected()) {
-						listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
-						locationButton.setSelected(false);
-						PersonList.setSelected(false);
-						EventList.setSelected(false);
-						trackPerson.setSelected(false);
-						return;
-					}
-=======
 				// toggle
 				KeywordList.setSelected(!KeywordList.isSelected());
 				listArea.setSelected(KeywordList.isSelected());
@@ -832,7 +810,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					EventList.setSelected(false);
 					trackPerson.setSelected(false);
 					return;
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
 				// Keyword List Off
 				else {
@@ -842,21 +819,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// Person List
 			if (PersonList.isInRectangle(mx, my)) {
-<<<<<<< HEAD
 				popUp.setCheck(false);
-				if (!addKeyword2List.isSelected()) {
-					System.out.println("Person List Selected");
-					PersonList.setSelected(!PersonList.isSelected());
-					listArea.setSelected(PersonList.isSelected());
-					if (PersonList.isSelected()) {
-						listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
-						locationButton.setSelected(false);
-						KeywordList.setSelected(false);
-						EventList.setSelected(false);
-						trackPerson.setSelected(false);
-						return;
-					}
-=======
 				// toggle
 				PersonList.setSelected(!PersonList.isSelected());
 				listArea.setSelected(PersonList.isSelected());
@@ -870,7 +833,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					EventList.setSelected(false);
 					trackPerson.setSelected(false);
 					return;
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
 				// Person List Off
 				else {
@@ -895,22 +857,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 			// Event List
 			if (EventList.isInRectangle(mx, my)) {
-<<<<<<< HEAD
 				popUp.setCheck(false);
-				if (!addKeyword2List.isSelected()) {
-					System.out.println("Event List Selected");
-					EventList.setSelected(!EventList.isSelected());
-					listArea.setSelected(EventList.isSelected());
-					if (EventList.isSelected()) {
-						listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
-						locationButton.setSelected(false);
-						PersonList.setSelected(false);
-						KeywordList.setSelected(false);
-						trackPerson.setSelected(false);
-						return;
-					}
-=======
-					
 				// toggle
 				EventList.setSelected(!EventList.isSelected());
 				listArea.setSelected(EventList.isSelected());
@@ -925,13 +872,13 @@ public class CS424_Project4_Group4 extends PApplet{
 					KeywordList.setSelected(false);
 					trackPerson.setSelected(false);
 					return;
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
 				// Event List Off
 				else {
 					System.out.println("Event List Off");
 				}
 			}
+			
 			
 			if (listArea.isSelected()){
 				if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
@@ -946,7 +893,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					return;
 				}
 			}
-<<<<<<< HEAD
 			
 			if (!listArea.isSelected()) {
 				//popUp.setCheck(false);
@@ -955,9 +901,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
-=======
 			// add to graph
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 			if (add2Graph.isInRectangle(mx, my)){
 				popUp.setCheck(false);
 				System.out.println("Click on add to graph");
@@ -975,15 +919,13 @@ public class CS424_Project4_Group4 extends PApplet{
 				return;
 			}
 			
-<<<<<<< HEAD
 			if (trackPerson.isInRectangle(mx, my)){
 				popUp.setCheck(false);
 				System.out.println("toggle Track Person");
 				trackPerson.setSelected(!trackPerson.isSelected());
-=======
+			}
 			// track person
 			else if (trackPerson.isInRectangle(mx, my)) {
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				
 				trackPerson.setSelected(!trackPerson.isSelected());
 				if (trackPerson.isSelected()) {
@@ -996,13 +938,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 				return;
 			}
-<<<<<<< HEAD
 						
-			if (addKeyword2List.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				System.out.println("Click on add Keyword to list");
-				addKeyword2List.setSelected(!addKeyword2List.isSelected());
-			}
 			
 			if (popUp.getCheck()) {
 				if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
@@ -1010,46 +946,8 @@ public class CS424_Project4_Group4 extends PApplet{
 					popUp.click(mx, my);
 				}
 			}
-		}
 		
-		if (zoomInBtn.checkIn(mx,my)) {
-			popUp.setCheck(false);
-			System.out.println("Zoom in Clicked");
-			float mW =  map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
-				mW = mW/4;
-				mH = mH/4;
-				map.x1 += mW;
-				map.x2 -= mW;
-				map.y1 += mH;
-				map.y2 -= mH;
-				mW = mW*2;
-				mH = mH*2;
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//updateMarkerPos(markers);
-			}
-			return;
-		}
-		if (zoomOutBtn.checkIn(mx,my)) {
-			popUp.setCheck(false);
-			System.out.println("Zoom out Clicked");
-			float mW = map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
-				mW = mW/2;
-				mH = mH/2;
-				map.x1 -= mW;
-				map.x2 += mW;
-				map.y1 -= mH;
-				map.y2 += mH;
-				
-				// we don't want blank
-				float offsetX = 0;
-				float offsetY = 0;
-				if (map.x1<0) {
-					offsetX = 0-map.x1;
-=======
+		
 			
 			// add to list
 			else if (add2List.isInRectangle(mx, my)) {
@@ -1096,7 +994,6 @@ public class CS424_Project4_Group4 extends PApplet{
 						System.out.println("Keyword List Size : " + Utilities.keywordList.size());
 						return;
 					}
->>>>>>> 4f7eecefac56b03198f13828d43df957a67ed9ca
 				}
 				else {
 					System.out.println("No List selected");
@@ -1186,7 +1083,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			else {
 				moved = false;
 			}
-		}
+		} 
 	}
 	
 	
