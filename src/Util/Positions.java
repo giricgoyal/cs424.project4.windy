@@ -74,16 +74,20 @@ public class Positions {
 	public static float stopY = playY + playH + Utilities.Converter(4);
 	
 	// realButton
-	public static float realW = stopW;
-	public static float realH = stopH;
-	public static float realX = stopX;
-	public static float realY = stopY + stopY + Utilities.Converter(4);
+	//public static float realX = timeSliderX+timeSliderWidth+U.Converter(1);
+	//public static float realY = stopY + stopH + Utilities.Converter(2);
+	//public static float realW = mapX+mapWidth-realX;
+	//public static float realH = (U.height - realY)/2 - Utilities.Converter(2);
 	
 	// trialButton
-	public static float trialW = stopW;
-	public static float trialH = stopH;
-	public static float trialX = stopX;
-	public static float trialY = realY + realY + Utilities.Converter(4);
+	//public static float trialX = realX;
+	//public static float trialY = realY + realH + Utilities.Converter(2);
+	//public static float trialW = realW;
+	//public static float trialH = realH;
+	public static float trialX = timeSliderX+timeSliderWidth+U.Converter(1);
+	public static float trialY = stopY + stopH + Utilities.Converter(2);
+	public static float trialW = mapX+mapWidth-trialX;
+	public static float trialH = (U.height-trialY) - Utilities.Converter(4);
 	
 	// progressBar
 	public static float barX = timeSliderX;

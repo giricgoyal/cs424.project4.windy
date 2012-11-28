@@ -269,11 +269,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		stopButton = new StopButton(this, Pos.stopX, Pos.stopY, Pos.stopW, Pos.stopH);
 		controls.add(stopButton);
 		
-		realButton = new Button(this, Pos.realX, Pos.realY, Pos.realW, Pos.realH);
-		realButton.setName("real time");
-		controls.add(realButton);
+		//realButton = new Button(this, Pos.realX, Pos.realY, Pos.realW, Pos.realH);
+		//realButton.setName("real\ntime");
+		//realButton.setShowClick();
+		//controls.add(realButton);
 		trialButton = new Button(this, Pos.trialX, Pos.trialY, Pos.trialW, Pos.trialH);
-		trialButton.setName("trial mode");
+		trialButton.setName("trial\nmode");
+		trialButton.setShowClick();
 		controls.add(trialButton);
 		
 		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
@@ -843,11 +845,21 @@ public class CS424_Project4_Group4 extends PApplet{
 				else if (U.Playing == U.PLAY) {
 					U.Playing = U.PAUSE;
 				}
+				return;
 			}
 			if (stopButton.checkIn(mx, my)) {
 				if (U.Playing != U.STOP) {
 					U.Playing = U.STOP;
 				}
+				return;
+			}
+			if (realButton.checkIn(mx, my)) {
+				System.out.println("real!!!");
+				return;
+			}
+			if (trialButton.checkIn(mx, my)) {
+				System.out.println("trial!!!");
+				return;
 			}
 			
 			// if clicking keyboard
