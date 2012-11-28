@@ -40,28 +40,49 @@ public class ProgressBar extends Lock {
 	}
 	
 	public void run() {
-		cen.x += U.Converter(0.8);
+		cen.x += U.Converter(0.4);
+		
+		// if reach the end of a day
 		if (cen.x >= PApplet.map(U.eHalf, 0,48, Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth)) {
+			// if this is the last day
+			// then stop and reset
 			if (U.currentDay == 20) {
 				U.Playing = U.STOP;
 				program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 			}
+			// if not the last day
+			// then go to next day
 			else {
 				program.dayButtons.get(U.currentDay).setSelected(false);
 				U.currentDay++;
 				program.dayButtons.get(U.currentDay).setSelected(true);
 				program.dataDay = program.qManager.getDataPos_By_Date(U.currentDay);
-				program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
-				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-				resume();
+				if (U.playMode == U.REALTIME) {
+					program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					resume();
+				}
+				else if (U.playMode == U.TRIAL) {
+					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.playHalf+1,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					resume();
+				}
 			}
 		}
+		// if still in this day
+		// move forward
 		else {
 			if (cen.x >= PApplet.map(U.playHalf+1, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth)) {
 				U.playHalf++;
-				program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
-				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				if (U.playMode == U.REALTIME) {
+					program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				}
+				else {
+					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.playHalf+1,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				}
 			}
 		}
 	}

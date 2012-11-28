@@ -25,8 +25,18 @@ public class Utilities {
 	public static final boolean drawGridLine = false;
 	public static final int dayButtonLowerBound = 0;
 	public static final int graphNumber = 7; // how many keywords are in the graph
-	public static final int listSize = 13; // how many keywords are in a list (person, event, keyword)
+	public static final int listSize = 14; // how many keywords are in a list (person, event, keyword)
 	public static final int MarkerAlpha = 160;
+	
+	// constants
+	public static final int NEITHER = -1;
+	public static final int LEFT = 0;
+	public static final int RIGHT = 1;
+	public static final int PAUSE = -1;
+	public static final int STOP = 0;
+	public static final int PLAY = 1;
+	public static final int REALTIME = 0;
+	public static final int TRIAL = 1;
 	
 	// variables
 	public static int currentDay = 0;
@@ -41,7 +51,8 @@ public class Utilities {
 	public static boolean isTrackingPerson = false;
 	public static int Playing = Utilities.STOP; // animation
 	public static int playHalf;
-	
+	public static boolean isAddingName = false; // specifying a name to an event
+	public static int playMode = Utilities.TRIAL;
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
@@ -49,14 +60,6 @@ public class Utilities {
 	 * 98 : if all areas except interstates and vast river selected
 	 */
 	public static int selectedLocationId = -1;
-	
-	// constants
-	public static final int NEITHER = -1;
-	public static final int LEFT = 0;
-	public static final int RIGHT = 1;
-	public static final int PAUSE = -1;
-	public static final int STOP = 0;
-	public static final int PLAY = 1;
 	
 	public static float Converter(float pixel) {
 		if (isWall)

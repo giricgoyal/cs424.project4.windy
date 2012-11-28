@@ -20,7 +20,7 @@ public class Keyboard extends BasicControl {
 			{ 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p' },
 			{ 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l' },
 			{ 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<'}, 
-			{ ' '}};
+			{ ' ', '\n'}};
 
 	/*char[][] lowerCaseButtons = {
 			{'q', 'w', 'e', 'r', 't'}, 
@@ -44,7 +44,7 @@ public class Keyboard extends BasicControl {
 			{ 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P' },
 			{ 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L' },
 			{ 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<'}, 
-			{ ' '} };
+			{ ' ', '\n'}};
 			
 	/*char[][] upperCaseButtons = {
 			{'Q', 'W', 'E', 'R', 'T'}, 
@@ -157,6 +157,12 @@ public class Keyboard extends BasicControl {
 								+ buttonsLocations[i][j].Width *0.2),
 								buttonsLocations[i][j].Y,
 								buttonsLocations[i][j].Width, this.buttonsHeight);
+					}
+					if (lowerCaseButtons[i][j] == '\n'){
+						parent.text("Enter", (float) (buttonsLocations[i][j].X
+								+ buttonsLocations[i][j].Width *0.2),
+								buttonsLocations[i][j].Y,
+								buttonsLocations[i][j].Width, this.buttonsHeight);	
 					}
 				}
 			}
