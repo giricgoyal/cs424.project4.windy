@@ -22,8 +22,8 @@ public class QueryManager {
 		return db.getAllLocation();
 	}
 	
-	public ArrayList<DataPos> getDataPos_By_Data_Pid(int date, int pid) {
-		String filters = getFilterDate(date) + getFilterPid(pid);
+	public ArrayList<DataPos> getDataPos_By_Pid(int pid) {
+		String filters = getFilterPid(pid);
 		return db.getDataPos(filters);
 	}
 	
@@ -62,7 +62,7 @@ public class QueryManager {
 	}
 	
 	private String getFilterPid(int pid) {
-		return "and pid = "+pid;
+		return "pid = "+pid;
 	}
 	
 	private String getFilterTimeRange(int half1, int half2) {

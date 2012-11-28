@@ -6,6 +6,7 @@ package Util;
 import java.util.ArrayList;
 
 import main.CS424_Project4_Group4;
+import types.DataPos;
 import types.EventTime;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
@@ -48,18 +49,20 @@ public class Utilities {
 	public static String currentTweet = "";
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
+	public static int trackPid = -1;
 	public static boolean isTrackingPerson = false;
 	public static int Playing = Utilities.STOP; // animation
 	public static int playHalf;
 	public static boolean isAddingName = false; // specifying a name to an event
 	public static int playMode = Utilities.REALTIME;
+	public static ArrayList<DataPos> currentPidTweets = new ArrayList<DataPos>();
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
 	 * 97 : if all interstates selected
 	 * 98 : if all areas except interstates and vast river selected
 	 */
-	public static int selectedLocationId = -1;
+	public static int selectedLocationId = 99;
 	
 	public static float Converter(float pixel) {
 		if (isWall)

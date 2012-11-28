@@ -99,9 +99,11 @@ public class CS424_Project4_Group4 extends PApplet{
 	// data
 	ArrayList<DataPos> dataDay; //all data for current day
 	ArrayList<DataPos> dataPos; //all data for current time and current keyword of current day
+	ArrayList<DataPos> dataPerson; //all data for current person
 	ArrayList<DataLocation> dataLocation; // locations
 	DataCountPair[] dataCount; //all counts of a keyword for every halfhour
 	ArrayList<AbstractMarker> markers; // markers, contain all information
+	ArrayList<AbstractMarker> personMarkers;
 	String[] dataWords; // all keywords (multiple times) in dataPos (i.e. keywords for current time)
 	DataCountPair[] dataKeywordCount;
 	DataCountPair currentKeywordCount; // words count pair for all days for current keyword
@@ -120,8 +122,10 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
+		dataPerson = new ArrayList<DataPos>();
 		dataLocation = new ArrayList<DataLocation>();
 		markers = new ArrayList<AbstractMarker>();
+		personMarkers = new ArrayList<AbstractMarker>();
 		qManager = new QueryManager(this);
 		dataDay = qManager.getDataPos_By_Date(U.currentDay);
 		setCurrentData(dataPos, dataDay, U.bHalf, U.eHalf, U.currentWord);
@@ -305,7 +309,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		map.draw();
 
 		// draw markers
-		if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
+		if (U.selectedLocationId == 99) {
 			for (AbstractMarker m : markers) {
 				if (map.checkIn(m.getX(),m.getY())) {
 					m.draw();
@@ -338,6 +342,13 @@ public class CS424_Project4_Group4 extends PApplet{
 					if (map.checkIn(m.getX(),m.getY())) {
 						m.draw();
 					}
+				}
+			}
+		}
+		if (U.isTrackingPerson) {
+			for (AbstractMarker m : personMarkers) {
+				if (map.checkIn(m.getX(), m.getY())) {
+					m.draw();
 				}
 			}
 		}
@@ -402,7 +413,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		textSize(Utilities.Converter(7));
 		fill(Colors.TEXT_GRAY);
 		String location = "";
-		if (Utilities.selectedLocationId == -1 || Utilities.selectedLocationId == 99)
+		if (Utilities.selectedLocationId == 99)
 			location = "All locations";
 		else if (Utilities.selectedLocationId == 97)
 			location = "All Interstates";
@@ -416,7 +427,20 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 			}
 		}
-		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + location,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
+		String person = "";
+		if (!U.isTrackingPerson) {
+			person = "Not Tracking";
+		}
+		else if (U.trackPid == -1) {
+			person = "Not selected";
+		}
+		else {
+			person = String.valueOf(U.trackPid);
+		}
+		text("Selected\nKeyword: "+U.currentWord + 
+				"\nLocation: " + location +
+				"\nTrack Person: " + person,
+				Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
 		if (help.isSelected()) {
@@ -530,7 +554,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		ArrayList<String> str = new ArrayList<String>();
 		System.out.println("setting current words");
 					// all location
-					if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
+					if (U.selectedLocationId == 99) {
 						for (DataPos data : dataPos) {
 							str.add(data.keywords);
 						}
@@ -1047,14 +1071,38 @@ public class CS424_Project4_Group4 extends PApplet{
 					// track person
 					else if (trackPerson.isInRectangle(mx, my)) {
 						popUp.setCheck(false);
-						trackPerson.setSelected(!trackPerson.isSelected());
-						if (trackPerson.isSelected()) {
-							System.out.println("Track Person On");
-							U.isTrackingPerson = true;
+						
+						// if it is off
+						if (!trackPerson.isSelected()) {
+							// nothing to track
+							if (U.tweetPid == -1) {
+								System.out.println("No Person to Track");
+							}
+							// track
+							else {
+								U.isTrackingPerson = true;
+								U.trackPid = U.tweetPid;
+								System.out.println("Track Person On");
+								dataPerson = qManager.getDataPos_By_Pid(U.trackPid);
+								setMarkerPos(dataPerson,personMarkers,MarkerType.PERSON_MARKER);
+								trackPerson.setSelected(!trackPerson.isSelected());
+							}
 						}
+						// if it is on
 						else {
-							System.out.println("Track Person Off");
-							U.isTrackingPerson = false;
+							// trun if off
+							if (U.trackPid == U.tweetPid) {
+								System.out.println("Track Person Off");
+								trackPerson.setSelected(!trackPerson.isSelected());
+								U.isTrackingPerson = false;
+								U.trackPid = -1;
+							}
+							// or track a new one
+							else {
+								U.trackPid = U.tweetPid;
+								dataPerson = qManager.getDataPos_By_Pid(U.trackPid);
+								setMarkerPos(dataPerson,personMarkers,MarkerType.PERSON_MARKER);
+							}
 						}
 						return;
 					}
@@ -1189,8 +1237,22 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 			//FIXME: because we return in every function, maybe 'moved' won't be reset here
 			if (!moved) {
+				float disMin = Float.MAX_VALUE; 
 				for (AbstractMarker m : markers) {
-					float disMin = Float.MAX_VALUE; 
+					if (map.checkIn(m.getX(),m.getY())) {
+						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
+							U.currentTweet = m.getTweet();
+							U.tweetTime = (m.getHour() > 9)? 
+									((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+									: 
+									( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+							U.tweetPid = m.getPid();
+							tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+							tw.setTweet();
+						}
+					}
+				}
+				for (AbstractMarker m : personMarkers) {
 					if (map.checkIn(m.getX(),m.getY())) {
 						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
 							U.currentTweet = m.getTweet();

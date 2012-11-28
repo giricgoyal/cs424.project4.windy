@@ -8,5 +8,5 @@ package markers;
  *
  */
 public enum MarkerType {
-	DEFAULT_MARKER
+	DEFAULT_MARKER, PERSON_MARKER
 }
