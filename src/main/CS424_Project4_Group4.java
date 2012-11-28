@@ -1279,20 +1279,22 @@ public class CS424_Project4_Group4 extends PApplet{
 	}
 
 	public void mouseDragged() {
+		if (!U.isWall)
 		myDragged(-1, mouseX, mouseY);
 	}
 
 	public void mousePressed() {
-		//System.out.println("MOUSE PRESSED");
+		if (!U.isWall)
 		myPressed(-1, mouseX, mouseY);
 	}
 
 	public void mouseClicked() {
+		if (!U.isWall)
 		myClicked(-1, mouseX, mouseY);
 	}
 
 	public void mouseReleased() {
-		// MAP CLICK:
+		if (!U.isWall)
 		myReleased(-1, mouseX, mouseY);
 	}
 

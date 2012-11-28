@@ -38,7 +38,7 @@ public class PersonMarker extends AbstractMarker {
 		p.noStroke();
 		//float scale = PApplet.map(super.halfhour,U.bHalf,U.eHalf,2,1);
 		//p.fill(p.color(scale*p.red(Colors.LIGHT_BLUE),scale*p.green(Colors.LIGHT_BLUE),scale*p.blue(Colors.LIGHT_BLUE)));
-		p.fill(p.color(p.red(Colors.LIGHT_ORANGE),p.green(Colors.LIGHT_ORANGE),p.blue(Colors.LIGHT_ORANGE),U.MarkerAlpha));
+		p.fill(p.color(p.red(Colors.NETHERLAND),p.green(Colors.NETHERLAND),p.blue(Colors.NETHERLAND),U.MarkerAlpha));
 		p.ellipseMode(PConstants.CENTER);
 		p.ellipse(x, y, Utilities.markerHalfWidth*2, Utilities.markerHalfHeight*2);
 		p.popStyle();
