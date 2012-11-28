@@ -91,6 +91,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	PlayButton playButton;
 	StopButton stopButton;
+	Button realButton;
+	Button trialButton;
 	ProgressBar progressBar;
 	
 	// data
@@ -264,6 +266,13 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		stopButton = new StopButton(this, Pos.stopX, Pos.stopY, Pos.stopW, Pos.stopH);
 		controls.add(stopButton);
+		
+		realButton = new Button(this, Pos.realX, Pos.realY, Pos.realW, Pos.realH);
+		realButton.setName("real time");
+		controls.add(realButton);
+		trialButton = new Button(this, Pos.trialX, Pos.trialY, Pos.trialW, Pos.trialH);
+		trialButton.setName("trial mode");
+		controls.add(trialButton);
 		
 		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
 	}
