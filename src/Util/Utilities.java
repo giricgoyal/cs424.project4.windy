@@ -26,6 +26,7 @@ public class Utilities {
 	public static final int dayButtonLowerBound = 0;
 	public static final int graphNumber = 7; // how many keywords are in the graph
 	public static final int listSize = 13; // how many keywords are in a list (person, event, keyword)
+	public static final int MarkerAlpha = 160;
 	
 	// variables
 	public static int currentDay = 0;
@@ -114,8 +115,8 @@ public class Utilities {
 	public static final int maxTweets = 71279; // day 19 (second last day)
 	public static int currentMaxTweets = maxTweets;
 	
-	public static final float markerHalfWidth = U.Converter(5)/2;
-	public static final float markerHalfHeight = U.Converter(5)/2;
+	public static final float markerHalfWidth = U.Converter(2.5)/2;
+	public static final float markerHalfHeight = U.Converter(2.5)/2;
 	
 	
 	public static ArrayList<String> keywordList = new ArrayList<String>();
