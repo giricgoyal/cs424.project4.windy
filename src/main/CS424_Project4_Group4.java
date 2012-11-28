@@ -93,8 +93,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	PlayButton playButton;
 	StopButton stopButton;
-	Button realButton;
-	Button trialButton;
+	ModeButton trialButton;
 	ProgressBar progressBar;
 	
 	// data
@@ -273,7 +272,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		//realButton.setName("real\ntime");
 		//realButton.setShowClick();
 		//controls.add(realButton);
-		trialButton = new Button(this, Pos.trialX, Pos.trialY, Pos.trialW, Pos.trialH);
+		trialButton = new ModeButton(this, Pos.trialX, Pos.trialY, Pos.trialW, Pos.trialH);
 		trialButton.setName("trial\nmode");
 		trialButton.setShowClick();
 		controls.add(trialButton);
@@ -853,12 +852,13 @@ public class CS424_Project4_Group4 extends PApplet{
 				}
 				return;
 			}
-			if (realButton.checkIn(mx, my)) {
-				System.out.println("real!!!");
-				return;
-			}
 			if (trialButton.checkIn(mx, my)) {
-				System.out.println("trial!!!");
+				if (U.playMode == U.TRIAL) {
+					U.playMode = U.REALTIME;
+				}
+				else if (U.playMode == U.REALTIME) {
+					U.playMode = U.TRIAL;
+				}
 				return;
 			}
 			
