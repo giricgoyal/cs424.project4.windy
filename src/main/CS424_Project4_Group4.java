@@ -773,9 +773,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		if (help.isSelected()) {
 			if (isIn(mx, my, 0, 0, width, height)) {
-				if (id == -1 || id == 5) 
-					help.setSelected(!help.isSelected());
-					//beforeWordCloud.draw();
+			 
+				help.setSelected(!help.isSelected());
+				//beforeWordCloud.draw();
 			}
 		}
 		
