@@ -42,10 +42,10 @@ public class ProgressBar extends Lock {
 	
 	public void run() {
 		if (U.isWall) {
-			cen.x += U.Converter(8);
+			cen.x += U.Converter(4);
 		}
 		else {
-			cen.x += U.Converter(0.4); 
+			cen.x += U.Converter(0.3); 
 		}
 		
 		// if reach the end of a day
