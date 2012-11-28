@@ -76,6 +76,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button PersonList;
 	Button EventList;
 	
+	Help help;
+	
 	PopUp popUp;
 	
 	ListArea listArea;
@@ -275,6 +277,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls.add(trialButton);
 		
 		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
+		
+		help = new Help(this,  0, 0, Utilities.width, Utilities.height);
 	}
 	
 	public void setup() {
@@ -414,7 +418,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + location,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
-		
+		if (help.isSelected()) {
+			help.draw();
+		}
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();
@@ -736,459 +742,464 @@ public class CS424_Project4_Group4 extends PApplet{
 	public void myReleased(int id, float mx, float my) {
 		touchList.remove(id);
 		
-		// touch tweet
-		if (tw.check) {
-			if (tw.checkIn(mx, my)){
-				tw.setCheck(false);
-			}
+		if (help.isSelected()) {
+			
 		}
 		
-		// first reset every variable that indicates 'pressing' to original value
-		if (isTouchingMap) {
-			isTouchingMap = false;
-			popUp.setCheck(false);
-		}
-		
-		if (whichLock == U.LEFT) {
-			popUp.setCheck(false);
-			whichLock = U.NEITHER;
-			U.bHalf = U.bHalf_temp;
-			if (U.Playing == U.STOP) {
-				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				beforeWordCloud.clearArea();
-				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+		else {
+			// touch tweet
+			if (tw.check) {
+				if (tw.checkIn(mx, my)){
+					tw.setCheck(false);
+				}
 			}
-			tw.setCheck(false);
-			return;
-		}
-		else if (whichLock == U.RIGHT) {
-			popUp.setCheck(false);
-			whichLock = U.NEITHER;
-			U.eHalf = U.eHalf_temp;
-			if (U.Playing == U.STOP) {
-				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				beforeWordCloud.clearArea();
-				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
-			}
-			tw.setCheck(false);
-			return;
-		}
-		else if (timeSlider.checkIn(mx,my)) {
-			popUp.setCheck(false);
-			int half = round(map(mx, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth, 0, 48));	
-			float disLeft = abs(mx-timeSlider.getLeftLockX());
-			float disRight = abs(mx-timeSlider.getRightLockX());
-			if (disLeft<disRight) {
-				timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
-				U.bHalf = half;
-				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				beforeWordCloud.clearArea();
-				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
-				tw.setCheck(false);
-			}
-			else if (disRight<disLeft) {
-				timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
-				U.eHalf = half;
-				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				beforeWordCloud.clearArea();
-				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
-				tw.setCheck(false);
-			}
-			return;
-		}
-		
-		// then check interfaces
-		for (int i=0;i<=20;i++) {
-			if ((dayButtons.get(i)).checkIn(mx,my)) {
+			
+			// first reset every variable that indicates 'pressing' to original value
+			if (isTouchingMap) {
+				isTouchingMap = false;
 				popUp.setCheck(false);
-				System.out.println("Day "+i+" Clicked");
-				dayButtons.get(U.currentDay).setSelected(false);
-				U.currentDay = i;
-				dayButtons.get(U.currentDay).setSelected(true);
-				dataDay = qManager.getDataPos_By_Date(U.currentDay);
-				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//Utilities.currentTweet = "";
-				//tw.setTweet();
-				beforeWordCloud.clearArea();
-				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			}
+			
+			if (whichLock == U.LEFT) {
+				popUp.setCheck(false);
+				whichLock = U.NEITHER;
+				U.bHalf = U.bHalf_temp;
+				if (U.Playing == U.STOP) {
+					setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					beforeWordCloud.clearArea();
+					beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+				}
 				tw.setCheck(false);
 				return;
 			}
-		}
-		
-		if (playButton.checkIn(mx, my)) {
-			if (U.Playing == U.STOP) {
-				progressBar.resume();
-				U.Playing = U.PLAY;
-			}
-			else if (U.Playing == U.PAUSE) {
-				U.Playing = U.PLAY;
-			}
-			else if (U.Playing == U.PLAY) {
-				U.Playing = U.PAUSE;
-			}
-		}
-		if (stopButton.checkIn(mx, my)) {
-			if (U.Playing != U.STOP) {
-				U.Playing = U.STOP;
-			}
-		}
-		
-		// if clicking keyboard
-		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
-				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			if (!U.isAddingName) {
-				sb.updateTextBox(keyboard.Click(mx, my));
+			else if (whichLock == U.RIGHT) {
 				popUp.setCheck(false);
-				KeywordList.setSelected(false);
-				EventList.setSelected(false);
-				PersonList.setSelected(false);
-				locationButton.setSelected(false);
-				trackPerson.setSelected(false);
+				whichLock = U.NEITHER;
+				U.eHalf = U.eHalf_temp;
+				if (U.Playing == U.STOP) {
+					setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					beforeWordCloud.clearArea();
+					beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+				}
+				tw.setCheck(false);
 				return;
 			}
-			else {
-				sb.updateTextBox(keyboard.Click(mx, my));
-			}
-		}
-
-		// if sb is on
-		if (Utilities.suggestionBox){
-			if (isIn(mx, my, Positions.suggestionBoxX,
-					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
-					Positions.suggestionBoxHeight)) {
+			else if (timeSlider.checkIn(mx,my)) {
 				popUp.setCheck(false);
-				locationButton.setSelected(false);
-				PersonList.setSelected(false);
-				EventList.setSelected(false);
-				KeywordList.setSelected(false);
-				sb.Click(mx, my);
+				int half = round(map(mx, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth, 0, 48));	
+				float disLeft = abs(mx-timeSlider.getLeftLockX());
+				float disRight = abs(mx-timeSlider.getRightLockX());
+				if (disLeft<disRight) {
+					timeSlider.updateLeft(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+					U.bHalf = half;
+					setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					beforeWordCloud.clearArea();
+					beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+					tw.setCheck(false);
+				}
+				else if (disRight<disLeft) {
+					timeSlider.updateRight(map(half,0,48,Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth), half);
+					U.eHalf = half;
+					setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					beforeWordCloud.clearArea();
+					beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+					tw.setCheck(false);
+				}
 				return;
 			}
-		}
-		// if sb is off
-	    if (!Utilities.suggestionBox) {
 			
-			// Location Button
-			if (locationButton.isInRectangle(mx, my)) {
-				// toggle
-				locationButton.setSelected(!locationButton.isSelected());
-				listArea.setSelected(locationButton.isSelected());
-				popUp.setCheck(false);
-				// Location List On
-				if (locationButton.isSelected()){
-					System.out.println("Location List On");
-					listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
-					listArea.setLocationData(dataLocation, 0, "null");
-					KeywordList.setSelected(false);
-					PersonList.setSelected(false);
-					EventList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
-				}
-				else {
-					System.out.println("Location List Off");
-					return;
-				}
-			}
-			
-			// Keyword List
-			if (KeywordList.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				// toggle
-				KeywordList.setSelected(!KeywordList.isSelected());
-				listArea.setSelected(KeywordList.isSelected());
-				
-				// Keyword List On
-				if (KeywordList.isSelected()) {
-					System.out.println("Keyword List On");
-					listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
-					locationButton.setSelected(false);
-					PersonList.setSelected(false);
-					EventList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
-				}
-				// Keyword List Off
-				else {
-					System.out.println("Keyword List Off");
-				}
-			}
-			
-			// Person List
-			if (PersonList.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				// toggle
-				PersonList.setSelected(!PersonList.isSelected());
-				listArea.setSelected(PersonList.isSelected());
-				
-				// Person List On
-				if (PersonList.isSelected()) {
-					System.out.println("Person List On");
-					listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
-					locationButton.setSelected(false);
-					KeywordList.setSelected(false);
-					EventList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
-				}
-				// Person List Off
-				else {
-					System.out.println("Person List Off");
-				}
-					
-					
-					/*
-					if (Utilities.tweetPid != -1) {
-						System.out.println("click on add Person 2 List");
-						for (int count = 0; count < Utilities.personList.size(); count++) {
-							if (Utilities.personList.get(count) == Utilities.tweetPid) {
-								add2List.setSelected(!add2List.isSelected());
-								return;
-							}
-						}
-						Utilities.personList.add(Utilities.tweetPid);
-						System.out.println("Size : "  + Utilities.personList.size());
-						add2List.setSelected(!add2List.isSelected());
-					}*/
-			}
-			
-			// Event List
-			if (EventList.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				// toggle
-				EventList.setSelected(!EventList.isSelected());
-				listArea.setSelected(EventList.isSelected());
-				
-				
-				// Event List On
-				if (EventList.isSelected()) {
-					System.out.println("Event List On");
-					listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
-					locationButton.setSelected(false);
-					PersonList.setSelected(false);
-					KeywordList.setSelected(false);
-					trackPerson.setSelected(false);
-					return;
-				}
-				// Event List Off
-				else {
-					System.out.println("Event List Off");
-				}
-			}
-			
-			
-			if (listArea.isSelected()){
-				if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
+			// then check interfaces
+			for (int i=0;i<=20;i++) {
+				if ((dayButtons.get(i)).checkIn(mx,my)) {
 					popUp.setCheck(false);
-					listArea.click(mx, my);
-					if (!listArea.isSelected()) {
+					System.out.println("Day "+i+" Clicked");
+					dayButtons.get(U.currentDay).setSelected(false);
+					U.currentDay = i;
+					dayButtons.get(U.currentDay).setSelected(true);
+					dataDay = qManager.getDataPos_By_Date(U.currentDay);
+					setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					//Utilities.currentTweet = "";
+					//tw.setTweet();
+					beforeWordCloud.clearArea();
+					beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+					tw.setCheck(false);
+					return;
+				}
+			}
+			
+			if (playButton.checkIn(mx, my)) {
+				if (U.Playing == U.STOP) {
+					progressBar.resume();
+					U.Playing = U.PLAY;
+				}
+				else if (U.Playing == U.PAUSE) {
+					U.Playing = U.PLAY;
+				}
+				else if (U.Playing == U.PLAY) {
+					U.Playing = U.PAUSE;
+				}
+			}
+			if (stopButton.checkIn(mx, my)) {
+				if (U.Playing != U.STOP) {
+					U.Playing = U.STOP;
+				}
+			}
+			
+			// if clicking keyboard
+			if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
+					Positions.keyboardWidth, Positions.keyboardHeight)) {
+				if (!U.isAddingName) {
+					sb.updateTextBox(keyboard.Click(mx, my));
+					popUp.setCheck(false);
+					KeywordList.setSelected(false);
+					EventList.setSelected(false);
+					PersonList.setSelected(false);
+					locationButton.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+				}
+				else {
+					sb.updateTextBox(keyboard.Click(mx, my));
+				}
+			}
+	
+			// if sb is on
+			if (Utilities.suggestionBox){
+				if (isIn(mx, my, Positions.suggestionBoxX,
+						Positions.suggestionBoxY, Positions.suggestionBoxWidth,
+						Positions.suggestionBoxHeight)) {
+					popUp.setCheck(false);
+					locationButton.setSelected(false);
+					PersonList.setSelected(false);
+					EventList.setSelected(false);
+					KeywordList.setSelected(false);
+					sb.Click(mx, my);
+					return;
+				}
+			}
+			// if sb is off
+		    if (!Utilities.suggestionBox) {
+				
+				// Location Button
+				if (locationButton.isInRectangle(mx, my)) {
+					// toggle
+					locationButton.setSelected(!locationButton.isSelected());
+					listArea.setSelected(locationButton.isSelected());
+					popUp.setCheck(false);
+					// Location List On
+					if (locationButton.isSelected()){
+						System.out.println("Location List On");
+						listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
+						listArea.setLocationData(dataLocation, 0, "null");
+						KeywordList.setSelected(false);
+						PersonList.setSelected(false);
+						EventList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+					else {
+						System.out.println("Location List Off");
+						return;
+					}
+				}
+				
+				// Keyword List
+				if (KeywordList.isInRectangle(mx, my)) {
+					popUp.setCheck(false);
+					// toggle
+					KeywordList.setSelected(!KeywordList.isSelected());
+					listArea.setSelected(KeywordList.isSelected());
+					
+					// Keyword List On
+					if (KeywordList.isSelected()) {
+						System.out.println("Keyword List On");
+						listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
+						locationButton.setSelected(false);
+						PersonList.setSelected(false);
+						EventList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+					// Keyword List Off
+					else {
+						System.out.println("Keyword List Off");
+					}
+				}
+				
+				// Person List
+				if (PersonList.isInRectangle(mx, my)) {
+					popUp.setCheck(false);
+					// toggle
+					PersonList.setSelected(!PersonList.isSelected());
+					listArea.setSelected(PersonList.isSelected());
+					
+					// Person List On
+					if (PersonList.isSelected()) {
+						System.out.println("Person List On");
+						listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
 						locationButton.setSelected(false);
 						KeywordList.setSelected(false);
 						EventList.setSelected(false);
-						PersonList.setSelected(false);
-					}
-					return;
-				}
-			}
-			
-			if (!listArea.isSelected()) {
-				//popUp.setCheck(false);
-				graph.click(mx, my);
-			}
-		
-			if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
-				// add to graph
-				if (add2Graph.isInRectangle(mx, my)){
-					popUp.setCheck(false);
-					System.out.println("Click on add to graph");
-					for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-						if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
-							return;
-						}
-					}
-					if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
-						Utilities.keywordGraph.add(Utilities.currentWord);
-						graph.addData();
-						System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
+						trackPerson.setSelected(false);
 						return;
 					}
-					return;
-				}
-				
-				// track person
-				else if (trackPerson.isInRectangle(mx, my)) {
-					popUp.setCheck(false);
-					trackPerson.setSelected(!trackPerson.isSelected());
-					if (trackPerson.isSelected()) {
-						System.out.println("Track Person On");
-						U.isTrackingPerson = true;
-					}
+					// Person List Off
 					else {
-						System.out.println("Track Person Off");
-						U.isTrackingPerson = false;
+						System.out.println("Person List Off");
 					}
-					return;
-				}
-							
-				
-				if (popUp.getCheck()) {
-					if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
-						System.out.println("click on popup");
-						popUp.click(mx, my);
 						
+						
+						/*
+						if (Utilities.tweetPid != -1) {
+							System.out.println("click on add Person 2 List");
+							for (int count = 0; count < Utilities.personList.size(); count++) {
+								if (Utilities.personList.get(count) == Utilities.tweetPid) {
+									add2List.setSelected(!add2List.isSelected());
+									return;
+								}
+							}
+							Utilities.personList.add(Utilities.tweetPid);
+							System.out.println("Size : "  + Utilities.personList.size());
+							add2List.setSelected(!add2List.isSelected());
+						}*/
+				}
+				
+				// Event List
+				if (EventList.isInRectangle(mx, my)) {
+					popUp.setCheck(false);
+					// toggle
+					EventList.setSelected(!EventList.isSelected());
+					listArea.setSelected(EventList.isSelected());
+					
+					
+					// Event List On
+					if (EventList.isSelected()) {
+						System.out.println("Event List On");
+						listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
+						locationButton.setSelected(false);
+						PersonList.setSelected(false);
+						KeywordList.setSelected(false);
+						trackPerson.setSelected(false);
+						return;
+					}
+					// Event List Off
+					else {
+						System.out.println("Event List Off");
 					}
 				}
+				
+				
+				if (listArea.isSelected()){
+					if (isIn(mx, my, Positions.listWindowX, Positions.listWindowY, Positions.listWindowWidth, Positions.listWindowHeight)){
+						popUp.setCheck(false);
+						listArea.click(mx, my);
+						if (!listArea.isSelected()) {
+							locationButton.setSelected(false);
+							KeywordList.setSelected(false);
+							EventList.setSelected(false);
+							PersonList.setSelected(false);
+						}
+						return;
+					}
+				}
+				
+				if (!listArea.isSelected()) {
+					//popUp.setCheck(false);
+					graph.click(mx, my);
+				}
+			
+				if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
+					// add to graph
+					if (add2Graph.isInRectangle(mx, my)){
+						popUp.setCheck(false);
+						System.out.println("Click on add to graph");
+						for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
+							if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+								return;
+							}
+						}
+						if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
+							Utilities.keywordGraph.add(Utilities.currentWord);
+							graph.addData();
+							System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
+							return;
+						}
+						return;
+					}
+					
+					// track person
+					else if (trackPerson.isInRectangle(mx, my)) {
+						popUp.setCheck(false);
+						trackPerson.setSelected(!trackPerson.isSelected());
+						if (trackPerson.isSelected()) {
+							System.out.println("Track Person On");
+							U.isTrackingPerson = true;
+						}
+						else {
+							System.out.println("Track Person Off");
+							U.isTrackingPerson = false;
+						}
+						return;
+					}
+								
+					
+					if (popUp.getCheck()) {
+						if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
+							System.out.println("click on popup");
+							popUp.click(mx, my);
+							
+						}
+					}
+				}
+				else {
+					// add to list
+					if (add2List.isInRectangle(mx, my)) {
+						popUp.setCheck(false);
+						if (PersonList.isSelected()) {
+							System.out.println("Click on add Person to list");
+							for (int count = 0; count < Utilities.personList.size(); count++) {
+								if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+									return;
+								}
+							}
+							if (Utilities.personList.size() < Utilities.listSize) {
+								if (U.tweetPid != -1) {
+									Utilities.personList.add(Utilities.tweetPid);
+									System.out.println("Person List Size : " + Utilities.personList.size());
+									return;
+								}
+								else {
+									System.out.println("No Person selected");
+								}
+							}
+						}
+						else if (EventList.isSelected()) {
+							System.out.println("Click on add Event to list");
+							for (int count = 0; count < Utilities.eventList.size(); count++) {
+								if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
+									return;
+								}
+							}
+							// only half number of events can be stored since every event needs 2 lines
+							if (Utilities.eventList.size() < Utilities.listSize/2) {
+								Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
+								Utilities.isAddingName = true;
+								System.out.println("Event List Size : " + Utilities.eventList.size());
+								return;
+							}
+						}
+						else if (KeywordList.isSelected()) {
+							System.out.println("Click on add Keyword to list");
+							for (int count = 0; count < Utilities.keywordList.size(); count++) {
+								if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
+									return;
+								}
+							}
+							if (Utilities.keywordList.size() < Utilities.listSize) {
+								Utilities.keywordList.add(Utilities.currentWord);
+								System.out.println("Keyword List Size : " + Utilities.keywordList.size());
+								return;
+							}
+						}
+						else {
+							System.out.println("No List selected");
+						}
+						return;
+					}
+				}
+		    }
+			if (zoomInBtn.checkIn(mx,my)) {
+				System.out.println("Zoom in Clicked");
+				tw.setCheck(false);
+				float mW =  map.x2 - map.x1 + 1;
+				float mH = map.y2 - map.y1 + 1;
+				if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
+					mW = mW/4;
+					mH = mH/4;
+					map.x1 += mW;
+					map.x2 -= mW;
+					map.y1 += mH;
+					map.y2 -= mH;
+					mW = mW*2;
+					mH = mH*2;
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					//updateMarkerPos(markers);
+				}
+				return;
+			}
+			
+			if (zoomOutBtn.checkIn(mx,my)) {
+				System.out.println("Zoom out Clicked");
+				tw.setCheck(false);
+				float mW = map.x2 - map.x1 + 1;
+				float mH = map.y2 - map.y1 + 1;
+				if (mW < U.mapMaxW && mW < U.mapMaxH) { 
+					mW = mW/2;
+					mH = mH/2;
+					map.x1 -= mW;
+					map.x2 += mW;
+					map.y1 -= mH;
+					map.y2 += mH;
+					
+					// we don't want blank
+					float offsetX = 0;
+					float offsetY = 0;
+					if (map.x1<0) {
+						offsetX = 0-map.x1;
+					}
+					else if (map.x2 > U.mapMaxW) {
+						offsetX = U.mapMaxW - map.x2;
+					}
+					if (map.y1<0) {
+						offsetY = 0-map.y1;
+					}
+					else if (map.y2 > U.mapMaxH){
+						offsetY = U.mapMaxH-map.y2;
+					}
+					map.x1 += offsetX;
+					map.x2 += offsetX;
+					map.y1 += offsetY;
+					map.y2 += offsetY;
+					// end
+					
+					mW = mW*4;
+					mH = mH*4;
+					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+					//updateMarkerPos(markers);
+				}
+				return;
+			}
+		
+			//FIXME: because we return in every function, maybe 'moved' won't be reset here
+			if (!moved) {
+				for (AbstractMarker m : markers) {
+					float disMin = Float.MAX_VALUE; 
+					if (map.checkIn(m.getX(),m.getY())) {
+						if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
+							U.currentTweet = m.getTweet();
+							U.tweetTime = (m.getHour() > 9)? 
+									((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
+									: 
+									( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
+							U.tweetPid = m.getPid();
+							tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
+							tw.setTweet();
+						}
+					}
+				}
+				System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
+				return;
 			}
 			else {
-				// add to list
-				if (add2List.isInRectangle(mx, my)) {
-					popUp.setCheck(false);
-					if (PersonList.isSelected()) {
-						System.out.println("Click on add Person to list");
-						for (int count = 0; count < Utilities.personList.size(); count++) {
-							if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
-								return;
-							}
-						}
-						if (Utilities.personList.size() < Utilities.listSize) {
-							if (U.tweetPid != -1) {
-								Utilities.personList.add(Utilities.tweetPid);
-								System.out.println("Person List Size : " + Utilities.personList.size());
-								return;
-							}
-							else {
-								System.out.println("No Person selected");
-							}
-						}
-					}
-					else if (EventList.isSelected()) {
-						System.out.println("Click on add Event to list");
-						for (int count = 0; count < Utilities.eventList.size(); count++) {
-							if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
-								return;
-							}
-						}
-						// only half number of events can be stored since every event needs 2 lines
-						if (Utilities.eventList.size() < Utilities.listSize/2) {
-							Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
-							Utilities.isAddingName = true;
-							System.out.println("Event List Size : " + Utilities.eventList.size());
-							return;
-						}
-					}
-					else if (KeywordList.isSelected()) {
-						System.out.println("Click on add Keyword to list");
-						for (int count = 0; count < Utilities.keywordList.size(); count++) {
-							if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
-								return;
-							}
-						}
-						if (Utilities.keywordList.size() < Utilities.listSize) {
-							Utilities.keywordList.add(Utilities.currentWord);
-							System.out.println("Keyword List Size : " + Utilities.keywordList.size());
-							return;
-						}
-					}
-					else {
-						System.out.println("No List selected");
-					}
-					return;
-				}
+				moved = false;
 			}
-	    }
-		if (zoomInBtn.checkIn(mx,my)) {
-			System.out.println("Zoom in Clicked");
-			tw.setCheck(false);
-			float mW =  map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
-				mW = mW/4;
-				mH = mH/4;
-				map.x1 += mW;
-				map.x2 -= mW;
-				map.y1 += mH;
-				map.y2 -= mH;
-				mW = mW*2;
-				mH = mH*2;
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//updateMarkerPos(markers);
-			}
-			return;
-		}
-		
-		if (zoomOutBtn.checkIn(mx,my)) {
-			System.out.println("Zoom out Clicked");
-			tw.setCheck(false);
-			float mW = map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
-				mW = mW/2;
-				mH = mH/2;
-				map.x1 -= mW;
-				map.x2 += mW;
-				map.y1 -= mH;
-				map.y2 += mH;
-				
-				// we don't want blank
-				float offsetX = 0;
-				float offsetY = 0;
-				if (map.x1<0) {
-					offsetX = 0-map.x1;
-				}
-				else if (map.x2 > U.mapMaxW) {
-					offsetX = U.mapMaxW - map.x2;
-				}
-				if (map.y1<0) {
-					offsetY = 0-map.y1;
-				}
-				else if (map.y2 > U.mapMaxH){
-					offsetY = U.mapMaxH-map.y2;
-				}
-				map.x1 += offsetX;
-				map.x2 += offsetX;
-				map.y1 += offsetY;
-				map.y2 += offsetY;
-				// end
-				
-				mW = mW*4;
-				mH = mH*4;
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//updateMarkerPos(markers);
-			}
-			return;
-		}
-	
-		//FIXME: because we return in every function, maybe 'moved' won't be reset here
-		if (!moved) {
-			for (AbstractMarker m : markers) {
-				float disMin = Float.MAX_VALUE; 
-				if (map.checkIn(m.getX(),m.getY())) {
-					if (m.checkIn(mx, my) && m.dis(mx,my)<disMin) {
-						U.currentTweet = m.getTweet();
-						U.tweetTime = (m.getHour() > 9)? 
-								((m.getMin()>9)? (m.getHour()+":"+m.getMin()) : (m.getHour()+":0"+m.getMin()) )
-								: 
-								( (m.getMin()>9)? ("0"+m.getHour()+":"+m.getMin()) : ("0"+m.getHour()+":0"+m.getMin()) );
-						U.tweetPid = m.getPid();
-						tw.setTweetPopUp(mx, my, Positions.tweetWindowWidth, Positions.tweetWindowHeight);
-						tw.setTweet();
-					}
-				}
-			}
-			System.out.println("pid: "+U.tweetPid+", Time: "+U.tweetTime+", Text: "+U.currentTweet);
-			return;
-		}
-		else {
-			moved = false;
 		}
 	}
-	
 	
 	public void myClicked(int id, float mx, float my) {
 	}
