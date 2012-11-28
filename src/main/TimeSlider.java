@@ -23,6 +23,7 @@ public class TimeSlider {
 	private int[] maxCnt; // size = 21
 	
 	Lock lLock, rLock;
+	ProgressBar bar;
 	
 
 	public TimeSlider(PApplet p, float _x, float _y, float _w, float _h, float lPos, float rPos, float lockW, float lockH,

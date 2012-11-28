@@ -42,8 +42,13 @@ public class Colors {
 	public static int map6;
 	public static int map7;
 	
+	// joysword
+	public static int NETHERLAND = 0xffff6600;
+	public static int BLIZZARD = 0xff01b2f1;
+	public static int PEACH = 0xffdf59ae;
 	
-	// colors from p2g2, thanks
+	
+	// colors from p3g2, thanks
 	public static int DARK_GRAY = 0xff1f1f1f;
 	public static int MEDIUM_GRAY = 0xff282826; // 2d2d2c
 	public static int LIGHT_GRAY = 0xff2d2d2c; // 565656

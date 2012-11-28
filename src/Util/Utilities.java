@@ -40,6 +40,7 @@ public class Utilities {
 	public static int tweetPid = -1;
 	public static boolean isTrackingPerson = false;
 	public static int Playing = Utilities.STOP; // animation
+	
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected

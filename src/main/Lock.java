@@ -17,10 +17,10 @@ import processing.core.PVector;
 @SuppressWarnings("unused")
 public class Lock {
 	
-	private PApplet p;
-	private PVector cen;
-	private String text;
-	private float lockW, lockH;
+	protected PApplet p;
+	protected PVector cen;
+	protected String text;
+	protected float lockW, lockH;
 
 	public Lock(PApplet p, float _x, float _y, float lockW, float lockH, int half) {
 		this.p = p;
@@ -28,6 +28,13 @@ public class Lock {
 		this.lockW= lockW;
 		this.lockH = lockH;
 		updateTime(half);
+	}
+	
+	public Lock(PApplet p, float _x, float _y, float lockW, float lockH) {
+		this.p = p;
+		cen = new PVector(_x, _y);
+		this.lockW= lockW;
+		this.lockH = lockH;
 	}
 	
 	public void draw() {

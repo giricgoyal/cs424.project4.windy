@@ -91,6 +91,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	PlayButton playButton;
 	StopButton stopButton;
+	ProgressBar progressBar;
 	
 	// data
 	ArrayList<DataPos> dataDay; //all data for current day
@@ -263,6 +264,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		stopButton = new StopButton(this, Pos.stopX, Pos.stopY, Pos.stopW, Pos.stopH);
 		controls.add(stopButton);
+		
+		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
 	}
 	
 	public void setup() {
@@ -286,7 +289,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		reDrawbackground();
 		map.draw();
-		
+
 		// draw markers
 		if (U.selectedLocationId == -1 || U.selectedLocationId == 99) {
 			for (AbstractMarker m : markers) {
@@ -353,6 +356,15 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw time slider
 		timeSlider.draw();
+		
+		// run animation
+		if (U.Playing == U.PLAY) {
+			progressBar.draw();
+			progressBar.run();
+		}
+		else if (U.Playing == U.PAUSE) {
+			progressBar.draw();
+		}
 		
 		// draw word cloud
 		beforeWordCloud.draw();
@@ -797,7 +809,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		if (playButton.checkIn(mx, my)) {
-			if (U.Playing != U.PLAY) {
+			if (U.Playing == U.STOP) {
+				progressBar.resume();
+				U.Playing = U.PLAY;
+			}
+			else if (U.Playing == U.PAUSE) {
 				U.Playing = U.PLAY;
 			}
 			else if (U.Playing == U.PLAY) {

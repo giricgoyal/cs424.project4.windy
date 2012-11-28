@@ -79,7 +79,11 @@ public class Positions {
 	public static float stopX = playX;
 	public static float stopY = Utilities.height * 11 / 12 - stopH/2;
 	
-			
+	// progressBar
+	public static float barX = timeSliderX;
+	public static float barY = timeSliderY + timeSliderHeight/2;
+	public static float barW = Utilities.Converter(2);
+	public static float barH = timeSliderHeight;
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(15);
