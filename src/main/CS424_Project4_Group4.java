@@ -833,14 +833,19 @@ public class CS424_Project4_Group4 extends PApplet{
 		// if clicking keyboard
 		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			sb.updateTextBox(keyboard.Click(mx, my));
-			popUp.setCheck(false);
-			KeywordList.setSelected(false);
-			EventList.setSelected(false);
-			PersonList.setSelected(false);
-			locationButton.setSelected(false);
-			trackPerson.setSelected(false);
-			return;
+			if (!U.isAddingName) {
+				sb.updateTextBox(keyboard.Click(mx, my));
+				popUp.setCheck(false);
+				KeywordList.setSelected(false);
+				EventList.setSelected(false);
+				PersonList.setSelected(false);
+				locationButton.setSelected(false);
+				trackPerson.setSelected(false);
+				return;
+			}
+			else {
+				sb.updateTextBox(keyboard.Click(mx, my));
+			}
 		}
 
 		// if sb is on
@@ -1043,7 +1048,7 @@ public class CS424_Project4_Group4 extends PApplet{
 							return;
 						}
 					}
-					if (Utilities.personList.size() <= Utilities.listSize) {
+					if (Utilities.personList.size() < Utilities.listSize) {
 						if (U.tweetPid != -1) {
 							Utilities.personList.add(Utilities.tweetPid);
 							System.out.println("Person List Size : " + Utilities.personList.size());
@@ -1061,8 +1066,10 @@ public class CS424_Project4_Group4 extends PApplet{
 							return;
 						}
 					}
-					if (Utilities.eventList.size() <= Utilities.listSize) {
-						Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf));
+					// only half number of events can be stored since every event needs 2 lines
+					if (Utilities.eventList.size() < Utilities.listSize/2) {
+						Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
+						Utilities.isAddingName = true;
 						System.out.println("Event List Size : " + Utilities.eventList.size());
 						return;
 					}
@@ -1074,7 +1081,7 @@ public class CS424_Project4_Group4 extends PApplet{
 							return;
 						}
 					}
-					if (Utilities.keywordList.size() <= Utilities.listSize) {
+					if (Utilities.keywordList.size() < Utilities.listSize) {
 						Utilities.keywordList.add(Utilities.currentWord);
 						System.out.println("Keyword List Size : " + Utilities.keywordList.size());
 						return;

@@ -25,7 +25,7 @@ public class Utilities {
 	public static final boolean drawGridLine = false;
 	public static final int dayButtonLowerBound = 0;
 	public static final int graphNumber = 7; // how many keywords are in the graph
-	public static final int listSize = 13; // how many keywords are in a list (person, event, keyword)
+	public static final int listSize = 14; // how many keywords are in a list (person, event, keyword)
 	public static final int MarkerAlpha = 160;
 	
 	// variables
@@ -41,6 +41,7 @@ public class Utilities {
 	public static boolean isTrackingPerson = false;
 	public static int Playing = Utilities.STOP; // animation
 	public static int playHalf;
+	public static boolean isAddingName = false; // specifying a name to an event
 	
 	/**
 	 * this is equal to 

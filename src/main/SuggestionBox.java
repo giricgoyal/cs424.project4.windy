@@ -98,9 +98,9 @@ public class SuggestionBox extends BasicControl {
 			parent.fill(textBoxTextColor);
 			
 			String a = String.valueOf(textBoxText.charAt(0));
-			String textBoxTextTemp = a.toUpperCase() + textBoxText.substring(1);
+			//String textBoxTextTemp = a.toUpperCase() + textBoxText.substring(1);
 			
-			parent.text(textBoxTextTemp, Positions.textBoxX + Utilities.Converter(2), Positions.textBoxY + Positions.textBoxHeight/2);
+			parent.text(textBoxText, Positions.textBoxX + Utilities.Converter(2), Positions.textBoxY + Positions.textBoxHeight/2);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
 			parent.textSize(Positions.suggestionBoxHeight/5*0.5f);
@@ -165,6 +165,29 @@ public class SuggestionBox extends BasicControl {
 				if (textBoxText.isEmpty())
 					Utilities.suggestionBox = false;
 				
+			}
+		}
+		// ENTER button
+		else if (charNum == 10) {
+			// adding name for event
+			if (U.isAddingName) {
+				Utilities.eventList.get(Utilities.eventList.size()-1).updateName(textBoxText);
+				textBoxText = "";
+				Utilities.isAddingName = false;
+			}
+			// normal use
+			else {
+				for (int i=0;i<KeyWords.words.length;i++) {
+					if (textBoxText.equalsIgnoreCase(KeyWords.words[i])) {
+						Utilities.currentWord = textBoxText;
+						program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+						program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+						program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+						program.updateDayButton();
+						program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+						program.timeSlider.update(program.dataCount);
+					}
+				}
 			}
 		}
 		else {
@@ -245,14 +268,23 @@ public class SuggestionBox extends BasicControl {
 		 */
 		for (count = 0; count < dataWordsLength; count++) {
 			if (dataWords[count].equals(clickedString)) {
-				Utilities.currentWord = clickedString;
-				program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
-				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-				program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
-				program.updateDayButton();
-				program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
-				program.timeSlider.update(program.dataCount);
-				break;
+				if (!Utilities.isAddingName) {
+					Utilities.currentWord = clickedString;
+					program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.currentKeywordCount = program.qManager.getKeywordCount(Utilities.currentWord);
+					program.updateDayButton();
+					program.dataCount = program.qManager.getAllCount_By_Keyword(Utilities.currentWord);
+					program.timeSlider.update(program.dataCount);
+					break;
+				}
+				// add a name for event
+				else {
+					Utilities.eventList.get(Utilities.eventList.size()-1).updateName(clickedString);
+					textBoxText = "";
+					Utilities.isAddingName = false;
+					break;
+				}
 			}
 		}
 		

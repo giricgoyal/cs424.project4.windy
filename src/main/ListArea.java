@@ -201,9 +201,9 @@ public class ListArea extends BasicControl {
 			
 			int count = 0;
 			while (count < Utilities.eventList.size()) {
-				parent.text(Utilities.eventList.get(count).getText(), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.text(Utilities.eventList.get(count).getText(), Positions.listWindowX + Utilities.Converter(1), Positions.listWindowY + Utilities.Converter(8 * (2*count + 1)));
 				parent.imageMode(PConstants.CENTER);
-				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
+				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(8 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
 				//parent.text("x", Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				count++;
 			}
@@ -433,13 +433,13 @@ public class ListArea extends BasicControl {
 		else {
 			for (int count = 0; count < Utilities.eventList.size(); count++) {
 				if (mx > myX && mx < myX + myWidth  - Utilities.Converter(9)) {
-					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+					if (my > myY + Utilities.Converter(16 * count) && my < myY + Utilities.Converter(16 * (count+1))) {
 						
 						// same update as in myReleased
 						this.selected = false;
 						U.bHalf = Utilities.eventList.get(count).getbHalf();
 						U.eHalf = Utilities.eventList.get(count).geteHalf();
-						// different day
+						// if different day
 						if (Utilities.eventList.get(count).getDay() !=  Utilities.currentDay) {
 							program.dayButtons.get(U.currentDay).setSelected(false);
 							U.currentDay = U.eventList.get(count).getDay();
@@ -456,7 +456,7 @@ public class ListArea extends BasicControl {
 					}
 				}
 				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(9)) {
-					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
+					if (my > myY + Utilities.Converter(16 * count) && my < myY + Utilities.Converter(16 * (count+1))) {
 						Utilities.eventList.remove(count);
 						
 					}
