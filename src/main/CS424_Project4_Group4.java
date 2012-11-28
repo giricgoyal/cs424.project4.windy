@@ -26,6 +26,7 @@ import types.*;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;
+import markers.PersonMarker;
 
 /**
  * @author giric
@@ -69,7 +70,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button addEvent2List;
 	Button addPerson2List;
 	Button trackPerson;
-	Button trackButton;
 	Button add2Graph;
 	Button locationButton;
 	Button KeywordList;
@@ -352,7 +352,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 		
-		// TODO: draw button - will change
 		for (DayButton d : dayButtons) {
 			d.draw();
 		}
@@ -526,6 +525,9 @@ public class CS424_Project4_Group4 extends PApplet{
 			case DEFAULT_MARKER:
 				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
 				break;
+			case PERSON_MARKER:
+				markers.add(new PersonMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
+				break; 
 			default:
 				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
 			}
@@ -936,16 +938,17 @@ public class CS424_Project4_Group4 extends PApplet{
 					popUp.setCheck(false);
 					// Location List On
 					if (locationButton.isSelected()){
+						add2List.setName("Add to List");
 						System.out.println("Location List On");
 						listArea.setButtonSelected("location", Positions.locationButtonX, Positions.locationButtonY, Positions.locationButtonHeight);
 						listArea.setLocationData(dataLocation, 0, "null");
 						KeywordList.setSelected(false);
 						PersonList.setSelected(false);
 						EventList.setSelected(false);
-						trackPerson.setSelected(false);
 						return;
 					}
 					else {
+						add2List.setName("Add to List");
 						System.out.println("Location List Off");
 						return;
 					}
@@ -960,16 +963,17 @@ public class CS424_Project4_Group4 extends PApplet{
 					
 					// Keyword List On
 					if (KeywordList.isSelected()) {
+						add2List.setName("Add Keyword");
 						System.out.println("Keyword List On");
 						listArea.setButtonSelected("keyword", Positions.keywordListX, Positions.keywordListY, Positions.keywordListHeight);
 						locationButton.setSelected(false);
 						PersonList.setSelected(false);
 						EventList.setSelected(false);
-						trackPerson.setSelected(false);
 						return;
 					}
 					// Keyword List Off
 					else {
+						add2List.setName("Add to List");
 						System.out.println("Keyword List Off");
 					}
 				}
@@ -983,33 +987,19 @@ public class CS424_Project4_Group4 extends PApplet{
 					
 					// Person List On
 					if (PersonList.isSelected()) {
+						add2List.setName("Add Person");
 						System.out.println("Person List On");
 						listArea.setButtonSelected("person", Positions.personListX, Positions.personListY, Positions.personListHeight);
 						locationButton.setSelected(false);
 						KeywordList.setSelected(false);
 						EventList.setSelected(false);
-						trackPerson.setSelected(false);
 						return;
 					}
 					// Person List Off
 					else {
+						add2List.setName("Add to List");
 						System.out.println("Person List Off");
 					}
-						
-						
-						/*
-						if (Utilities.tweetPid != -1) {
-							System.out.println("click on add Person 2 List");
-							for (int count = 0; count < Utilities.personList.size(); count++) {
-								if (Utilities.personList.get(count) == Utilities.tweetPid) {
-									add2List.setSelected(!add2List.isSelected());
-									return;
-								}
-							}
-							Utilities.personList.add(Utilities.tweetPid);
-							System.out.println("Size : "  + Utilities.personList.size());
-							add2List.setSelected(!add2List.isSelected());
-						}*/
 				}
 				
 				// Event List
@@ -1022,16 +1012,17 @@ public class CS424_Project4_Group4 extends PApplet{
 					
 					// Event List On
 					if (EventList.isSelected()) {
+						add2List.setName("Add Event");
 						System.out.println("Event List On");
 						listArea.setButtonSelected("event", Positions.eventListX, Positions.eventListY, Positions.eventListHeight);
 						locationButton.setSelected(false);
 						PersonList.setSelected(false);
 						KeywordList.setSelected(false);
-						trackPerson.setSelected(false);
 						return;
 					}
 					// Event List Off
 					else {
+						add2List.setName("Add to List");
 						System.out.println("Event List Off");
 					}
 				}
@@ -1056,7 +1047,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					graph.click(mx, my);
 				}
 			
-				if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
 					// add to graph
 					if (add2Graph.isInRectangle(mx, my)){
 						popUp.setCheck(false);
@@ -1092,7 +1082,7 @@ public class CS424_Project4_Group4 extends PApplet{
 								System.out.println("Track Person On");
 								dataPerson = qManager.getDataPos_By_Pid(U.trackPid);
 								setMarkerPos(dataPerson,personMarkers,MarkerType.PERSON_MARKER);
-								trackPerson.setSelected(!trackPerson.isSelected());
+								trackPerson.setSelected(true);
 							}
 						}
 						// if it is on
@@ -1100,7 +1090,7 @@ public class CS424_Project4_Group4 extends PApplet{
 							// trun if off
 							if (U.trackPid == U.tweetPid) {
 								System.out.println("Track Person Off");
-								trackPerson.setSelected(!trackPerson.isSelected());
+								trackPerson.setSelected(false);
 								U.isTrackingPerson = false;
 								U.trackPid = -1;
 							}
@@ -1109,6 +1099,7 @@ public class CS424_Project4_Group4 extends PApplet{
 								U.trackPid = U.tweetPid;
 								dataPerson = qManager.getDataPos_By_Pid(U.trackPid);
 								setMarkerPos(dataPerson,personMarkers,MarkerType.PERSON_MARKER);
+								trackPerson.setSelected(true);
 							}
 						}
 						return;
@@ -1122,8 +1113,7 @@ public class CS424_Project4_Group4 extends PApplet{
 							
 						}
 					}
-				}
-				else {
+				
 					// add to list
 					if (add2List.isInRectangle(mx, my)) {
 						popUp.setCheck(false);
@@ -1178,7 +1168,6 @@ public class CS424_Project4_Group4 extends PApplet{
 						}
 						return;
 					}
-				}
 		    }
 			if (zoomInBtn.checkIn(mx,my)) {
 				System.out.println("Zoom in Clicked");

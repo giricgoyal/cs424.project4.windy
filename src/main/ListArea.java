@@ -471,17 +471,17 @@ public class ListArea extends BasicControl {
 			this.selected = false;
 		}
 		else {
-			int count = 0;
-			while(count < Utilities.personList.size()){
+			for (int count = 0; count < U.personList.size();count++) {
 				if (mx > myX && mx < myX + myWidth - Utilities.Converter(9)) {
 					if (my > myY + Utilities.Converter(8 * count) && my < myY + Utilities.Converter(8 * (count+1))) {
-						Utilities.tweetPid = Utilities.personList.get(count);
+						Utilities.trackPid = Utilities.personList.get(count);
 						this.selected = false;
+						U.isTrackingPerson = true;
+						program.trackPerson.setSelected(true);
+						program.dataPerson = program.qManager.getDataPos_By_Pid(U.trackPid);
+						program.setMarkerPos(program.dataPerson,program.personMarkers,MarkerType.PERSON_MARKER);
 						
-						//program.setCurrentData_forKeywords(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
-						//program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
-						
-						System.out.println(Utilities.personList.get(count));
+						break;
 					}
 				}
 				if (mx < myX + myWidth && mx > myX + myWidth - Utilities.Converter(9)) {
@@ -490,8 +490,6 @@ public class ListArea extends BasicControl {
 						
 					}
 				}
-				
-				count++;
 			}
 		}		
 	}

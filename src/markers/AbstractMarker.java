@@ -30,10 +30,6 @@ public class AbstractMarker {
 	}
 	
 	public void draw() {
-		p.pushStyle();
-		//p.fill(Colors.LIGHT_BLUE);
-		//p.ellipse(x, y, Utilities.Converter(2), Utilities.Converter(2));
-		p.popStyle();
 	}
 	
 	public void updatePos(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
