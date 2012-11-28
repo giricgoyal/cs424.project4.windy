@@ -737,8 +737,7 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 		}
 		
-		if (!help.isSelected()) {
-		
+		else {
 			// touch tweet
 			if (tw.check) {
 				if (tw.checkIn(mx, my)){
@@ -765,53 +764,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				tw.setCheck(false);
 				return;
 			}
-<<<<<<< HEAD
 			else if (whichLock == U.RIGHT) {
-=======
-		}
-		
-		if (playButton.checkIn(mx, my)) {
-			if (U.Playing == U.STOP) {
-				progressBar.resume();
-				U.Playing = U.PLAY;
-			}
-			else if (U.Playing == U.PAUSE) {
-				U.Playing = U.PLAY;
-			}
-			else if (U.Playing == U.PLAY) {
-				U.Playing = U.PAUSE;
-			}
-		}
-		if (stopButton.checkIn(mx, my)) {
-			if (U.Playing != U.STOP) {
-				U.Playing = U.STOP;
-			}
-		}
-		
-		// if clicking keyboard
-		if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
-				Positions.keyboardWidth, Positions.keyboardHeight)) {
-			if (!U.isAddingName) {
-				sb.updateTextBox(keyboard.Click(mx, my));
-				popUp.setCheck(false);
-				KeywordList.setSelected(false);
-				EventList.setSelected(false);
-				PersonList.setSelected(false);
-				locationButton.setSelected(false);
-				trackPerson.setSelected(false);
-				return;
-			}
-			else {
-				sb.updateTextBox(keyboard.Click(mx, my));
-			}
-		}
-
-		// if sb is on
-		if (Utilities.suggestionBox){
-			if (isIn(mx, my, Positions.suggestionBoxX,
-					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
-					Positions.suggestionBoxHeight)) {
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
 				popUp.setCheck(false);
 				whichLock = U.NEITHER;
 				U.eHalf = U.eHalf_temp;
@@ -891,14 +844,19 @@ public class CS424_Project4_Group4 extends PApplet{
 			// if clicking keyboard
 			if (isIn(mx, my, Positions.keyboardX, Positions.keyboardY,
 					Positions.keyboardWidth, Positions.keyboardHeight)) {
-				sb.updateTextBox(keyboard.Click(mx, my));
-				popUp.setCheck(false);
-				KeywordList.setSelected(false);
-				EventList.setSelected(false);
-				PersonList.setSelected(false);
-				locationButton.setSelected(false);
-				trackPerson.setSelected(false);
-				return;
+				if (!U.isAddingName) {
+					sb.updateTextBox(keyboard.Click(mx, my));
+					popUp.setCheck(false);
+					KeywordList.setSelected(false);
+					EventList.setSelected(false);
+					PersonList.setSelected(false);
+					locationButton.setSelected(false);
+					trackPerson.setSelected(false);
+					return;
+				}
+				else {
+					sb.updateTextBox(keyboard.Click(mx, my));
+				}
 			}
 	
 			// if sb is on
@@ -1025,7 +983,6 @@ public class CS424_Project4_Group4 extends PApplet{
 						System.out.println("Event List Off");
 					}
 				}
-<<<<<<< HEAD
 				
 				
 				if (listArea.isSelected()){
@@ -1046,148 +1003,107 @@ public class CS424_Project4_Group4 extends PApplet{
 					//popUp.setCheck(false);
 					graph.click(mx, my);
 				}
-			}
 			
-			if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
-				// add to graph
-				if (add2Graph.isInRectangle(mx, my)){
-					popUp.setCheck(false);
-					System.out.println("Click on add to graph");
-					for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-						if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+				if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
+					// add to graph
+					if (add2Graph.isInRectangle(mx, my)){
+						popUp.setCheck(false);
+						System.out.println("Click on add to graph");
+						for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
+							if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+								return;
+							}
+						}
+						if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
+							Utilities.keywordGraph.add(Utilities.currentWord);
+							graph.addData();
+							System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 							return;
 						}
-					}
-					if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
-						Utilities.keywordGraph.add(Utilities.currentWord);
-						graph.addData();
-						System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 						return;
 					}
-					return;
-				}
-=======
-			}
-			
-			if (!listArea.isSelected()) {
-				//popUp.setCheck(false);
-				graph.click(mx, my);
-			}
-		
-			if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
-				// add to graph
-				if (add2Graph.isInRectangle(mx, my)){
-					popUp.setCheck(false);
-					System.out.println("Click on add to graph");
-					for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-						if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
-							return;
+					
+					// track person
+					else if (trackPerson.isInRectangle(mx, my)) {
+						popUp.setCheck(false);
+						trackPerson.setSelected(!trackPerson.isSelected());
+						if (trackPerson.isSelected()) {
+							System.out.println("Track Person On");
+							U.isTrackingPerson = true;
 						}
-					}
-					if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
-						Utilities.keywordGraph.add(Utilities.currentWord);
-						graph.addData();
-						System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
+						else {
+							System.out.println("Track Person Off");
+							U.isTrackingPerson = false;
+						}
 						return;
 					}
-					return;
-				}
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
-				
-				// track person
-				else if (trackPerson.isInRectangle(mx, my)) {
-					popUp.setCheck(false);
-					trackPerson.setSelected(!trackPerson.isSelected());
-					if (trackPerson.isSelected()) {
-						System.out.println("Track Person On");
-						U.isTrackingPerson = true;
-					}
-					else {
-						System.out.println("Track Person Off");
-						U.isTrackingPerson = false;
-					}
-					return;
-				}
+								
+					
+					if (popUp.getCheck()) {
+						if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
+							System.out.println("click on popup");
+							popUp.click(mx, my);
 							
-				
-				if (popUp.getCheck()) {
-					if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
-						System.out.println("click on popup");
-						popUp.click(mx, my);
-						
+						}
 					}
 				}
-			}
-			else {
-				// add to list
-				if (add2List.isInRectangle(mx, my)) {
-					popUp.setCheck(false);
-					if (PersonList.isSelected()) {
-						System.out.println("Click on add Person to list");
-						for (int count = 0; count < Utilities.personList.size(); count++) {
-							if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+				else {
+					// add to list
+					if (add2List.isInRectangle(mx, my)) {
+						popUp.setCheck(false);
+						if (PersonList.isSelected()) {
+							System.out.println("Click on add Person to list");
+							for (int count = 0; count < Utilities.personList.size(); count++) {
+								if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+									return;
+								}
+							}
+							if (Utilities.personList.size() < Utilities.listSize) {
+								if (U.tweetPid != -1) {
+									Utilities.personList.add(Utilities.tweetPid);
+									System.out.println("Person List Size : " + Utilities.personList.size());
+									return;
+								}
+								else {
+									System.out.println("No Person selected");
+								}
+							}
+						}
+						else if (EventList.isSelected()) {
+							System.out.println("Click on add Event to list");
+							for (int count = 0; count < Utilities.eventList.size(); count++) {
+								if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
+									return;
+								}
+							}
+							// only half number of events can be stored since every event needs 2 lines
+							if (Utilities.eventList.size() < Utilities.listSize/2) {
+								Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
+								Utilities.isAddingName = true;
+								System.out.println("Event List Size : " + Utilities.eventList.size());
 								return;
 							}
 						}
-<<<<<<< HEAD
-						if (Utilities.personList.size() <= Utilities.listSize) {
-=======
-						if (Utilities.personList.size() < Utilities.listSize) {
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
-							if (U.tweetPid != -1) {
-								Utilities.personList.add(Utilities.tweetPid);
-								System.out.println("Person List Size : " + Utilities.personList.size());
-								return;
+						else if (KeywordList.isSelected()) {
+							System.out.println("Click on add Keyword to list");
+							for (int count = 0; count < Utilities.keywordList.size(); count++) {
+								if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
+									return;
+								}
 							}
-							else {
-								System.out.println("No Person selected");
-							}
-						}
-					}
-					else if (EventList.isSelected()) {
-						System.out.println("Click on add Event to list");
-						for (int count = 0; count < Utilities.eventList.size(); count++) {
-							if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
+							if (Utilities.keywordList.size() < Utilities.listSize) {
+								Utilities.keywordList.add(Utilities.currentWord);
+								System.out.println("Keyword List Size : " + Utilities.keywordList.size());
 								return;
 							}
 						}
-<<<<<<< HEAD
-						if (Utilities.eventList.size() <= Utilities.listSize) {
-							Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf));
-=======
-						// only half number of events can be stored since every event needs 2 lines
-						if (Utilities.eventList.size() < Utilities.listSize/2) {
-							Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
-							Utilities.isAddingName = true;
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
-							System.out.println("Event List Size : " + Utilities.eventList.size());
-							return;
+						else {
+							System.out.println("No List selected");
 						}
+						return;
 					}
-					else if (KeywordList.isSelected()) {
-						System.out.println("Click on add Keyword to list");
-						for (int count = 0; count < Utilities.keywordList.size(); count++) {
-							if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
-								return;
-							}
-						}
-<<<<<<< HEAD
-						if (Utilities.keywordList.size() <= Utilities.listSize) {
-=======
-						if (Utilities.keywordList.size() < Utilities.listSize) {
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
-							Utilities.keywordList.add(Utilities.currentWord);
-							System.out.println("Keyword List Size : " + Utilities.keywordList.size());
-							return;
-						}
-					}
-					else {
-						System.out.println("No List selected");
-					}
-					return;
 				}
-<<<<<<< HEAD
-			}
+		    }
 			if (zoomInBtn.checkIn(mx,my)) {
 				System.out.println("Zoom in Clicked");
 				tw.setCheck(false);
@@ -1246,57 +1162,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					mH = mH*4;
 					setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
 					//updateMarkerPos(markers);
-=======
-			}
-	    }
-		if (zoomInBtn.checkIn(mx,my)) {
-			System.out.println("Zoom in Clicked");
-			tw.setCheck(false);
-			float mW =  map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW > Pos.mapWidth && mW > Pos.mapHeight) {
-				mW = mW/4;
-				mH = mH/4;
-				map.x1 += mW;
-				map.x2 -= mW;
-				map.y1 += mH;
-				map.y2 -= mH;
-				mW = mW*2;
-				mH = mH*2;
-				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-				//updateMarkerPos(markers);
-			}
-			return;
-		}
-		
-		if (zoomOutBtn.checkIn(mx,my)) {
-			System.out.println("Zoom out Clicked");
-			tw.setCheck(false);
-			float mW = map.x2 - map.x1 + 1;
-			float mH = map.y2 - map.y1 + 1;
-			if (mW < U.mapMaxW && mW < U.mapMaxH) { 
-				mW = mW/2;
-				mH = mH/2;
-				map.x1 -= mW;
-				map.x2 += mW;
-				map.y1 -= mH;
-				map.y2 += mH;
-				
-				// we don't want blank
-				float offsetX = 0;
-				float offsetY = 0;
-				if (map.x1<0) {
-					offsetX = 0-map.x1;
-				}
-				else if (map.x2 > U.mapMaxW) {
-					offsetX = U.mapMaxW - map.x2;
-				}
-				if (map.y1<0) {
-					offsetY = 0-map.y1;
-				}
-				else if (map.y2 > U.mapMaxH){
-					offsetY = U.mapMaxH-map.y2;
->>>>>>> 4241e348baee814ad69461dcee4d25b091e193c7
 				}
 				return;
 			}
@@ -1326,7 +1191,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 	}
-	
 	
 	public void myClicked(int id, float mx, float my) {
 	}
