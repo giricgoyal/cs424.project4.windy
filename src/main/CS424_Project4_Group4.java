@@ -76,6 +76,8 @@ public class CS424_Project4_Group4 extends PApplet{
 	Button PersonList;
 	Button EventList;
 	
+	Help help;
+	
 	PopUp popUp;
 	
 	ListArea listArea;
@@ -275,6 +277,8 @@ public class CS424_Project4_Group4 extends PApplet{
 		controls.add(trialButton);
 		
 		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
+		
+		help = new Help(this,  0, 0, Utilities.width, Utilities.height);
 	}
 	
 	public void setup() {
@@ -414,7 +418,9 @@ public class CS424_Project4_Group4 extends PApplet{
 		text("Selected\nKeyword: "+U.currentWord + "\nLocation: " + location,Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
-		
+		if (help.isSelected()) {
+			help.draw();
+		}
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();
@@ -735,7 +741,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void myReleased(int id, float mx, float my) {
 		touchList.remove(id);
-
+		
 		if (help.isSelected()) {
 			
 		}
@@ -861,7 +867,7 @@ public class CS424_Project4_Group4 extends PApplet{
 					sb.updateTextBox(keyboard.Click(mx, my));
 				}
 			}
-
+	
 			// if sb is on
 			if (Utilities.suggestionBox){
 				if (isIn(mx, my, Positions.suggestionBoxX,
@@ -1194,7 +1200,6 @@ public class CS424_Project4_Group4 extends PApplet{
 			}
 		}
 	}
-	
 	
 	public void myClicked(int id, float mx, float my) {
 	}
