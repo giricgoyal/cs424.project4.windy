@@ -202,7 +202,7 @@ public class PopUpTweet  extends BasicControl {
 				parent.endShape();
 				
 				parent.shapeMode(PConstants.CENTER);
-				parent.shape(tweet, lowerLeftX + width/2, lowerLeftY + height/2, (float)(Utilities.Converter(tweet.width)/Utilities.Converter(10)) , (float)(Utilities.Converter(tweet.height)/Utilities.Converter(10)));
+				parent.shape(tweet, lowerLeftX + width/2, lowerLeftY + height/2, (float)(Utilities.Converter(tweet.width)/Utilities.Converter(5)) , (float)(Utilities.Converter(tweet.height)/Utilities.Converter(5)));
 				//parent.shape(tweet, upperRightX - Utilities.Converter(2) - Positions.tweetWidth, upperRightY - Utilities.Converter(12) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
 			}
 			else {
@@ -216,7 +216,7 @@ public class PopUpTweet  extends BasicControl {
 				parent.vertex(triangleRightX, triangleRightY);
 				parent.endShape();
 				parent.shapeMode(PConstants.CENTER);
-				parent.shape(tweet, upperLeftX + width/2, upperLeftY + height/2, (float)(Utilities.Converter(tweet.width)/Utilities.Converter(10)) , (float)(Utilities.Converter(tweet.height)/Utilities.Converter(10)));
+				parent.shape(tweet, upperLeftX + width/2, upperLeftY + height/2, (float)(Utilities.Converter(tweet.width)/Utilities.Converter(5)) , (float)(Utilities.Converter(tweet.height)/Utilities.Converter(5)));
 				//parent.shape(tweet, lowerRightX - Utilities.Converter(2) - Positions.tweetWidth, lowerRightY - Utilities.Converter(12) - Positions.tweetWidth, Positions.tweetWidth, Positions.tweetHeight);
 	
 			}

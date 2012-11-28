@@ -304,7 +304,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void draw() {
 		noStroke();
-		
 		reDrawbackground();
 		map.draw();
 
@@ -393,7 +392,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		// draw word cloud
 		beforeWordCloud.draw();
-		//afterWordCloud.draw();
 
 		if (U.drawGridLine) {
 			pushStyle();
@@ -443,13 +441,13 @@ public class CS424_Project4_Group4 extends PApplet{
 				Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
 		popStyle();
 		
-		if (help.isSelected()) {
-			help.draw();
-		}
+		help.draw();
+		
 		// PROCESS OMICRON
 		if (Utilities.isWall) {
 			omicronManager.process();
 		}
+	
 	}
 	
 	void reDrawbackground() {
@@ -768,10 +766,19 @@ public class CS424_Project4_Group4 extends PApplet{
 		touchList.remove(id);
 		
 		if (help.isSelected()) {
-			
+			if (isIn(mx, my, 0, 0, width, height)) {
+				if (id == -1 || id == 5) 
+					help.setSelected(!help.isSelected());
+					//beforeWordCloud.draw();
+			}
 		}
 		
 		else {
+			if (isIn(mx, my, Utilities.width * 5/6, 0 , Utilities.width /6	, Utilities.height/3)) {
+				help.setSelected(!help.isSelected());
+				//beforeWordCloud.clearArea();
+			}
+			
 			// touch tweet
 			if (tw.check) {
 				if (tw.checkIn(mx, my)){
