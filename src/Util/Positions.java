@@ -64,7 +64,7 @@ public class Positions {
 	// playButton
 	public static float playW = (mapWidth - timeSliderX - timeSliderWidth)*4/5;// - playX - Utilities.Converter(2);
 	public static float playX = timeSliderX + timeSliderWidth + Utilities.Converter(3);
-	public static float playY = timeSliderY + Utilities.Converter(1);
+	public static float playY = timeSliderY; // + Utilities.Converter(1);
 	public static float playH = (dayButtonY+dayButtonH-timeSliderY) / 4  - Utilities.Converter(2);//Utilities.height / 6 - Utilities.Converter(12);
 	
 	// stopButton
@@ -84,10 +84,14 @@ public class Positions {
 	//public static float trialY = realY + realH + Utilities.Converter(2);
 	//public static float trialW = realW;
 	//public static float trialH = realH;
-	public static float trialX = timeSliderX+timeSliderWidth+U.Converter(1);
-	public static float trialY = stopY + stopH + Utilities.Converter(2);
-	public static float trialW = mapX+mapWidth-trialX;
-	public static float trialH = (U.height-trialY) - Utilities.Converter(4);
+//	public static float trialX = timeSliderX+timeSliderWidth+U.Converter(1);
+//	public static float trialY = stopY + stopH + Utilities.Converter(2);
+//	public static float trialW = mapX+mapWidth-trialX;
+//	public static float trialH = (U.height-trialY) - Utilities.Converter(4);
+	public static float trialW = stopW;
+	public static float trialH = stopH * 2;
+	public static float trialX = stopX;
+	public static float trialY = dayButtonY; //stopY + stopH + Utilities.Converter(4);
 	
 	// progressBar
 	public static float barX = timeSliderX;
