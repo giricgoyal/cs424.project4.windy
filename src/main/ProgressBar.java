@@ -40,7 +40,12 @@ public class ProgressBar extends Lock {
 	}
 	
 	public void run() {
-		cen.x += U.Converter(0.4);
+		if (U.isWall) {
+			cen.x += U.Converter(4);
+		}
+		else {
+			cen.x += U.Converter(0.4); 
+		}
 		
 		// if reach the end of a day
 		if (cen.x >= PApplet.map(U.eHalf, 0,48, Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth)) {
