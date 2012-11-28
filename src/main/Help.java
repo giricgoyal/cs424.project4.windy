@@ -48,7 +48,7 @@ public class Help extends BasicControl{
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
-		
+		float x1, x2, y1, y2;
 		if (selected) {
 			parent.fill(Colors.helpColor);
 			parent.rectMode(PConstants.CORNER);
@@ -58,8 +58,18 @@ public class Help extends BasicControl{
 			parent.rect(myWidth * 3/6 + Utilities.Converter(2), myHeight * 1/3 - Utilities.Converter(2), myWidth * 3/6 - Utilities.Converter(2), myHeight * 2/3 + Utilities.Converter(2));
 			
 			// weather panel
-			drawArrow("ul", Positions.weatherPanelX + Positions.weatherPanelWidth - Utilities.Converter(3), Positions.weatherPanelY + Positions.weatherPanelWidth/2 + Utilities.Converter(3), Positions.weatherPanelX + Positions.weatherPanelWidth + Utilities.Converter(15), Positions.weatherPanelY + Positions.weatherPanelWidth/2 + Utilities.Converter(3));
-		
+			x1 = Positions.weatherPanelX + Positions.weatherPanelWidth - Utilities.Converter(3);
+			y1 = Positions.weatherPanelY + Positions.weatherPanelHeight + Utilities.Converter(3);
+			x2 = Positions.weatherPanelX + Positions.weatherPanelWidth + Utilities.Converter(35);
+			y2 = Positions.weatherPanelY + Positions.weatherPanelHeight + Utilities.Converter(3);
+			drawArrow("ul", x1, y1, x2, y2);
+			parent.textSize(Utilities.Converter(5));
+			parent.stroke(Colors.LIGHT_ORANGE);
+			parent.strokeWeight(Utilities.Converter(1));
+			parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+			parent.fill(Colors.LIGHT_ORANGE);
+			parent.text("Weather Panel", x1, y1);
+			
 		
 		
 		}
