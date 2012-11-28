@@ -4,6 +4,7 @@
 package main;
 
 import Util.Colors;
+import Util.Positions;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -23,6 +24,26 @@ public class Help extends BasicControl{
 		this.parent = parent;
 		selected = false;
 	}
+	
+	@SuppressWarnings("static-access")
+	private void drawArrow(String arrow, float x1, float y1, float x2, float y2) {
+		parent.stroke(Colors.LIGHT_BLUE);
+		parent.strokeWeight(Utilities.Converter(1.5));
+		parent.fill(Colors.LIGHT_BLUE);
+		parent.line(x1, y1, x2, y2);
+		if (arrow.compareToIgnoreCase("ul") == 0) {
+			parent.line(x1, y1, x1 - Utilities.Converter(10) * parent.cos(45), y1 - Utilities.Converter(10) * parent.sin(45));
+		}
+		if (arrow.compareToIgnoreCase("ur") == 0) {
+			parent.line(x2, y2, x2 + Utilities.Converter(10) * parent.cos(45), y2 - Utilities.Converter(10) * parent.sin(45));
+		}
+		if (arrow.compareToIgnoreCase("bl") == 0) {
+			parent.line(x1, y1, x1 - Utilities.Converter(10) * parent.cos(45), y1 + Utilities.Converter(10) * parent.sin(45));
+		}
+		if (arrow.compareToIgnoreCase("br") == 0) {
+			parent.line(x2, y2, x2 + Utilities.Converter(10) * parent.cos(45), y2 + Utilities.Converter(10) * parent.sin(45));
+		}
+	}
 
 	@Override
 	public void draw() {
@@ -36,8 +57,8 @@ public class Help extends BasicControl{
 			parent.rect(myWidth * 5/6 - Utilities.Converter(2), 0, myWidth /6 + Utilities.Converter(2), myHeight / 3);
 			parent.rect(myWidth * 3/6 + Utilities.Converter(2), myHeight * 1/3 - Utilities.Converter(2), myWidth * 3/6 - Utilities.Converter(2), myHeight * 2/3 + Utilities.Converter(2));
 			
-			
-		
+			// weather panel
+			drawArrow("ul", Positions.weatherPanelX + Positions.weatherPanelWidth - Utilities.Converter(3), Positions.weatherPanelY + Positions.weatherPanelWidth/2 + Utilities.Converter(3), Positions.weatherPanelX + Positions.weatherPanelWidth + Utilities.Converter(15), Positions.weatherPanelY + Positions.weatherPanelWidth/2 + Utilities.Converter(3));
 		
 		
 		
@@ -45,22 +66,7 @@ public class Help extends BasicControl{
 	}
 	
 	
-	@SuppressWarnings("static-access")
-	private void drawArraow(String arrow, float x1, float y1, float x2, float y2) {
-		parent.line(x1, y1, x2, y2);
-		if (arrow.compareToIgnoreCase("ul") == 0) {
-			parent.line(x1, y1, x1 - Utilities.Converter(20) * parent.cos(45), y1 - Utilities.Converter(20) * parent.sin(45));
-		}
-		if (arrow.compareToIgnoreCase("ur") == 0) {
-			
-		}
-		if (arrow.compareToIgnoreCase("bl") == 0) {
-			
-		}
-		if (arrow.compareToIgnoreCase("br") == 0) {
-			
-		}
-	}
+	
 	
 	public boolean isSelected() {
 		return selected;

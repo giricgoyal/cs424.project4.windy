@@ -438,6 +438,10 @@ public class CS424_Project4_Group4 extends PApplet{
 				"\nLocation: " + location +
 				"\nTrack Person: " + person,
 				Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
+		textSize(Utilities.Converter(5));
+		textAlign(PConstants.RIGHT, PConstants.BOTTOM);
+		fill(Colors.RED);
+		text("Help!", Utilities.width - Utilities.Converter(2), Utilities.height /3 - Utilities.Converter(2));
 		popStyle();
 		
 		help.draw();
