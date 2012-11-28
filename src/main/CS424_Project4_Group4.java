@@ -811,12 +811,16 @@ public class CS424_Project4_Group4 extends PApplet{
 					Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 					Positions.suggestionBoxHeight)) {
 				popUp.setCheck(false);
+				locationButton.setSelected(false);
+				PersonList.setSelected(false);
+				EventList.setSelected(false);
+				KeywordList.setSelected(false);
 				sb.Click(mx, my);
 				return;
 			}
 		}
 		// if sb is off
-		else if (!Utilities.suggestionBox) {
+	    if (!Utilities.suggestionBox) {
 			
 			// Location Button
 			if (locationButton.isInRectangle(mx, my)) {
