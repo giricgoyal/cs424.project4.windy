@@ -50,7 +50,12 @@ public class DayButton extends Button {
 		p.noFill();
 		p.rectMode(PConstants.CORNER);
 		p.rect(myX,myY,myWidth,myHeight);
-		p.fill(Colors.BLACK);
+		if (selected) {
+			p.fill(Colors.RED);
+		}
+		else {
+			p.fill(Colors.WHITE);
+		}
 		p.textAlign(PConstants.CENTER,PConstants.BOTTOM);
 		p.textSize(U.Converter(5.5));
 		p.text(text, myX+this.myWidth/2, myY+myHeight*9/10);
