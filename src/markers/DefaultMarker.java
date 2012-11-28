@@ -34,7 +34,7 @@ public class DefaultMarker extends AbstractMarker {
 			p.fill(p.color(p.red(Colors.LIGHT_BLUE),p.green(Colors.LIGHT_BLUE),p.blue(Colors.LIGHT_BLUE),U.MarkerAlpha));
 		}
 		p.ellipseMode(PConstants.CENTER);
-		p.ellipse(x, y, Utilities.Converter(2.5), Utilities.Converter(2.5));
+		p.ellipse(x, y, Utilities.markerHalfWidth*2, Utilities.markerHalfHeight*2);
 		p.popStyle();
 	}
 }

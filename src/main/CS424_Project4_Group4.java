@@ -466,8 +466,8 @@ public class CS424_Project4_Group4 extends PApplet{
 			float x2Lon = map(map.x2, 0, Utilities.mapMaxW, (float)93.5673, (float)93.1923);
 			float y1Lat = map(map.y1, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
 			float y2Lat = map(map.y2, 0, Utilities.mapMaxH, (float)42.3017, (float)42.1609);
-			float x = map(_x, x1Lon, x2Lon, map.x0, map.w);
-			float y = map(_y, y1Lat, y2Lat, map.y0, map.h);	
+			float x = map(_x, x1Lon, x2Lon, map.x0, map.x0+map.w);
+			float y = map(_y, y1Lat, y2Lat, map.y0, map.x0+map.h);	
 			switch (type) {
 			case DEFAULT_MARKER:
 				markers.add(new DefaultMarker(this,x,y,pos.getPid(),pos.getHour(),pos.getMin(),pos.getTweet(),pos.getKeywords(),pos.getLocation()));
