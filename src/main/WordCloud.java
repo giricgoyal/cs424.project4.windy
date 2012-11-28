@@ -40,14 +40,14 @@ public class WordCloud extends BasicControl{
 	      
 			// scale according to the scale factor.--------------------------------------
 			// change the values here ---------------------------------------------------
-			.sizedByWeight((int)Utilities.Converter(3), (int)Utilities.Converter(12))             
+			.sizedByWeight((int)Utilities.Converter(2), (int)Utilities.Converter(10))             
 			.maxAttemptsToPlaceWord(50)
 	        .angledAt(0)
 	        //.withCustomCanvas(canvas)
 	        .minShapeSize((int)Utilities.Converter(1))
 	        //.withPlacer(customPlacer())
 	        .withPlacer(horizBandAnchoredLeftCustom())
-	        .maxNumberOfWordsToDraw(150)
+	        .maxNumberOfWordsToDraw((int)Utilities.Converter(100))
 	        //.withPlacer(Placers.centerClump())
 	        // .withPlacer(Placers.horizLine())
 	        //.withPlacer(Placers.horizBandAnchoredLeft())
