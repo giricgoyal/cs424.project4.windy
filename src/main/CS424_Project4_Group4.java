@@ -744,10 +744,12 @@ public class CS424_Project4_Group4 extends PApplet{
 			popUp.setCheck(false);
 			whichLock = U.NEITHER;
 			U.bHalf = U.bHalf_temp;
-			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			beforeWordCloud.clearArea();
-			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			if (U.Playing == U.STOP) {
+				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				beforeWordCloud.clearArea();
+				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			}
 			tw.setCheck(false);
 			return;
 		}
@@ -755,10 +757,12 @@ public class CS424_Project4_Group4 extends PApplet{
 			popUp.setCheck(false);
 			whichLock = U.NEITHER;
 			U.eHalf = U.eHalf_temp;
-			setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
-			setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
-			beforeWordCloud.clearArea();
-			beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			if (U.Playing == U.STOP) {
+				setCurrentData(dataPos,dataDay,U.bHalf,U.eHalf,U.currentWord);
+				setMarkerPos(dataPos,markers,MarkerType.DEFAULT_MARKER);
+				beforeWordCloud.clearArea();
+				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
+			}
 			tw.setCheck(false);
 			return;
 		}

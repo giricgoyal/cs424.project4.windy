@@ -3,6 +3,7 @@
  */
 package main;
 
+import markers.MarkerType;
 import Util.Colors;
 import Util.Pos;
 import Util.U;
@@ -35,6 +36,7 @@ public class ProgressBar extends Lock {
 	
 	public void resume() {
 		cen.x = PApplet.map(U.bHalf, 0,48, Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth);
+		U.playHalf = U.bHalf;
 	}
 	
 	public void run() {
@@ -42,19 +44,25 @@ public class ProgressBar extends Lock {
 		if (cen.x >= PApplet.map(U.eHalf, 0,48, Pos.timeSliderX,Pos.timeSliderX+Pos.timeSliderWidth)) {
 			if (U.currentDay == 20) {
 				U.Playing = U.STOP;
+				program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
+				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 			}
 			else {
 				program.dayButtons.get(U.currentDay).setSelected(false);
 				U.currentDay++;
 				program.dayButtons.get(U.currentDay).setSelected(true);
-				//TODO reset things
-				
-				//
+				program.dataDay = program.qManager.getDataPos_By_Date(U.currentDay);
+				program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
+				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
 				resume();
 			}
 		}
 		else {
-			//TODO update things
+			if (cen.x >= PApplet.map(U.playHalf+1, 0, 48, Pos.timeSliderX, Pos.timeSliderX+Pos.timeSliderWidth)) {
+				U.playHalf++;
+				program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
+				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+			}
 		}
 	}
 }

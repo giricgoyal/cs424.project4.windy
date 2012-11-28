@@ -40,6 +40,7 @@ public class Utilities {
 	public static int tweetPid = -1;
 	public static boolean isTrackingPerson = false;
 	public static int Playing = Utilities.STOP; // animation
+	public static int playHalf;
 	
 	/**
 	 * this is equal to 
