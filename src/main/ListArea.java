@@ -71,8 +71,14 @@ public class ListArea extends BasicControl {
 		v7y = v1y;
 		
 		backButton = parent.loadShape("backButton.svg");
-		backButtonHeight = Utilities.Converter(backButton.height) / Utilities.Converter(2);
-		backButtonWidth = Utilities.Converter(backButton.width) / Utilities.Converter(2);
+		if (Utilities.isWall) {
+			backButtonHeight = Utilities.Converter(backButton.height) / Utilities.Converter(2);
+			backButtonWidth = Utilities.Converter(backButton.width) / Utilities.Converter(2);
+		}
+		else {
+			backButtonHeight = Utilities.Converter(backButton.height) / Utilities.Converter(6);
+			backButtonWidth = Utilities.Converter(backButton.width) / Utilities.Converter(6);
+		}
 		backButtonX = Positions.listWindowX + Positions.listWindowWidth - backButtonWidth - Utilities.Converter(2);
 		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(2) - backButtonHeight;
 		
