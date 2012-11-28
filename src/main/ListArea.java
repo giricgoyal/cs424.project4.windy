@@ -96,7 +96,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v6x, v6y);
 				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
-			
+			parent.shapeMode(PConstants.CORNER);
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
 			
 		
@@ -159,7 +159,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v6x, v6y);
 				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
-			
+			parent.shapeMode(PConstants.CORNER);
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
@@ -192,7 +192,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v6x, v6y);
 				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
-			
+			parent.shapeMode(PConstants.CORNER);
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);
@@ -225,7 +225,7 @@ public class ListArea extends BasicControl {
 				parent.vertex(v6x, v6y);
 				parent.vertex(v7x, v7y);
 			parent.endShape(PConstants.CLOSE);
-			
+			parent.shapeMode(PConstants.CORNER);
 			parent.shape(backButton, backButtonX, backButtonY, backButtonWidth, backButtonHeight);
 			
 			parent.textAlign(PConstants.LEFT, PConstants.CENTER);

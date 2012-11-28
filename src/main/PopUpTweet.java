@@ -111,7 +111,7 @@ public class PopUpTweet  extends BasicControl {
 			this.lowerLeftY = lowerRightY;
 			this.triangleLeftY = upperLeftY - height;
 			this.triangleRightY = upperLeftY - height;
-			Utilities.popUpY = this.lowerLeftY;
+			//Utilities.popUpY = this.lowerLeftY;
 			
 		}
 		
@@ -128,7 +128,7 @@ public class PopUpTweet  extends BasicControl {
 			this.upperRightX = upperLeftX + width;
 			this.lowerLeftX = upperLeftX;
 			this.lowerRightX = upperRightX;
-			Utilities.popUpX = this.upperLeftX;
+			//Utilities.popUpX = this.upperLeftX;
 			
 		}
 		
@@ -146,7 +146,7 @@ public class PopUpTweet  extends BasicControl {
 			this.upperRightX = upperLeftX + width;
 			this.lowerLeftX = upperLeftX;
 			this.lowerRightX = upperRightX;
-			Utilities.popUpX = this.upperLeftX;
+			//Utilities.popUpX = this.upperLeftX;
 			
 		}
 		System.out.println("check");

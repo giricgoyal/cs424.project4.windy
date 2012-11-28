@@ -25,7 +25,7 @@ public class Utilities {
 	public static final boolean drawGridLine = false;
 	public static final int dayButtonLowerBound = 0;
 	public static final int graphNumber = 7; // how many keywords are in the graph
-	public static final int listSize = 7; // how many keywords are in a list (person, event, keyword)
+	public static final int listSize = 13; // how many keywords are in a list (person, event, keyword)
 	
 	// variables
 	public static int currentDay = 0;
