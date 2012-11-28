@@ -39,7 +39,7 @@ public class ModeButton extends Button {
 		parent.noStroke();
 		parent.rectMode(PConstants.CORNER);
 		parent.rect(myX, myY, myWidth, myHeight);
-		parent.textAlign(PConstants.CENTER,PConstants.CENTER);
+		parent.textAlign(PConstants.LEFT,PConstants.CENTER);
 		if (U.playMode == U.TRIAL) {
 			parent.fill(Colors.WHITE);
 		}
@@ -48,10 +48,10 @@ public class ModeButton extends Button {
 		}
 		parent.textSize(Utilities.Converter(5));
 		if (U.playMode == U.TRIAL) {
-			parent.text("APP", (myWidth)/2+myX, (myHeight)/2+myY);
+			parent.text("Turn Off\nKeep Tweets", myX+U.Converter(1), (myHeight)/2+myY);
 		}
 		else if (U.playMode == U.REALTIME){
-			parent.text("REAL", (myWidth)/2+myX, (myHeight)/2+myY);
+			parent.text("Turn ON\nKeep Tweets", myX+U.Converter(1), (myHeight)/2+myY);
 		}
 		parent.popStyle();
 	}

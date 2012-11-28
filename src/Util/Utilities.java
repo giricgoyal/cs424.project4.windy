@@ -52,7 +52,7 @@ public class Utilities {
 	public static int Playing = Utilities.STOP; // animation
 	public static int playHalf;
 	public static boolean isAddingName = false; // specifying a name to an event
-	public static int playMode = Utilities.TRIAL;
+	public static int playMode = Utilities.REALTIME;
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
