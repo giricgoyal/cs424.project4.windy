@@ -992,107 +992,107 @@ public class CS424_Project4_Group4 extends PApplet{
 				//popUp.setCheck(false);
 				graph.click(mx, my);
 			}
-		}
 		
-		if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
-			// add to graph
-			if (add2Graph.isInRectangle(mx, my)){
-				popUp.setCheck(false);
-				System.out.println("Click on add to graph");
-				for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-					if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+			if (!locationButton.isSelected() && !KeywordList.isSelected() && !EventList.isSelected() && !PersonList.isSelected()) {
+				// add to graph
+				if (add2Graph.isInRectangle(mx, my)){
+					popUp.setCheck(false);
+					System.out.println("Click on add to graph");
+					for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
+						if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+							return;
+						}
+					}
+					if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
+						Utilities.keywordGraph.add(Utilities.currentWord);
+						graph.addData();
+						System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 						return;
 					}
-				}
-				if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
-					Utilities.keywordGraph.add(Utilities.currentWord);
-					graph.addData();
-					System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 					return;
 				}
-				return;
-			}
-			
-			// track person
-			else if (trackPerson.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				trackPerson.setSelected(!trackPerson.isSelected());
-				if (trackPerson.isSelected()) {
-					System.out.println("Track Person On");
-					U.isTrackingPerson = true;
+				
+				// track person
+				else if (trackPerson.isInRectangle(mx, my)) {
+					popUp.setCheck(false);
+					trackPerson.setSelected(!trackPerson.isSelected());
+					if (trackPerson.isSelected()) {
+						System.out.println("Track Person On");
+						U.isTrackingPerson = true;
+					}
+					else {
+						System.out.println("Track Person Off");
+						U.isTrackingPerson = false;
+					}
+					return;
 				}
-				else {
-					System.out.println("Track Person Off");
-					U.isTrackingPerson = false;
-				}
-				return;
-			}
+							
+				
+				if (popUp.getCheck()) {
+					if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
+						System.out.println("click on popup");
+						popUp.click(mx, my);
 						
-			
-			if (popUp.getCheck()) {
-				if (isIn(mx, my, Utilities.popUpX, Utilities.popUpY, Utilities.popUpWidth, Utilities.popUpHeight)) {
-					System.out.println("click on popup");
-					popUp.click(mx, my);
-					
+					}
 				}
 			}
-		}
-		else {
-			// add to list
-			if (add2List.isInRectangle(mx, my)) {
-				popUp.setCheck(false);
-				if (PersonList.isSelected()) {
-					System.out.println("Click on add Person to list");
-					for (int count = 0; count < Utilities.personList.size(); count++) {
-						if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+			else {
+				// add to list
+				if (add2List.isInRectangle(mx, my)) {
+					popUp.setCheck(false);
+					if (PersonList.isSelected()) {
+						System.out.println("Click on add Person to list");
+						for (int count = 0; count < Utilities.personList.size(); count++) {
+							if (Utilities.personList.get(count).equals(Utilities.tweetPid)) {
+								return;
+							}
+						}
+						if (Utilities.personList.size() < Utilities.listSize) {
+							if (U.tweetPid != -1) {
+								Utilities.personList.add(Utilities.tweetPid);
+								System.out.println("Person List Size : " + Utilities.personList.size());
+								return;
+							}
+							else {
+								System.out.println("No Person selected");
+							}
+						}
+					}
+					else if (EventList.isSelected()) {
+						System.out.println("Click on add Event to list");
+						for (int count = 0; count < Utilities.eventList.size(); count++) {
+							if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
+								return;
+							}
+						}
+						// only half number of events can be stored since every event needs 2 lines
+						if (Utilities.eventList.size() < Utilities.listSize/2) {
+							Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
+							Utilities.isAddingName = true;
+							System.out.println("Event List Size : " + Utilities.eventList.size());
 							return;
 						}
 					}
-					if (Utilities.personList.size() < Utilities.listSize) {
-						if (U.tweetPid != -1) {
-							Utilities.personList.add(Utilities.tweetPid);
-							System.out.println("Person List Size : " + Utilities.personList.size());
-							return;
+					else if (KeywordList.isSelected()) {
+						System.out.println("Click on add Keyword to list");
+						for (int count = 0; count < Utilities.keywordList.size(); count++) {
+							if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
+								return;
+							}
 						}
-						else {
-							System.out.println("No Person selected");
-						}
-					}
-				}
-				else if (EventList.isSelected()) {
-					System.out.println("Click on add Event to list");
-					for (int count = 0; count < Utilities.eventList.size(); count++) {
-						if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
+						if (Utilities.keywordList.size() < Utilities.listSize) {
+							Utilities.keywordList.add(Utilities.currentWord);
+							System.out.println("Keyword List Size : " + Utilities.keywordList.size());
 							return;
 						}
 					}
-					// only half number of events can be stored since every event needs 2 lines
-					if (Utilities.eventList.size() < Utilities.listSize/2) {
-						Utilities.eventList.add(new EventTime(U.currentDay, U.bHalf, U.eHalf, "please specify a name"));
-						Utilities.isAddingName = true;
-						System.out.println("Event List Size : " + Utilities.eventList.size());
-						return;
+					else {
+						System.out.println("No List selected");
 					}
+					return;
 				}
-				else if (KeywordList.isSelected()) {
-					System.out.println("Click on add Keyword to list");
-					for (int count = 0; count < Utilities.keywordList.size(); count++) {
-						if (Utilities.keywordList.get(count).equals(Utilities.currentWord)) {
-							return;
-						}
-					}
-					if (Utilities.keywordList.size() < Utilities.listSize) {
-						Utilities.keywordList.add(Utilities.currentWord);
-						System.out.println("Keyword List Size : " + Utilities.keywordList.size());
-						return;
-					}
-				}
-				else {
-					System.out.println("No List selected");
-				}
-				return;
 			}
-		}
+	    }
 		if (zoomInBtn.checkIn(mx,my)) {
 			System.out.println("Zoom in Clicked");
 			tw.setCheck(false);
