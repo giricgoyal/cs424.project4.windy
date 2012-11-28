@@ -39,7 +39,7 @@ public class Utilities {
 	public static String tweetTime = "";
 	public static int tweetPid = -1;
 	public static boolean isTrackingPerson = false;
-	public static boolean isPlaying = false; // animation
+	public static int Playing = Utilities.STOP; // animation
 	/**
 	 * this is equal to 
 	 * 99  : if all locations are selected
@@ -52,6 +52,9 @@ public class Utilities {
 	public static final int NEITHER = -1;
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
+	public static final int PAUSE = -1;
+	public static final int STOP = 0;
+	public static final int PLAY = 1;
 	
 	public static float Converter(float pixel) {
 		if (isWall)

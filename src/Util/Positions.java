@@ -68,10 +68,18 @@ public class Positions {
 	public static float lockWidth = lockHeight*2/5;
 	
 	// playButton
-	public static float playX = timeSliderX + timeSliderWidth + Utilities.Converter(3);
-	public static float playY = timeSliderY;
-	public static float playW = mapWidth / 10 - Utilities.Converter(6);
-	public static float playH = playW;
+	public static float playW = mapWidth / 10 - Utilities.Converter(15);
+	public static float playH = Utilities.height / 6 - Utilities.Converter(12);
+	public static float playX = (mapX + mapWidth*19/20) - playW/2;
+	public static float playY = Utilities.height * 9 / 12 - playH/2;
+	
+	// stopButton
+	public static float stopW = mapWidth / 10 - Utilities.Converter(15);
+	public static float stopH = Utilities.height / 6 - Utilities.Converter(15);
+	public static float stopX = playX;
+	public static float stopY = Utilities.height * 11 / 12 - stopH/2;
+	
+			
 	
 	// tweetWindow
 	public static float tweetWindowHeight = Utilities.height / 3 - Utilities.Converter(15);

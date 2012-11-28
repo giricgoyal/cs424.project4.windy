@@ -90,6 +90,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	WordCloud beforeWordCloud;
 	
 	PlayButton playButton;
+	StopButton stopButton;
 	
 	// data
 	ArrayList<DataPos> dataDay; //all data for current day
@@ -259,6 +260,9 @@ public class CS424_Project4_Group4 extends PApplet{
 
 		playButton = new PlayButton(this, Pos.playX, Pos.playY, Pos.playW, Pos.playH);
 		controls.add(playButton);
+		
+		stopButton = new StopButton(this, Pos.stopX, Pos.stopY, Pos.stopW, Pos.stopH);
+		controls.add(stopButton);
 	}
 	
 	public void setup() {
@@ -789,6 +793,20 @@ public class CS424_Project4_Group4 extends PApplet{
 				beforeWordCloud = new WordCloud(this, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				tw.setCheck(false);
 				return;
+			}
+		}
+		
+		if (playButton.checkIn(mx, my)) {
+			if (U.Playing != U.PLAY) {
+				U.Playing = U.PLAY;
+			}
+			else if (U.Playing == U.PLAY) {
+				U.Playing = U.PAUSE;
+			}
+		}
+		if (stopButton.checkIn(mx, my)) {
+			if (U.Playing != U.STOP) {
+				U.Playing = U.STOP;
 			}
 		}
 		

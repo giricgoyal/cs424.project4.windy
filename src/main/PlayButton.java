@@ -32,7 +32,7 @@ public class PlayButton extends Button {
 		parent.fill(Colors.WHITE);
 		parent.noStroke();
 		
-		if (U.isPlaying) {
+		if (U.Playing == U.PLAY) {
 			parent.beginShape(PConstants.QUADS);
 			parent.vertex(myX+myWidth*1/12, myY);
 			parent.vertex(myX+myWidth*5/12, myY);
