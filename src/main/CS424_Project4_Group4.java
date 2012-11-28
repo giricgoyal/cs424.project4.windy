@@ -905,7 +905,6 @@ public class CS424_Project4_Group4 extends PApplet{
 					EventList.setSelected(false);
 					PersonList.setSelected(false);
 					locationButton.setSelected(false);
-					trackPerson.setSelected(false);
 					return;
 				}
 				else {
@@ -919,16 +918,21 @@ public class CS424_Project4_Group4 extends PApplet{
 						Positions.suggestionBoxY, Positions.suggestionBoxWidth,
 						Positions.suggestionBoxHeight)) {
 					popUp.setCheck(false);
-					locationButton.setSelected(false);
-					PersonList.setSelected(false);
-					EventList.setSelected(false);
-					KeywordList.setSelected(false);
-					sb.Click(mx, my);
+					if (U.isAddingName) {
+						sb.Click(mx, my);
+					}
+					else {
+						sb.Click(mx, my);
+						locationButton.setSelected(false);
+						PersonList.setSelected(false);
+						EventList.setSelected(false);
+						KeywordList.setSelected(false);
+					}
 					return;
 				}
 			}
 			// if sb is off
-		    if (!Utilities.suggestionBox) {
+			else if (!Utilities.suggestionBox) {
 				
 				// Location Button
 				if (locationButton.isInRectangle(mx, my)) {
