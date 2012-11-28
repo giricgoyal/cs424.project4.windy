@@ -109,8 +109,6 @@ public class CS424_Project4_Group4 extends PApplet{
 	
 	public void initApp() {
 		Utilities.CS424_Project4_Group4 = this;
-		touchList = new Hashtable<Integer, Touch>();
-		
 		U.currentWord = "flu";
 		
 		dataPos = new ArrayList<DataPos>();
@@ -709,7 +707,7 @@ public class CS424_Project4_Group4 extends PApplet{
 	}
 	
 	public void myReleased(int id, float mx, float my) {
-		touchList.remove(id);
+		//touchList.remove(id);
 		
 		// touch tweet
 		if (tw.check) {
