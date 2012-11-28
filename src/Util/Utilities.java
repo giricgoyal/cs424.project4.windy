@@ -6,7 +6,7 @@ package Util;
 import java.util.ArrayList;
 
 import main.CS424_Project4_Group4;
-import main.EventTime;
+import types.EventTime;
 import markers.AbstractMarker;
 import markers.DefaultMarker;
 import markers.MarkerType;

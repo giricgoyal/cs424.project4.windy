@@ -74,7 +74,7 @@ public class ListArea extends BasicControl {
 		backButtonHeight = Utilities.Converter(backButton.height) / Utilities.Converter(6);
 		backButtonWidth = Utilities.Converter(backButton.width) / Utilities.Converter(6);
 		backButtonX = Positions.listWindowX + Positions.listWindowWidth - backButtonWidth - Utilities.Converter(2);
-		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(1) - backButtonHeight;
+		backButtonY = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(2) - backButtonHeight;
 		
 		deleteImage = parent.loadImage("delete.png");
 		
@@ -201,7 +201,7 @@ public class ListArea extends BasicControl {
 			
 			int count = 0;
 			while (count < Utilities.eventList.size()) {
-				parent.text(Utilities.eventList.get(count).text, Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
+				parent.text(Utilities.eventList.get(count).getText(), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
 				parent.imageMode(PConstants.CENTER);
 				parent.image(deleteImage, Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)), Utilities.Converter(6), Utilities.Converter(6));
 				//parent.text("x", Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4 * (2*count + 1)));
@@ -437,12 +437,12 @@ public class ListArea extends BasicControl {
 						
 						// same update as in myReleased
 						this.selected = false;
-						U.bHalf = Utilities.eventList.get(count).bHalf;
-						U.eHalf = Utilities.eventList.get(count).eHalf;
+						U.bHalf = Utilities.eventList.get(count).getbHalf();
+						U.eHalf = Utilities.eventList.get(count).geteHalf();
 						// different day
-						if (Utilities.eventList.get(count).day !=  Utilities.currentDay) {
+						if (Utilities.eventList.get(count).getDay() !=  Utilities.currentDay) {
 							program.dayButtons.get(U.currentDay).setSelected(false);
-							U.currentDay = U.eventList.get(count).day;
+							U.currentDay = U.eventList.get(count).getDay();
 							program.dayButtons.get(U.currentDay).setSelected(true);
 							program.dataDay = program.qManager.getDataPos_By_Date(U.currentDay);
 						}

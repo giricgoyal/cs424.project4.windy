@@ -1015,7 +1015,7 @@ public class CS424_Project4_Group4 extends PApplet{
 				else if (EventList.isSelected()) {
 					System.out.println("Click on add Event to list");
 					for (int count = 0; count < Utilities.eventList.size(); count++) {
-						if (Utilities.eventList.get(count).equals(Utilities.bHalf)) {
+						if (Utilities.eventList.get(count).getbHalf() == (U.bHalf) && Utilities.eventList.get(count).geteHalf() == (U.eHalf) && Utilities.eventList.get(count).getDay() == (U.currentDay)) {
 							return;
 						}
 					}
