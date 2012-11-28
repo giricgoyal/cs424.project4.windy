@@ -6,6 +6,7 @@ package main;
 import markers.MarkerType;
 import Util.Colors;
 import Util.Pos;
+import Util.Positions;
 import Util.U;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -41,7 +42,7 @@ public class ProgressBar extends Lock {
 	
 	public void run() {
 		if (U.isWall) {
-			cen.x += U.Converter(4);
+			cen.x += U.Converter(8);
 		}
 		else {
 			cen.x += U.Converter(0.4); 
@@ -55,6 +56,8 @@ public class ProgressBar extends Lock {
 				U.Playing = U.STOP;
 				program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.eHalf,U.currentWord);
 				program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+				program.beforeWordCloud.clearArea();
+				program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 			}
 			// if not the last day
 			// then go to next day
@@ -66,11 +69,15 @@ public class ProgressBar extends Lock {
 				if (U.playMode == U.REALTIME) {
 					program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.beforeWordCloud.clearArea();
+					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 					resume();
 				}
 				else if (U.playMode == U.TRIAL) {
 					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.playHalf+1,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.beforeWordCloud.clearArea();
+					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 					resume();
 				}
 			}
@@ -83,10 +90,14 @@ public class ProgressBar extends Lock {
 				if (U.playMode == U.REALTIME) {
 					program.setCurrentData(program.dataPos,program.dataDay,U.playHalf,U.playHalf+1,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.beforeWordCloud.clearArea();
+					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				}
 				else {
 					program.setCurrentData(program.dataPos,program.dataDay,U.bHalf,U.playHalf+1,U.currentWord);
 					program.setMarkerPos(program.dataPos,program.markers,MarkerType.DEFAULT_MARKER);
+					program.beforeWordCloud.clearArea();
+					program.beforeWordCloud = new WordCloud(program, Positions.wordCloudBeforeX, Positions.wordCloudBeforeY, Positions.wordCloudBeforeWidth, Positions.wordCloudBeforeHeight, "KeywordsBefore.txt");
 				}
 			}
 		}
