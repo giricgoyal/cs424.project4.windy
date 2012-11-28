@@ -44,7 +44,7 @@ public class Positions {
 	// day buttons
 	public static float dayButtonX = mapX;
 	public static float dayButtonY = Utilities.height * 6 / 7;
-	public static float dayButtonW = mapWidth*9/10/21;
+	public static float dayButtonW = mapWidth*19/20/21 - Utilities.Converter(0.2);
 	public static float dayButtonH = Utilities.height - dayButtonY - Utilities.Converter(3);
 	
 	// weatherPanel
@@ -52,12 +52,6 @@ public class Positions {
 	public static float weatherPanelHeight = Utilities.height / 6;
 	public static float weatherPanelX = mapX;
 	public static float weatherPanelY = mapY;
-
-	// daySlider
-	public static float daySliderWidth = Positions.mapWidth;
-	public static float daySliderHeight = Utilities.height / (3*2) - Utilities.Converter(10);
-	public static float daySliderX = Positions.mapX;
-	public static float daySliderY = Utilities.height - Positions.daySliderHeight + Utilities.Converter(2);
 
 	// timeSlider
 	public static float timeSliderWidth = dayButtonW*21;
@@ -68,16 +62,36 @@ public class Positions {
 	public static float lockWidth = lockHeight*2/5;
 	
 	// playButton
-	public static float playW = mapWidth / 10 - Utilities.Converter(15);
-	public static float playH = Utilities.height / 6 - Utilities.Converter(12);
-	public static float playX = (mapX + mapWidth*19/20) - playW/2;
-	public static float playY = Utilities.height * 9 / 12 - playH/2;
+	public static float playW = (mapWidth - timeSliderX - timeSliderWidth)*4/5;// - playX - Utilities.Converter(2);
+	public static float playX = timeSliderX + timeSliderWidth + Utilities.Converter(3);
+	public static float playY = timeSliderY; // + Utilities.Converter(1);
+	public static float playH = (dayButtonY+dayButtonH-timeSliderY) / 4  - Utilities.Converter(2);//Utilities.height / 6 - Utilities.Converter(12);
 	
 	// stopButton
-	public static float stopW = mapWidth / 10 - Utilities.Converter(15);
-	public static float stopH = Utilities.height / 6 - Utilities.Converter(15);
+	public static float stopW = playW;
+	public static float stopH = playH;
 	public static float stopX = playX;
-	public static float stopY = Utilities.height * 11 / 12 - stopH/2;
+	public static float stopY = playY + playH + Utilities.Converter(4);
+	
+	// realButton
+	//public static float realX = timeSliderX+timeSliderWidth+U.Converter(1);
+	//public static float realY = stopY + stopH + Utilities.Converter(2);
+	//public static float realW = mapX+mapWidth-realX;
+	//public static float realH = (U.height - realY)/2 - Utilities.Converter(2);
+	
+	// trialButton
+	//public static float trialX = realX;
+	//public static float trialY = realY + realH + Utilities.Converter(2);
+	//public static float trialW = realW;
+	//public static float trialH = realH;
+//	public static float trialX = timeSliderX+timeSliderWidth+U.Converter(1);
+//	public static float trialY = stopY + stopH + Utilities.Converter(2);
+//	public static float trialW = mapX+mapWidth-trialX;
+//	public static float trialH = (U.height-trialY) - Utilities.Converter(4);
+	public static float trialW = stopW;
+	public static float trialH = stopH * 2;
+	public static float trialX = stopX;
+	public static float trialY = dayButtonY; //stopY + stopH + Utilities.Converter(4);
 	
 	// progressBar
 	public static float barX = timeSliderX;
