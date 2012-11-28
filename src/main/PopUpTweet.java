@@ -190,7 +190,6 @@ public class PopUpTweet  extends BasicControl {
 			parent.vertex(lowerRightX, lowerRightY);
 			parent.vertex(triangleRightX, triangleRightY);
 			parent.endShape();		
-	
 			parent.fill(Colors.tweetColor2);
 			
 			if (upper) {
