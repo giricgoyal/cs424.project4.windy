@@ -28,7 +28,7 @@ public class Help extends BasicControl{
 	@SuppressWarnings("static-access")
 	private void drawArrow(String arrow, float x1, float y1, float x2, float y2) {
 		parent.stroke(Colors.LIGHT_BLUE);
-		parent.strokeWeight(Utilities.Converter(1.5));
+		parent.strokeWeight(Utilities.Converter(1));
 		parent.fill(Colors.LIGHT_BLUE);
 		parent.line(x1, y1, x2, y2);
 		if (arrow.compareToIgnoreCase("ul") == 0) {
@@ -69,6 +69,21 @@ public class Help extends BasicControl{
 			parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
 			parent.fill(Colors.LIGHT_ORANGE);
 			parent.text("Weather Panel", x1, y1);
+			
+			// sliders
+			x1 = Positions.timeSliderX + Utilities.Converter(10);
+			y1 = Positions.weatherPanelY + Positions.weatherPanelHeight + Utilities.Converter(3);
+			x2 = Positions.weatherPanelX + Positions.weatherPanelWidth + Utilities.Converter(35);
+			y2 = Positions.weatherPanelY + Positions.weatherPanelHeight + Utilities.Converter(3);
+			drawArrow("bl", x1, y1, x2, y2);
+			parent.textSize(Utilities.Converter(5));
+			parent.stroke(Colors.LIGHT_ORANGE);
+			parent.strokeWeight(Utilities.Converter(1));
+			parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
+			parent.fill(Colors.LIGHT_ORANGE);
+			parent.text("Weather Panel", x1, y1);
+			
+			
 			
 		
 		
