@@ -283,7 +283,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		
 		progressBar = new ProgressBar(this, Pos.barX, Pos.barY, Pos.barW, Pos.barH, this);
 		
-		help = new Help(this,  0, 0, Utilities.width, Utilities.height);
+		help = new Help(this,  0, 0, Utilities.width, Utilities.height, this);
 	}
 	
 	public void setup() {

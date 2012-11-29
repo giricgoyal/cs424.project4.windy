@@ -136,8 +136,8 @@ public class ListArea extends BasicControl {
 			}
 			else {
 				int matchCount = 1;
-				
-				while(count< this.array.size()){
+				count = 1;
+				while(count < this.array.size()){
 					if (this.array.get(count).getId() == Integer.valueOf(this.parentId)){
 						parent.text(this.array.get(count).getName(), Positions.listWindowX + Utilities.Converter(5), Positions.listWindowY + Utilities.Converter(4));
 					}
@@ -354,6 +354,7 @@ public class ListArea extends BasicControl {
 						if (this.array.get(count).getCid() == this.cid){
 							if (mx > myX && mx < myX + myWidth) {
 								if (my > myY + Utilities.Converter(8 * matchCount) && my < myY + Utilities.Converter(8 * (matchCount+1))) {
+									System.out.println(String.valueOf(this.array.get(count).getId()));
 									this.parentId = String.valueOf(this.array.get(count).getId());
 								}
 							}

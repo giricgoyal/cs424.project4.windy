@@ -3,6 +3,7 @@
  */
 package main;
 
+import jogamp.graph.font.typecast.ot.table.Program;
 import Util.Colors;
 import Util.Positions;
 import Util.Utilities;
@@ -17,12 +18,14 @@ public class Help extends BasicControl{
 
 	PApplet parent;
 	boolean selected;
+	 CS424_Project4_Group4 program;
 	
-	public Help(PApplet parent, float x, float y, float width, float height) {
+	public Help(PApplet parent, float x, float y, float width, float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
 		// TODO Auto-generated constructor stub
 		this.parent = parent;
 		selected = false;
+		this.program = program;
 	}
 	
 	@SuppressWarnings("static-access")
@@ -138,6 +141,32 @@ public class Help extends BasicControl{
 			y2 = y1;
 			drawArrow("ul", x1, y1, x2, y2);
 			drawText("Text Box", x1, y1);
+			
+			// Keyboard
+			x1 = Positions.keyboardX + Positions.keyboardWidth/2 - Utilities.Converter(10);
+			y1 = Positions.keyboardY + Positions.keyboardHeight/2 + Utilities.Converter(4.5);
+			x2 = x1 + Utilities.Converter(30);
+			y2 = y1;
+			drawArrow("ul", x1, y1, x2, y2);
+			drawText("Keyboard", x1, y1);
+			
+			// suggestion box
+			if (Utilities.suggestionBox) {
+				x1 = Positions.suggestionBoxX - Utilities.Converter(110);
+				y1 = Positions.suggestionBoxY + Utilities.Converter(20);
+				x2 = x1 + Utilities.Converter(95);
+				y2 = y1;
+				drawArrow("br", x1, y1, x2, y2);
+				drawText("Suggestion Box", x1, y1);
+			}
+			
+			// information window
+			x1 = Utilities.width * 5 / 6 + Utilities.Converter(10);
+			y1 = Utilities.height / 3 - Utilities.Converter(2);
+			x2 = x1 + Utilities.Converter(70);
+			y2 = y1;
+			drawArrow("ul", x1, y1, x2, y2);
+			drawText("Information Window", x1, y1);
 
 		
 		
