@@ -50,12 +50,12 @@ public class ModeButton extends Button {
 		if (U.playMode == U.TRIAL) {
 			parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 			parent.textSize(Utilities.Converter(4.2));
-			parent.text("Keep\nTweets\nOFF", myX+myWidth/2, (myHeight)/2+myY);
+			parent.text("Keep\nTweets\nON", myX+myWidth/2, (myHeight)/2+myY);
 		}
 		else if (U.playMode == U.REALTIME){
 			parent.textAlign(PConstants.CENTER,PConstants.CENTER);
 			parent.textSize(Utilities.Converter(4.2));
-			parent.text("Keep\nTweets\nON", myX+myWidth/2, (myHeight)/2+myY);
+			parent.text("Keep\nTweets\nOFF", myX+myWidth/2, (myHeight)/2+myY);
 		}
 		parent.popStyle();
 	}
