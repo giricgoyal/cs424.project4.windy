@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import Util.KeyWords;
+import Util.U;
+import Util.Utilities;
 
 import processing.core.PApplet;
 import types.*;
@@ -17,8 +19,12 @@ public class DatabaseManager {
 		String pass = "windywindy";
 		String database = "p4";
 		String localhost = "project4dbinstance.chestadraypc.us-east-1.rds.amazonaws.com";
-		//String localhost = "localhost";
-		msql = new MySQL(context, localhost, database, user, pass);
+		if (Utilities.isWall) {
+			msql = new MySQL(context, "omgtracker.evl.uic.edu", "project4_group4", "cs424", "cs424");
+		}
+		else {
+			msql = new MySQL(context, localhost, database, user, pass);
+		}
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		} catch (Exception e){
@@ -162,7 +168,7 @@ public class DatabaseManager {
 	public DataCountPair getKeywordCount(String keyword, String filters) {
 		
 				int[] cnt = new int[21];
-			
+			if (keyword.length()>0) {
 				String query;
 				if (msql.connect()) {
 					query = "select day, count from keywordcount where "+filters;
@@ -174,7 +180,10 @@ public class DatabaseManager {
 					msql.close();
 				}
 
-			return (new DataCountPair(keyword, cnt));
-	
+				return (new DataCountPair(keyword, cnt));
+			}
+			else {
+				return (new DataCountPair("All tweets", U.totalTweets));
+			}
 	}
 }
