@@ -16,7 +16,7 @@ public class Colors {
 	public static int transparentWhite = 0x77EEEEEE;
 	public static int transparentBlack = 0x88101010;
 	
-	public static int helpColor = 0x881e1e1d;
+	public static int helpColor = 0xa01e1e1d;
 	
 	public static int gridColor = 0x88FB8072;
 	
