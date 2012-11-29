@@ -118,8 +118,6 @@ public class CS424_Project4_Group4 extends PApplet{
 		Utilities.CS424_Project4_Group4 = this;
 		touchList = new Hashtable<Integer, Touch>();
 		
-		U.currentWord = "flu";
-		
 		dataPos = new ArrayList<DataPos>();
 		dataDay = new ArrayList<DataPos>();
 		dataPerson = new ArrayList<DataPos>();
@@ -135,6 +133,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		for (int i=0;i<U.graphNumber;i++) {
 			dataKeywordCount[i] = new DataCountPair("",new int[21]);
 		}
+
 		currentKeywordCount = qManager.getKeywordCount(U.currentWord);
 		/*
 		U.currentMaxTweets=0;
@@ -434,7 +433,11 @@ public class CS424_Project4_Group4 extends PApplet{
 		else {
 			person = String.valueOf(U.trackPid);
 		}
-		text("Selected\nKeyword: "+U.currentWord + 
+		String keyword = "All tweets";
+		if (U.currentWord.length()>0) {
+			keyword = U.currentWord;
+		}
+		text("Selected\nKeyword: "+keyword + 
 				"\nLocation: " + location +
 				"\nTrack Person: " + person,
 				Utilities.width*5/6 + Utilities.Converter(5),Utilities.Converter(5));
