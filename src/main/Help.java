@@ -140,13 +140,13 @@ public class Help extends BasicControl{
 			if (Utilities.isWall) {
 				parent.fill(0x99e4e4e3);
 				parent.noStroke();
-				float x = x1 - Utilities.Converter(pan.width) +  Utilities.Converter(pan.width);
-				float y = y1 -  Utilities.Converter(pan.height)+ Utilities.Converter(pan.height);
+				float x = x1 - Utilities.Converter(pan.width)/Utilities.Converter(2) +  Utilities.Converter(pan.width)/Utilities.Converter(2);
+				float y = y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2)+ Utilities.Converter(pan.height)/Utilities.Converter(2);
 				float xn = x1 + Utilities.Converter(80);
 				float yn = y;
 				drawArrow("ul", x, y, xn, yn);
-				parent.rect(x1 - Utilities.Converter(pan.width), y1 -  Utilities.Converter(pan.height), Utilities.Converter(pan.width), Utilities.Converter(pan.height));
-				parent.image(pan, x1 - Utilities.Converter(pan.width), y1 -  Utilities.Converter(pan.height), Utilities.Converter(pan.width), Utilities.Converter(pan.height));
+				parent.rect(x1 - Utilities.Converter(pan.width)/Utilities.Converter(2), y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2), Utilities.Converter(pan.width)/Utilities.Converter(2), Utilities.Converter(pan.height)/Utilities.Converter(2));
+				parent.image(pan, x1 - Utilities.Converter(pan.width)/Utilities.Converter(2), y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2), Utilities.Converter(pan.width)/Utilities.Converter(2), Utilities.Converter(pan.height)/Utilities.Converter(2));
 			}
 			else {
 				parent.fill(0x99e4e4e3);
