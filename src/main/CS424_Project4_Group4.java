@@ -1060,20 +1060,22 @@ public class CS424_Project4_Group4 extends PApplet{
 			
 					// add to graph
 					if (add2Graph.isInRectangle(mx, my)){
-						popUp.setCheck(false);
-						System.out.println("Click on add to graph");
-						for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
-							if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+						if (U.currentWord.length()>0) {
+							popUp.setCheck(false);
+							System.out.println("Click on add to graph");
+							for (int count = 0; count < Utilities.keywordGraph.size(); count++) {
+								if (Utilities.keywordGraph.get(count).equals(Utilities.currentWord)) {
+									return;
+								}
+							}
+							if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
+								Utilities.keywordGraph.add(Utilities.currentWord);
+								graph.addData();
+								System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 								return;
 							}
-						}
-						if (Utilities.keywordGraph.size() < Utilities.graphNumber) {
-							Utilities.keywordGraph.add(Utilities.currentWord);
-							graph.addData();
-							System.out.println("Graph Size : "  + Utilities.keywordGraph.size());
 							return;
 						}
-						return;
 					}
 					
 					// track person
