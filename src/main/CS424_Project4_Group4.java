@@ -780,7 +780,7 @@ public class CS424_Project4_Group4 extends PApplet{
 		}
 		
 		else {
-			if (isIn(mx, my, Utilities.width * 5/6, 0 , Utilities.width /6	, Utilities.height/3)) {
+			if (isIn(mx, my, Utilities.width * 5/6, 0 , Utilities.width /6	, Utilities.height/3) || id == 5) {
 				help.setSelected(!help.isSelected());
 				//beforeWordCloud.clearArea();
 			}

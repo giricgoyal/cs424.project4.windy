@@ -9,6 +9,7 @@ import Util.Positions;
 import Util.Utilities;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 
 /**
  * @author giric
@@ -18,7 +19,8 @@ public class Help extends BasicControl{
 
 	PApplet parent;
 	boolean selected;
-	 CS424_Project4_Group4 program;
+	CS424_Project4_Group4 program;
+	PImage pan; 
 	
 	public Help(PApplet parent, float x, float y, float width, float height, CS424_Project4_Group4 program) {
 		super(parent, x, y, width, height);
@@ -26,6 +28,7 @@ public class Help extends BasicControl{
 		this.parent = parent;
 		selected = false;
 		this.program = program;
+		pan  = parent.loadImage("pan.png");
 	}
 	
 	@SuppressWarnings("static-access")
@@ -132,6 +135,30 @@ public class Help extends BasicControl{
 			x2 = x1 + Utilities.Converter(70);
 			y2 = y1;
 			//drawArrow("br", x1, y1, x2, y2);
+			parent.imageMode(PConstants.CORNER);
+			parent.rectMode(PConstants.CORNER);
+			if (Utilities.isWall) {
+				parent.fill(0x99e4e4e3);
+				parent.noStroke();
+				float x = x1 - Utilities.Converter(pan.width) +  Utilities.Converter(pan.width);
+				float y = y1 -  Utilities.Converter(pan.height)+ Utilities.Converter(pan.height);
+				float xn = x1 + Utilities.Converter(80);
+				float yn = y;
+				drawArrow("ul", x, y, xn, yn);
+				parent.rect(x1 - Utilities.Converter(pan.width), y1 -  Utilities.Converter(pan.height), Utilities.Converter(pan.width), Utilities.Converter(pan.height));
+				parent.image(pan, x1 - Utilities.Converter(pan.width), y1 -  Utilities.Converter(pan.height), Utilities.Converter(pan.width), Utilities.Converter(pan.height));
+			}
+			else {
+				parent.fill(0x99e4e4e3);
+				parent.noStroke();
+				parent.rect(x1 - Utilities.Converter(pan.width)/Utilities.Converter(2), y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2), Utilities.Converter(pan.width)/Utilities.Converter(2), Utilities.Converter(pan.height)/Utilities.Converter(2));
+				float x = x1 - Utilities.Converter(pan.width)/Utilities.Converter(2) +  Utilities.Converter(pan.width)/Utilities.Converter(2);
+				float y = y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2) + Utilities.Converter(pan.height)/Utilities.Converter(2);
+				float xn = x1 + Utilities.Converter(80);
+				float yn = y;
+				drawArrow("ul", x, y, xn, yn);
+				parent.image(pan, x1 - Utilities.Converter(pan.width)/Utilities.Converter(2), y1 -  Utilities.Converter(pan.height)/Utilities.Converter(2), Utilities.Converter(pan.width)/Utilities.Converter(2), Utilities.Converter(pan.height)/Utilities.Converter(2));
+			}
 			drawText("Drag the Map to Pan Left/Right", x1, y1);
 			
 			// textBox
@@ -152,9 +179,9 @@ public class Help extends BasicControl{
 			
 			// suggestion box
 			if (Utilities.suggestionBox) {
-				x1 = Positions.suggestionBoxX - Utilities.Converter(110);
+				x1 = Positions.suggestionBoxX - Utilities.Converter(50);
 				y1 = Positions.suggestionBoxY + Utilities.Converter(20);
-				x2 = x1 + Utilities.Converter(95);
+				x2 = x1 + Utilities.Converter(50);
 				y2 = y1;
 				drawArrow("br", x1, y1, x2, y2);
 				drawText("Suggestion Box", x1, y1);
@@ -168,7 +195,68 @@ public class Help extends BasicControl{
 			drawArrow("ul", x1, y1, x2, y2);
 			drawText("Information Window", x1, y1);
 
-		
+			// help button
+			x1 = Utilities.width - Utilities.Converter(70);
+			y1 = Utilities.height / 3 - Utilities.Converter(18);
+			x2 = x1 + Utilities.Converter(55);
+			y2 = y1;
+			drawArrow("br", x1, y1, x2, y2);
+			drawText("Help Button", x1, y1);
+			
+			if (!Utilities.suggestionBox ) {
+				// buttons on the right
+				x1 = Utilities.width * 5/6 - Utilities.Converter(30);
+				y1 = Utilities.height * 2 / 3 - Utilities.Converter(30);
+				x2 = x1 + Utilities.Converter(55);
+				y2 = y1;
+				drawArrow("ur", x1, y1, x2, y2);
+				drawText("Lists and Buttons Menu", x1, y1);
+			}
+			
+			// list area
+			if (program.listArea.isSelected()) {
+				x1 = Positions.listWindowX - Utilities.Converter(60);
+				y1 = Positions.listWindowY + Positions.listWindowHeight/2 + Utilities.Converter(10);
+				x2 = x1 + Utilities.Converter(85);
+				y2 = y1;
+				drawArrow("ur", x1, y1, x2, y2);
+				drawText("List Menu (click to select)", x1, y1);
+				
+				x1 = Positions.listWindowX + Positions.listWindowWidth - Utilities.Converter(50);
+				y1 = Positions.listWindowY + Positions.listWindowHeight - Utilities.Converter(20);
+				x2 = x1 + Utilities.Converter(35);
+				y2 = y1;
+				drawArrow("br", x1, y1, x2, y2);
+				drawText("Back Button", x1, y1);
+				
+				
+			}
+			
+			// word Cloud
+			x1 = Utilities.width *3/6 - Utilities.Converter(47) - Utilities.Converter(5) * parent.sin(45);
+			y1 = Utilities.height / 6 - Utilities.Converter(10);
+			x2 = x1 + Utilities.Converter(45);
+			y2 = y1;
+			drawArrow("ur", x1, y1, x2, y2);
+			drawText("Word Cloud", x1, y1);
+			
+			
+			// graph
+			if (!Utilities.keywordGraph.isEmpty()) {
+				x1 = Positions.graphX - Utilities.Converter(70);
+				y1 = Positions.graphY + Utilities.Converter(6);
+				x2 = x1 + Utilities.Converter(70);
+				y2 = y1;
+				drawArrow("ur", x1, y1, x2, y2);
+				drawText("Click to see more options", x1, y1);
+			}
+			x1 = Positions.graphX + Positions.graphWidth/2 - Utilities.Converter(50);
+			y1 = Positions.graphY + Positions.graphHeight/2 - Utilities.Converter(6);
+			x2 = x1 + Utilities.Converter(40);
+			y2 = y1;
+			drawArrow("ur", x1, y1, x2, y2);
+			drawText("Graph Area", x1, y1);
+			
 		
 		}
 	}
